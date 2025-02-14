@@ -2,4 +2,8 @@ bin/
 out/
 .idea/
 .iml
+<<<<<<< HEAD
 
+=======
+src/FinalProject.iml
+>>>>>>> main
