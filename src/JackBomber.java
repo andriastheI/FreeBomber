@@ -1,4 +1,5 @@
 package src;
 
-public class JackBomber {
+public class JackBomber extends Character {
+
 }
