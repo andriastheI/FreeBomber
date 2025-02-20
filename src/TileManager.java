@@ -80,9 +80,7 @@ public class TileManager {
 
         while(col < gp.screenCols && row < gp.screenRows){
             int tileNum = mapTileNum[col][row];
-
-
-
+            
             g2d.drawImage(tile[tileNum].img,x,y,gp.tileSize,gp.tileSize,null);
             col++;
             x += gp.tileSize;
