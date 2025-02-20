@@ -3,7 +3,7 @@ package src;
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel implements Runnable{
+public class Background extends JPanel implements Runnable{
 
     final static int FPS = 60;
     public final int tileSize = 46;
@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable{
     int playerY = 100;
     int playerSp = 3;
 
-    public GamePanel() {
+    public Background() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.BLACK);
         setDoubleBuffered(true);

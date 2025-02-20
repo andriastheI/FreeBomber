@@ -10,7 +10,7 @@ public class Main extends JFrame {
        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        setResizable(false);
        setTitle("FreeBomber");
-       GamePanel gamePanel = new GamePanel();
+       Background gamePanel = new Background();
        add(gamePanel);
        pack();
        setLocationRelativeTo(null);
