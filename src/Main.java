@@ -2,22 +2,19 @@ package src;
 
 import javax.swing.*;
 
-public class Main {
+public class Main extends JFrame {
    public static void main(String[] args) {
-
-
-       JFrame window = new JFrame();
-       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       window.setResizable(false);
-       window.setTitle("FreeBomber");
-
+       Main main = new Main();
+   }
+   public Main(){
+       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       setResizable(false);
+       setTitle("FreeBomber");
        GamePanel gamePanel = new GamePanel();
-       window.add(gamePanel);
-       window.pack();
-
-       window.setLocationRelativeTo(null);
-       window.setVisible(true);
-
+       add(gamePanel);
+       pack();
+       setLocationRelativeTo(null);
+       setVisible(true);
        gamePanel.startGameThread();
    }
 }
