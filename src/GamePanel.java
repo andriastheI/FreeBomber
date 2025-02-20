@@ -6,17 +6,17 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable{
 
     final static int FPS = 60;
-    final int tileSize = 46;
-    final int screenCols = 18;
-    final int screenRows = 14;
+    public final int tileSize = 46;
+    public final int screenCols = 18;
+    public final int screenRows = 14;
 
-    final int screenWidth = screenCols * tileSize;
-    final int screenHeight = screenRows * tileSize;
+    public final int screenWidth = screenCols * tileSize;
+    public final int screenHeight = screenRows * tileSize;
 
-
+    TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
-
     Thread gameThread;
+    // We need the players instance here
 
     int playerX = 100;
     int playerY = 100;
@@ -74,7 +74,9 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.WHITE);
+        tileManager.draw(g2);
         g2.fillRect(playerX, playerY, tileSize, tileSize);
+
 
         g2.dispose();
     }
