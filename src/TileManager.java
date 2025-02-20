@@ -10,12 +10,12 @@ import java.util.Objects;
 
 public class TileManager {
 
-    GamePanel gp;
+    Background gp;
     Tile[] tile;
     int[][] mapTileNum;
 
 
-    public TileManager(GamePanel gp) {
+    public TileManager(Background gp) {
         this.gp = gp;
         tile = new Tile[10];
         mapTileNum = new int[gp.screenCols][gp.screenRows];
