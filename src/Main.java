@@ -1,12 +1,4 @@
 package src;
-
-<<<<<<< HEAD
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello World");
-        System.out.println("This is a second edit");
-    }
-=======
 import javax.swing.*;
 
 public class Main extends JFrame {
@@ -24,5 +16,4 @@ public class Main extends JFrame {
        setVisible(true);
        gamePanel.startGameThread();
    }
->>>>>>> createBackG_A
 }
