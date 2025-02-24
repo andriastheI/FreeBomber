@@ -16,6 +16,7 @@ public class Background extends JPanel implements Runnable{
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
+    JackBomber player = new JackBomber(this, keyHandler);
     // We need the players instance here
 
     int playerX = 100;
@@ -59,23 +60,17 @@ public class Background extends JPanel implements Runnable{
         }
     }
     public void update(){
-        if(keyHandler.upDirection){
-            playerY -= playerSp;
-        } else if(keyHandler.downDirection){
-            playerY += playerSp;
-        } else if(keyHandler.leftDirection){
-            playerX -= playerSp;
-        } else if(keyHandler.rightDirection){
-            playerX += playerSp;
-        }
-
+        player.update();
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.WHITE);
         tileManager.draw(g2);
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
+        player.draw(g2);
+//        g2.setColor(Color.WHITE);
+
+
+//        g2.fillRect(playerX, playerY, tileSize, tileSize);
 
 
         g2.dispose();
