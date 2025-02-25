@@ -10,7 +10,7 @@ public class JackBomber extends Character {
     Background background;
     KeyHandler keyHandler;
 
-    public JackBomber (Background bg, KeyHandler kh) {
+    public JackBomber(Background bg, KeyHandler kh) {
         this.background = bg;
         this.keyHandler = kh;
         setDefaultValues();
@@ -50,23 +50,23 @@ public class JackBomber extends Character {
 
     public void update() {
 
-        if(keyHandler.upDirection || keyHandler.downDirection ||
+        if (keyHandler.upDirection || keyHandler.downDirection ||
                 keyHandler.leftDirection || keyHandler.rightDirection) {
-            if(keyHandler.upDirection){
+            if (keyHandler.upDirection) {
                 direction = "up";
                 y -= speed;
-            } else if(keyHandler.downDirection){
+            } else if (keyHandler.downDirection) {
                 direction = "down";
                 y += speed;
-            } else if(keyHandler.leftDirection){
+            } else if (keyHandler.leftDirection) {
                 direction = "left";
                 x -= speed;
-            } else if(keyHandler.rightDirection){
+            } else if (keyHandler.rightDirection) {
                 direction = "right";
                 x += speed;
             }
             spriteCounter++;
-            if(spriteCounter > 8) {
+            if (spriteCounter > 8) {
                 if (spriteNum == 1) {
                     spriteNum = 2;
                 } else if (spriteNum == 2) {
@@ -150,7 +150,7 @@ public class JackBomber extends Character {
         try {
             File imageFile = new File("src/storage/player/champ1.png");
             BufferedImage img = ImageIO.read(imageFile);
-            String[] naming = { "up", "down", "left", "right"};
+            String[] naming = {"up", "down", "left", "right"};
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     int cropX = j * 32;

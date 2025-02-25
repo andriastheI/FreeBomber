@@ -7,7 +7,6 @@ public class KeyHandler implements KeyListener {
     protected boolean upDirection, downDirection, leftDirection, rightDirection;
 
 
-
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -16,16 +15,16 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int value = e.getKeyCode();
 
-        if(value == KeyEvent.VK_W){
+        if (value == KeyEvent.VK_W) {
             upDirection = true;
         }
-        if(value == KeyEvent.VK_S){
+        if (value == KeyEvent.VK_S) {
             downDirection = true;
         }
-        if(value == KeyEvent.VK_D){
+        if (value == KeyEvent.VK_D) {
             rightDirection = true;
         }
-        if(value == KeyEvent.VK_A){
+        if (value == KeyEvent.VK_A) {
             leftDirection = true;
         }
     }
@@ -34,16 +33,16 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int value = e.getKeyCode();
 
-        if(value == KeyEvent.VK_W){
+        if (value == KeyEvent.VK_W) {
             upDirection = false;
         }
-        if(value == KeyEvent.VK_S){
+        if (value == KeyEvent.VK_S) {
             downDirection = false;
         }
-        if(value == KeyEvent.VK_D){
+        if (value == KeyEvent.VK_D) {
             rightDirection = false;
         }
-        if(value == KeyEvent.VK_A){
+        if (value == KeyEvent.VK_A) {
             leftDirection = false;
         }
     }
