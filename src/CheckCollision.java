@@ -2,10 +2,12 @@ package src;
 
 public class CheckCollision {
     Background bp;
+
     public CheckCollision(Background bg) {
         this.bp = bg;
 
     }
+
     public void checkCollision(Character checkJack) {
         int leftWallX = checkJack.x + checkJack.spriteBounds.x;
         int rightWallX = checkJack.x + checkJack.spriteBounds.x + checkJack.spriteBounds.width;
@@ -59,7 +61,6 @@ public class CheckCollision {
                 break;
         }
     }
-
 
 
 }

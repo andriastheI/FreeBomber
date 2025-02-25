@@ -10,7 +10,7 @@ public class JackBomber extends Character {
     Background background;
     KeyHandler keyHandler;
 
-    public JackBomber (Background bg, KeyHandler kh) {
+    public JackBomber(Background bg, KeyHandler kh) {
         this.background = bg;
         this.keyHandler = kh;
         setDefaultValues();
@@ -18,7 +18,7 @@ public class JackBomber extends Character {
 
         //this rectangle is used as a collision detector that is smaller than the champion player
         //so that it is flexible for going through tight spaces.
-        spriteBounds = new Rectangle(6,18,28,25);
+        spriteBounds = new Rectangle(6, 18, 28, 25);
     }
 
     public void setDefaultValues() {
@@ -54,13 +54,13 @@ public class JackBomber extends Character {
 
     public void update() {
 
-        if(keyHandler.upDirection || keyHandler.downDirection ||
+        if (keyHandler.upDirection || keyHandler.downDirection ||
                 keyHandler.leftDirection || keyHandler.rightDirection) {
-            if(keyHandler.upDirection){
+            if (keyHandler.upDirection) {
                 direction = "up";
-            } else if(keyHandler.downDirection){
+            } else if (keyHandler.downDirection) {
                 direction = "down";
-            } else if(keyHandler.leftDirection){
+            } else if (keyHandler.leftDirection) {
                 direction = "left";
             } else {
                 direction = "right";
@@ -69,7 +69,7 @@ public class JackBomber extends Character {
             collsionOn = false;
             background.checkCollision.checkCollision(this);
 
-            if (!collsionOn){
+            if (!collsionOn) {
                 // Prevent player from going out of bounds
                 if (direction.equals("up")) {
                     if (y - speed >= 0) { // Prevent moving above the top of the screen
@@ -94,10 +94,8 @@ public class JackBomber extends Character {
             }
 
 
-
-
             spriteCounter++;
-            if(spriteCounter > 8) {
+            if (spriteCounter > 8) {
                 if (spriteNum == 1) {
                     spriteNum = 2;
                 } else if (spriteNum == 2) {
@@ -181,7 +179,7 @@ public class JackBomber extends Character {
         try {
             File imageFile = new File("src/storage/player/champ1.png");
             BufferedImage img = ImageIO.read(imageFile);
-            String[] naming = { "up", "down", "left", "right"};
+            String[] naming = {"up", "down", "left", "right"};
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     int cropX = j * 32;

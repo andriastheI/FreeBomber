@@ -10,9 +10,9 @@ import java.util.Objects;
 
 public class TileManager {
 
-    Background gp;
     public Tile[] tile;
     public int[][] mapTileNum;
+    Background gp;
 
 
     public TileManager(Background gp) {
@@ -23,9 +23,9 @@ public class TileManager {
         loadMap();
     }
 
-    public void getTileImg(){
+    public void getTileImg() {
 
-        try{
+        try {
             tile[0] = new Tile();
             tile[0].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("src/storage/tiles/grass1.png")));
             tile[0].collison = false;
@@ -42,14 +42,14 @@ public class TileManager {
             tile[3].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("src/storage/tiles/wall2.png")));
             tile[3].collison = true;
 
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     //Reading the map and loading it to a 2D array called mapTiles
-    public void loadMap(){
-        try{
+    public void loadMap() {
+        try {
             InputStream iS = getClass().getClassLoader().getResourceAsStream("src/storage/maps/level1.txt");
             assert iS != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(iS));
@@ -57,41 +57,41 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while(col < gp.screenCols && row < gp.screenRows){
+            while (col < gp.screenCols && row < gp.screenRows) {
                 String line = br.readLine();
-                while(col < gp.screenCols){
+                while (col < gp.screenCols) {
                     String[] numbers = line.split(" ");
                     int x = Integer.parseInt(numbers[col]);
 
                     mapTileNum[col][row] = x;
                     col++;
                 }
-                if(col == gp.screenCols){
+                if (col == gp.screenCols) {
                     col = 0;
                     row++;
                 }
             }
             br.close();
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-    public void draw(Graphics2D g2d){
+    public void draw(Graphics2D g2d) {
         int col = 0;
         int row = 0;
         int x = 0;
         int y = 0;
 
-        while(col < gp.screenCols && row < gp.screenRows){
+        while (col < gp.screenCols && row < gp.screenRows) {
             int tileNum = mapTileNum[col][row];
-            
-            g2d.drawImage(tile[tileNum].img,x,y,gp.tileSize,gp.tileSize,null);
+
+            g2d.drawImage(tile[tileNum].img, x, y, gp.tileSize, gp.tileSize, null);
             col++;
             x += gp.tileSize;
-            if(col == gp.screenCols){
+            if (col == gp.screenCols) {
                 col = 0;
                 x = 0;
                 row++;
