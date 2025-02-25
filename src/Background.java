@@ -16,12 +16,10 @@ public class Background extends JPanel implements Runnable{
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    JackBomber player = new JackBomber(this, keyHandler);
-    // We need the players instance here
+    public CheckCollision checkCollision =  new CheckCollision(this);
 
-    int playerX = 100;
-    int playerY = 100;
-    int playerSp = 3;
+    JackBomber player = new JackBomber(this, keyHandler);
+
 
     public Background() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
