@@ -15,12 +15,16 @@ public class JackBomber extends Character {
         this.keyHandler = kh;
         setDefaultValues();
         getPlayerImage();
+
+        //this rectangle is used as a collision detector that is smaller than the champion player
+        //so that it is flexible for going through tight spaces.
+        spriteBounds = new Rectangle(6,18,28,25);
     }
 
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
-        speed = 4;
+        x = 1;
+        y = 1;
+        speed = 2;
         direction = "down";
     }
 
@@ -54,17 +58,44 @@ public class JackBomber extends Character {
                 keyHandler.leftDirection || keyHandler.rightDirection) {
             if(keyHandler.upDirection){
                 direction = "up";
-                y -= speed;
             } else if(keyHandler.downDirection){
                 direction = "down";
-                y += speed;
             } else if(keyHandler.leftDirection){
                 direction = "left";
-                x -= speed;
-            } else if(keyHandler.rightDirection){
+            } else {
                 direction = "right";
-                x += speed;
             }
+
+            collsionOn = false;
+            background.checkCollision.checkCollision(this);
+
+            if (!collsionOn){
+                // Prevent player from going out of bounds
+                if (direction.equals("up")) {
+                    if (y - speed >= 0) { // Prevent moving above the top of the screen
+                        y -= speed;
+                    }
+                }
+                if (direction.equals("down")) {
+                    if (y + speed < background.screenHeight - background.tileSize) { // Prevent moving below the bottom of the screen
+                        y += speed;
+                    }
+                }
+                if (direction.equals("left")) {
+                    if (x - speed >= 0) { // Prevent moving left off the screen
+                        x -= speed;
+                    }
+                }
+                if (direction.equals("right")) {
+                    if (x + speed < background.screenWidth - background.tileSize) { // Prevent moving right off the screen
+                        x += speed;
+                    }
+                }
+            }
+
+
+
+
             spriteCounter++;
             if(spriteCounter > 8) {
                 if (spriteNum == 1) {

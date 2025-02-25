@@ -1,5 +1,6 @@
 package src;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Character {
@@ -11,4 +12,6 @@ public class Character {
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
+    public Rectangle spriteBounds;
+    public boolean collsionOn = false;
 }
