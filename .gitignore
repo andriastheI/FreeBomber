@@ -3,4 +3,4 @@ out/
 .idea/
 FreeBomber.iml
 src/FinalProject.iml
-
+.DS_Store
