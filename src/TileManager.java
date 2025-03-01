@@ -50,7 +50,7 @@ public class TileManager {
     //Reading the map and loading it to a 2D array called mapTiles
     public void loadMap() {
         try {
-            InputStream iS = getClass().getClassLoader().getResourceAsStream("src/storage/maps/level1.txt");
+            InputStream iS = getClass().getClassLoader().getResourceAsStream("src/storage/maps/level5.txt");
             assert iS != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(iS));
 
