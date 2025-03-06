@@ -17,6 +17,7 @@ public class Background extends JPanel implements Runnable {
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     JackBomber player = new JackBomber(this, keyHandler);
+    E_Slug enemy1 = new E_Slug(this, keyHandler);
 
 
     public Background() {
@@ -59,6 +60,7 @@ public class Background extends JPanel implements Runnable {
 
     public void update() {
         player.update();
+        enemy1.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -66,6 +68,7 @@ public class Background extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         tileManager.draw(g2);
         player.draw(g2);
+        enemy1.draw(g2);
 //        g2.setColor(Color.WHITE);
 
 
