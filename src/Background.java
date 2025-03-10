@@ -13,11 +13,12 @@ public class Background extends JPanel implements Runnable {
     public final int screenWidth = screenCols * tileSize;
     public final int screenHeight = screenRows * tileSize;
     public CheckCollision checkCollision = new CheckCollision(this);
+    public ESlugCollision eslugCollision = new ESlugCollision(this);
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     JackBomber player = new JackBomber(this, keyHandler);
-    E_Slug enemy1 = new E_Slug(this, keyHandler);
+    E_Slug enemy1 = new E_Slug(this);
 
 
     public Background() {

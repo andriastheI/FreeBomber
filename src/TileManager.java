@@ -28,19 +28,19 @@ public class TileManager {
         try {
             tile[0] = new Tile();
             tile[0].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("src/storage/tiles/grass1.png")));
-            tile[0].collison = false;
+            tile[0].collision = false;
 
             tile[1] = new Tile();
             tile[1].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("src/storage/tiles/wall1.png")));
-            tile[1].collison = true;
+            tile[1].collision = true;
 
             tile[2] = new Tile();
             tile[2].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("src/storage/tiles/softWall.png")));
-            tile[2].collison = false;
+            tile[2].collision = false;
 
             tile[3] = new Tile();
             tile[3].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("src/storage/tiles/wall2.png")));
-            tile[3].collison = true;
+            tile[3].collision = true;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class TileManager {
     //Reading the map and loading it to a 2D array called mapTiles
     public void loadMap() {
         try {
-            InputStream iS = getClass().getClassLoader().getResourceAsStream("src/storage/maps/level1.txt");
+            InputStream iS = getClass().getClassLoader().getResourceAsStream("src/storage/maps/level2.txt");
             assert iS != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(iS));
 
