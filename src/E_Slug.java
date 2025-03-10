@@ -2,29 +2,42 @@ package src;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import javax.swing.Timer;
+import java.util.Random;
 
-public class E_Slug extends Character{
+public class E_Slug extends Character {
     Background background;
-    KeyHandler keyHandler;
+    Timer movementTimer;
+    Random random;
 
-    public E_Slug(Background bg, KeyHandler kh) {
+    public E_Slug(Background bg) {
         this.background = bg;
-        this.keyHandler = kh;
+        this.random = new Random();
         setDefaultValues();
         getPlayerImage();
 
-        //this rectangle is used as a collision detector that is smaller than the champion player
-        //so that it is flexible for going through tight spaces.
+        // Collision detection bounds
         spriteBounds = new Rectangle(6, 18, 28, 25);
+
+        // Set up the timer to move in a random direction every 2 seconds (2000 milliseconds)
+        movementTimer = new Timer(200, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moveRandomly();
+            }
+        });
+        movementTimer.start();
     }
 
     public void setDefaultValues() {
-        x = background.screenWidth - 2*background.tileSize;
-        y = background.screenHeight - 2*background.tileSize;
-        speed = 2;
-        direction = "down";
+        x = background.screenWidth - 2 * background.tileSize;
+        y = background.screenHeight - 2 * background.tileSize;
+        speed = 10;
+        direction = "left";
     }
 
     public void getPlayerImage() {
@@ -42,116 +55,73 @@ public class E_Slug extends Character{
             right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_right1.png"));
             right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_right2.png"));
             right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_right3.png"));
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void update() {
+    public void moveRandomly() {
+        String[] directions = {"up", "down", "left", "right"};
+        direction = directions[random.nextInt(directions.length)];
 
-        if (keyHandler.upDirection || keyHandler.downDirection ||
-                keyHandler.leftDirection || keyHandler.rightDirection) {
-            if (keyHandler.upDirection) {
-                direction = "up";
-            } else if (keyHandler.downDirection) {
-                direction = "down";
-            } else if (keyHandler.leftDirection) {
-                direction = "left";
-            } else {
-                direction = "right";
-            }
+        collisionOn = false;
+        background.eslugCollision.checkCollision(this);
 
-            collsionOn = false;
-            background.checkCollision.checkCollision(this);
-
-            if (!collsionOn) {
-                // Prevent player from going out of bounds
-                if (direction.equals("up")) {
-                    if (y - speed >= 0) { // Prevent moving above the top of the screen
+        if (!collisionOn) {
+            switch (direction) {
+                case "up":
+                    if (y - speed >= 0) {
                         y -= speed;
                     }
-                }
-                if (direction.equals("down")) {
-                    if (y + speed < background.screenHeight - background.tileSize) { // Prevent moving below the bottom of the screen
+                    break;
+                case "down":
+                    if (y + speed < background.screenHeight - background.tileSize) {
                         y += speed;
                     }
-                }
-                if (direction.equals("left")) {
-                    if (x - speed >= 0) { // Prevent moving left off the screen
+                    break;
+                case "left":
+                    if (x - speed >= 0) {
                         x -= speed;
                     }
-                }
-                if (direction.equals("right")) {
-                    if (x + speed < background.screenWidth - background.tileSize) { // Prevent moving right off the screen
+                    break;
+                case "right":
+                    if (x + speed < background.screenWidth - background.tileSize) {
                         x += speed;
                     }
-                }
+                    break;
             }
-
-
-// Sprite animation logic
-            spriteCounter++;
-            if (spriteCounter > 8) {
-                if (direction.equals("up") || direction.equals("down")) {
-                    // Toggle between 1 and 2 for up/down
-                    spriteNum = (spriteNum == 1) ? 2 : 1;
-                } else {
-                    // Cycle through 1 → 2 → 3 → 1 for left/right
-                    spriteNum++;
-                    if (spriteNum > 3) {
-                        spriteNum = 1;
-                    }
-                }
-                spriteCounter = 0;
-            }
-
         }
+    }
 
-
+    public void update() {
+        spriteCounter++;
+        if (spriteCounter > 8) {
+            if (direction.equals("up") || direction.equals("down")) {
+                spriteNum = (spriteNum == 1) ? 2 : 1;
+            } else {
+                spriteNum++;
+                if (spriteNum > 3) {
+                    spriteNum = 1;
+                }
+            }
+            spriteCounter = 0;
+        }
     }
 
     public void draw(Graphics g) {
         BufferedImage img = null;
         switch (direction) {
             case "up":
-                if (spriteNum == 1) {
-                    img = up1;
-                }
-                if (spriteNum == 2) {
-                    img = up2;
-                }
+                img = (spriteNum == 1) ? up1 : up2;
                 break;
             case "down":
-                if (spriteNum == 1) {
-                    img = down1;
-                }
-                if (spriteNum == 2) {
-                    img = down2;
-                }
+                img = (spriteNum == 1) ? down1 : down2;
                 break;
             case "left":
-                if (spriteNum == 1) {
-                    img = left1;
-                }
-                if (spriteNum == 2) {
-                    img = left2;
-                }
-                if (spriteNum == 3) {
-                    img = left3;
-                }
+                img = (spriteNum == 1) ? left1 : (spriteNum == 2) ? left2 : left3;
                 break;
             case "right":
-                if (spriteNum == 1) {
-                    img = right1;
-                }
-                if (spriteNum == 2) {
-                    img = right2;
-                }
-                if (spriteNum == 3) {
-                    img = right3;
-                }
+                img = (spriteNum == 1) ? right1 : (spriteNum == 2) ? right2 : right3;
                 break;
         }
         g.drawImage(img, x, y, background.tileSize, background.tileSize, null);

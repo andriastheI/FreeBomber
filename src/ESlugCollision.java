@@ -1,9 +1,9 @@
 package src;
 
-public class CheckCollision {
+public class ESlugCollision {
     Background background;
 
-    public CheckCollision(Background background) {
+    public ESlugCollision(Background background) {
         this.background = background;
     }
 

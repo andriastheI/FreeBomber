@@ -66,10 +66,10 @@ public class JackBomber extends Character {
                 direction = "right";
             }
 
-            collsionOn = false;
+            collisionOn = false;
             background.checkCollision.checkCollision(this);
 
-            if (!collsionOn) {
+            if (!collisionOn) {
                 // Prevent player from going out of bounds
                 if (direction.equals("up")) {
                     if (y - speed >= 0) { // Prevent moving above the top of the screen
