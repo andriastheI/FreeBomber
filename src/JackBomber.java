@@ -177,18 +177,18 @@ public class JackBomber extends Character {
 
     private void crop() {
         try {
-            File imageFile = new File("src/storage/player/champ1.png");
+            File imageFile = new File("src/storage/Enemies/Enemy2.png");
             BufferedImage img = ImageIO.read(imageFile);
-            String[] naming = {"up", "down", "left", "right"};
+            String[] naming = {"down", "up", "right", "left"};
             for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    int cropX = j * 32;
-                    int cropY = i * 48;
-                    int cropWidth = 32;
-                    int cropHeight = 48;
+                for (int j = 0; j < 3; j++) {
+                    int cropX = j * 16;
+                    int cropY = i * 16;
+                    int cropWidth = 16;
+                    int cropHeight = 16;
                     BufferedImage croppedImage = img.getSubimage(cropX, cropY, cropWidth, cropHeight);
                     System.out.println("cropX = " + cropX + " cropY = " + cropY + " cropWidth = " + cropWidth + " cropHeight = " + cropHeight + "");
-                    File outputfile = new File("src/storage/player/champ1_cropped_" + naming[i] + "_" + (j + 1) + ".png");
+                    File outputfile = new File("src/storage/Enemies/Enemy3_cropped_" + naming[i] + "_" + (j + 1) + ".png");
                     ImageIO.write(croppedImage, "png", outputfile);
                     System.out.println("Done");
                 }
@@ -198,5 +198,14 @@ public class JackBomber extends Character {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public JackBomber() {
+
+    }
+
+    public static void main(String[] args) {
+        JackBomber test = new JackBomber();
+        test.crop();
     }
 }
