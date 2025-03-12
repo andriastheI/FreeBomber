@@ -182,13 +182,13 @@ public class JackBomber extends Character {
             String[] naming = {"down", "up", "right", "left"};
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 3; j++) {
-                    int cropX = j * 32;
-                    int cropY = i * 32 + 64;
-                    int cropWidth = 32;
-                    int cropHeight = 32;
+                    int cropX = j * 16;
+                    int cropY = i * 16;
+                    int cropWidth = 16;
+                    int cropHeight = 16;
                     BufferedImage croppedImage = img.getSubimage(cropX, cropY, cropWidth, cropHeight);
                     System.out.println("cropX = " + cropX + " cropY = " + cropY + " cropWidth = " + cropWidth + " cropHeight = " + cropHeight + "");
-                    File outputfile = new File("src/storage/Enemies/Enemy2_cropped_" + naming[i] + "_" + (j + 1) + ".png");
+                    File outputfile = new File("src/storage/Enemies/Enemy3_cropped_" + naming[i] + "_" + (j + 1) + ".png");
                     ImageIO.write(croppedImage, "png", outputfile);
                     System.out.println("Done");
                 }

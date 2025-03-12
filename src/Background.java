@@ -20,6 +20,7 @@ public class Background extends JPanel implements Runnable {
     JackBomber player = new JackBomber(this, keyHandler);
     E_Slug enemy1 = new E_Slug(this);
     E_Rock enemy2 = new E_Rock(this);
+    E_Mush enemy3 = new E_Mush(this);
 
 
     public Background() {
@@ -64,20 +65,18 @@ public class Background extends JPanel implements Runnable {
         player.update();
         enemy1.update();
         enemy2.update();
+        enemy3.update();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
         tileManager.draw(g2);
         player.draw(g2);
         enemy1.draw(g2);
         enemy2.draw(g2);
-//        g2.setColor(Color.WHITE);
-
-
-//        g2.fillRect(playerX, playerY, tileSize, tileSize);
-
+        enemy3.draw(g2);
 
         g2.dispose();
     }
