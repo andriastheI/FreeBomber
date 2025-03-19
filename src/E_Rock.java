@@ -13,10 +13,12 @@ public class E_Rock extends Character {
     Background background;
     Timer movementTimer;
     Random random;
+    JackBomber jackBomber;
 
-    public E_Rock(Background bg) {
+    public E_Rock(Background bg, JackBomber jack) {
         this.background = bg;
         this.random = new Random();
+        this.jackBomber = jack;
         setDefaultValues();
         getPlayerImage();
 
@@ -67,7 +69,7 @@ public class E_Rock extends Character {
         direction = directions[random.nextInt(directions.length)];
 
         collisionOn = false;
-        background.eslugCollision.checkCollision(this);
+        background.eslugCollision.checkCollision(this, jackBomber);
 
         if (!collisionOn) {
             switch (direction) {

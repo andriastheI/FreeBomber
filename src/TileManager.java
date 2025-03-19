@@ -13,18 +13,17 @@ public class TileManager {
     public Tile[] tile;
     public int[][] mapTileNum;
     Background gp;
-
+    public int currentMap = 1;  // Track which map is currently loaded
 
     public TileManager(Background gp) {
         this.gp = gp;
         tile = new Tile[10];
         mapTileNum = new int[gp.screenCols][gp.screenRows];
         getTileImg();
-        loadMap();
+        loadMap(1);  // Load map 1 by default
     }
 
     public void getTileImg() {
-
         try {
             tile[0] = new Tile();
             tile[0].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("src/storage/tiles/grass1.png")));
@@ -47,10 +46,12 @@ public class TileManager {
         }
     }
 
-    //Reading the map and loading it to a 2D array called mapTiles
-    public void loadMap() {
+    // Reading the map and loading it to a 2D array called mapTiles
+    public void loadMap(int mapNumber) {
         try {
-            InputStream iS = getClass().getClassLoader().getResourceAsStream("src/storage/maps/level2.txt");
+            currentMap = mapNumber;  // Set the current map number
+
+            InputStream iS = getClass().getClassLoader().getResourceAsStream("src/storage/maps/level" + mapNumber + ".txt");
             assert iS != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(iS));
 
@@ -77,7 +78,6 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-
 
     public void draw(Graphics2D g2d) {
         int col = 0;
