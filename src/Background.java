@@ -24,7 +24,7 @@ public class Background extends JPanel implements Runnable {
     // Add the gameOver flag here
     public boolean gameOver = false;
 
-    private JButton toggleButton;
+    //private JButton toggleButton;
 
     public Background() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -37,11 +37,11 @@ public class Background extends JPanel implements Runnable {
         setLayout(null);
 
         // Create a toggle map button
-        toggleButton = new JButton("Toggle Map");
-        toggleButton.setBounds(10, 10, 120, 40);  // Position the button at the top-left corner
-        toggleButton.addActionListener(e -> toggleMap());  // Attach the action to the button
-        add(toggleButton);
-        toggleButton.setFocusable(false);
+        //toggleButton = new JButton("Toggle Map");
+        //toggleButton.setBounds(10, 10, 120, 40);  // Position the button at the top-left corner
+        //toggleButton.addActionListener(e -> toggleMap());  // Attach the action to the button
+        //add(toggleButton);
+        //toggleButton.setFocusable(false);
     }
     // Method to switch maps
     private void toggleMap() {
