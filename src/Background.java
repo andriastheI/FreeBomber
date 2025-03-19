@@ -18,10 +18,16 @@ public class Background extends JPanel implements Runnable {
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     JackBomber player = new JackBomber(this, keyHandler);
-    E_Slug enemy1 = new E_Slug(this);
-    E_Rock enemy2 = new E_Rock(this);
-    E_Mush enemy3 = new E_Mush(this);
 
+    E_Rock enemy2 = new E_Rock(this, this.player);
+    E_Mush enemy3 = new E_Mush(this, this.player);
+    E_Slug enemy1 = new E_Slug(this, this.player);
+    E_Slug2 enemy4 = new E_Slug2(this, this.player);
+
+    // Add the gameOver flag here
+    public boolean gameOver = false;
+
+    //private JButton toggleButton;
 
     public Background() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -29,7 +35,35 @@ public class Background extends JPanel implements Runnable {
         setDoubleBuffered(true);
         addKeyListener(keyHandler);
         setFocusable(true);
+
+        // Set layout to null to manually place the button
+        setLayout(null);
+
+        // Create a toggle map button
+        //toggleButton = new JButton("Toggle Map");
+        //toggleButton.setBounds(10, 10, 120, 40);  // Position the button at the top-left corner
+        //toggleButton.addActionListener(e -> toggleMap());  // Attach the action to the button
+        //add(toggleButton);
+        //toggleButton.setFocusable(false);
     }
+
+    // Method to switch maps
+    private void toggleMap() {
+        // Get the next map in the sequence
+        if (tileManager.currentMap == 1) {
+            tileManager.loadMap(2);  // Switch to map 2
+        } else if (tileManager.currentMap == 2) {
+            tileManager.loadMap(3);  // Switch to map 3
+        } else if (tileManager.currentMap == 3) {
+            tileManager.loadMap(4);  // Switch to map 4
+        } else if (tileManager.currentMap == 4) {
+            tileManager.loadMap(5);  // Switch to map 5
+        } else {
+            tileManager.loadMap(1);  // Switch back to map 1
+        }
+        repaint();  // Refresh the panel to show the new map
+    }
+
 
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -66,18 +100,27 @@ public class Background extends JPanel implements Runnable {
         enemy1.update();
         enemy2.update();
         enemy3.update();
+        enemy4.update();
     }
+    public void paintComponent(Graphics g){
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g;
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
+            tileManager.draw(g2);
+            player.draw(g2);
+            enemy1.draw(g2);
+            enemy2.draw(g2);
+            enemy3.draw(g2);
+            enemy4.draw(g2);
 
-        tileManager.draw(g2);
-        player.draw(g2);
-        enemy1.draw(g2);
-        enemy2.draw(g2);
-        enemy3.draw(g2);
-
-        g2.dispose();
+            // If the game is over, display the Game Over message
+            if (gameOver) {
+                String message = "GAME OVER";
+                Font font = new Font("Arial", Font.BOLD, 60);
+                g2.setFont(font);
+                g2.setColor(Color.RED);
+                g2.drawString(message, screenWidth / 4, screenHeight / 2);
+            }
+            g2.dispose();
+        }
     }
-}

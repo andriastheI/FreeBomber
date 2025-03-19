@@ -2,41 +2,28 @@ package src;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.swing.Timer;
-import java.util.Random;
 
 public class E_Slug extends Character {
     Background background;
-    Timer movementTimer;
-    Random random;
+    JackBomber jackBomber; // Add JackBomber reference
 
-    public E_Slug(Background bg) {
+    public E_Slug(Background bg, JackBomber jack) {
         this.background = bg;
-        this.random = new Random();
+        this.jackBomber = jack; // Initialize JackBomber
         setDefaultValues();
         getPlayerImage();
 
         // Collision detection bounds
         spriteBounds = new Rectangle(6, 18, 28, 25);
-
-        // Set up the timer to move in a random direction every 2 seconds (2000 milliseconds)
-        movementTimer = new Timer(200, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                moveRandomly();
-            }
-        });
-        movementTimer.start();
+        move();
     }
 
     public void setDefaultValues() {
         x = background.screenWidth - 2 * background.tileSize;
         y = background.screenHeight - 2 * background.tileSize;
-        speed = 10;
+        speed = 1;
         direction = "left";
     }
 
@@ -60,40 +47,61 @@ public class E_Slug extends Character {
         }
     }
 
-    public void moveRandomly() {
-        String[] directions = {"up", "down", "left", "right"};
-        direction = directions[random.nextInt(directions.length)];
+    public void move() {
+        // Pass the JackBomber instance to the collision check method
+        background.eslugCollision.checkCollision(this, jackBomber);
 
-        collisionOn = false;
-        background.eslugCollision.checkCollision(this);
-
-        if (!collisionOn) {
-            switch (direction) {
-                case "up":
-                    if (y - speed >= 0) {
-                        y -= speed;
-                    }
-                    break;
-                case "down":
-                    if (y + speed < background.screenHeight - background.tileSize) {
-                        y += speed;
-                    }
-                    break;
-                case "left":
-                    if (x - speed >= 0) {
-                        x -= speed;
-                    }
-                    break;
-                case "right":
-                    if (x + speed < background.screenWidth - background.tileSize) {
-                        x += speed;
-                    }
-                    break;
+        // If collision occurs, change direction
+        if (isBlocked()) {
+            changeDirection();
+        } else {
+            // Move normally if no collision
+            if (direction.equals("up") && y - speed >= 0) {
+                y -= speed;
+            } else if (direction.equals("down") && y + speed < background.screenHeight - background.tileSize) {
+                y += speed;
+            } else if (direction.equals("left") && x - speed >= 0) {
+                x -= speed;
+            } else if (direction.equals("right") && x + speed < background.screenWidth - background.tileSize) {
+                x += speed;
             }
         }
     }
 
+    // Helper method to determine if the enemy is blocked
+    private boolean isBlocked() {
+        switch (direction) {
+            case "up": return !background.eslugCollision.collisionDirection[0];
+            case "down": return !background.eslugCollision.collisionDirection[1];
+            case "left": return !background.eslugCollision.collisionDirection[2];
+            case "right": return !background.eslugCollision.collisionDirection[3];
+            default: return false;
+        }
+    }
+
+    public void changeDirection() {
+        switch (direction) {
+            case "up":
+                // If moving up, try moving right or down next (avoid reverse)
+                direction = "left";
+                break;
+            case "down":
+                // If moving down, try moving left or up next (avoid reverse)
+                direction = "right";
+                break;
+            case "right":
+                // If moving right, try moving down or up next (avoid reverse)
+                direction = "up";
+                break;
+            case "left":
+                // If moving left, try moving up or down next (avoid reverse)
+                direction = "down";
+                break;
+        }
+    }
+
     public void update() {
+        move();
         spriteCounter++;
         if (spriteCounter > 8) {
             if (direction.equals("up") || direction.equals("down")) {
