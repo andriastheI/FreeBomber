@@ -50,7 +50,7 @@ public class E_Rock extends Character {
 
             down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy2_cropped_down_1.png"));
             down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy2_cropped_down_2.png"));
-            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy2_cropped_down_3.png"));
+            down3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy2_cropped_down_3.png"));
 
             left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy2_cropped_left_1.png"));
             left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy2_cropped_left_2.png"));
