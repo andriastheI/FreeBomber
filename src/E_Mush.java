@@ -65,9 +65,6 @@ public class E_Mush extends Character {
     }
 
     public void moveRandomly() {
-        String[] directions = {"up", "down", "left", "right"};
-        direction = directions[random.nextInt(directions.length)];
-
         collisionOn = false;
         background.eslugCollision.checkCollision(this, jackBomber);
 
@@ -94,6 +91,14 @@ public class E_Mush extends Character {
                     }
                     break;
             }
+        } else {
+            // Change direction ONLY after collision
+            String newDirection = direction;
+            while (newDirection.equals(direction)) {
+                String[] directions = {"up", "down", "left", "right"};
+                newDirection = directions[random.nextInt(directions.length)];
+            }
+            direction = newDirection;
         }
     }
 
