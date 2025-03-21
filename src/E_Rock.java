@@ -65,9 +65,6 @@ public class E_Rock extends Character {
     }
 
     public void moveRandomly() {
-        String[] directions = {"up", "down", "left", "right"};
-        direction = directions[random.nextInt(directions.length)];
-
         collisionOn = false;
         background.eslugCollision.checkCollision(this, jackBomber);
 
@@ -94,6 +91,13 @@ public class E_Rock extends Character {
                     }
                     break;
             }
+        } else {
+            String newDirection = direction;
+            while (newDirection.equals(direction)) {
+                String[] directions = {"up", "down", "left", "right"};
+                newDirection = directions[random.nextInt(directions.length)];
+            }
+            direction = newDirection;
         }
     }
 
