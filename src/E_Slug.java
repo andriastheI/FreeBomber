@@ -1,5 +1,3 @@
-package src;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -29,19 +27,19 @@ public class E_Slug extends Character {
 
     public void getPlayerImage() {
         try {
-            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_up1.png"));
-            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_up2.png"));
+            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_up1.png"));
+            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_up2.png"));
 
-            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_down1.png"));
-            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_down2.png"));
+            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_down1.png"));
+            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_down2.png"));
 
-            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_left1.png"));
-            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_left2.png"));
-            left3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_left3.png"));
+            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_left1.png"));
+            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_left2.png"));
+            left3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_left3.png"));
 
-            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_right1.png"));
-            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_right2.png"));
-            right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy1_right3.png"));
+            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_right1.png"));
+            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_right2.png"));
+            right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_right3.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

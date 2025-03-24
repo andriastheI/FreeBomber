@@ -1,5 +1,3 @@
-package src;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -44,21 +42,21 @@ public class E_Mush extends Character {
 
     public void getPlayerImage() {
         try {
-            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_up_1.png"));
-            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_up_2.png"));
-            up3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_up_3.png"));
+            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_up_1.png"));
+            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_up_2.png"));
+            up3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_up_3.png"));
 
-            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_down_1.png"));
-            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_down_2.png"));
-            down3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_down_3.png"));
+            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_down_1.png"));
+            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_down_2.png"));
+            down3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_down_3.png"));
 
-            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_left_1.png"));
-            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_left_2.png"));
-            left3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_left_3.png"));
+            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_left_1.png"));
+            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_left_2.png"));
+            left3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_left_3.png"));
 
-            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_right_1.png"));
-            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_right_2.png"));
-            right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/Enemies/Enemy3_cropped_right_3.png"));
+            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_right_1.png"));
+            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_right_2.png"));
+            right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_right_3.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
