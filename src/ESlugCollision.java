@@ -1,4 +1,3 @@
-package src;
 public class ESlugCollision {
     Background background;
     boolean[] collisionDirection = {false, false, false, false}; // up, down, left, right

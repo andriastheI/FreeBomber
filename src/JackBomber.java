@@ -1,5 +1,3 @@
-package src;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -30,22 +28,22 @@ public class JackBomber extends Character {
 
     public void getPlayerImage() {
         try {
-            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_up_1.png"));
-            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_up_2.png"));
-            up3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_up_3.png"));
-            up4 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_up_4.png"));
-            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_down_1.png"));
-            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_down_2.png"));
-            down3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_down_3.png"));
-            down4 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_down_4.png"));
-            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_left_1.png"));
-            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_left_2.png"));
-            left3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_left_3.png"));
-            left4 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_left_4.png"));
-            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_right_1.png"));
-            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_right_2.png"));
-            right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_right_3.png"));
-            right4 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("src/storage/player/champ1_cropped_right_4.png"));
+            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_up_1.png"));
+            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_up_2.png"));
+            up3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_up_3.png"));
+            up4 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_up_4.png"));
+            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_down_1.png"));
+            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_down_2.png"));
+            down3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_down_3.png"));
+            down4 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_down_4.png"));
+            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_left_1.png"));
+            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_left_2.png"));
+            left3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_left_3.png"));
+            left4 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_left_4.png"));
+            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_right_1.png"));
+            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_right_2.png"));
+            right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_right_3.png"));
+            right4 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_right_4.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -177,7 +175,7 @@ public class JackBomber extends Character {
 
     private void crop() {
         try {
-            File imageFile = new File("src/storage/Enemies/Enemy2.png");
+            File imageFile = new File("storage/Enemies/Enemy2.png");
             BufferedImage img = ImageIO.read(imageFile);
             String[] naming = {"down", "up", "right", "left"};
             for (int i = 0; i < 4; i++) {
@@ -188,7 +186,7 @@ public class JackBomber extends Character {
                     int cropHeight = 16;
                     BufferedImage croppedImage = img.getSubimage(cropX, cropY, cropWidth, cropHeight);
                     System.out.println("cropX = " + cropX + " cropY = " + cropY + " cropWidth = " + cropWidth + " cropHeight = " + cropHeight + "");
-                    File outputfile = new File("src/storage/Enemies/Enemy3_cropped_" + naming[i] + "_" + (j + 1) + ".png");
+                    File outputfile = new File("storage/Enemies/Enemy3_cropped_" + naming[i] + "_" + (j + 1) + ".png");
                     ImageIO.write(croppedImage, "png", outputfile);
                     System.out.println("Done");
                 }
