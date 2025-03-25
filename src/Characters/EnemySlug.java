@@ -1,15 +1,19 @@
+package Characters;
+
+import Background.Background;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class E_Slug extends Character {
+public class EnemySlug extends Character {
     Background background;
-    JackBomber jackBomber; // Add JackBomber reference
+    JackBomber jackBomber; // Add Character.Character.JackBomber reference
 
-    public E_Slug(Background bg, JackBomber jack) {
+    public EnemySlug(Background bg, JackBomber jack) {
         this.background = bg;
-        this.jackBomber = jack; // Initialize JackBomber
+        this.jackBomber = jack; // Initialize Character.Character.JackBomber
         setDefaultValues();
         getPlayerImage();
 
@@ -46,7 +50,7 @@ public class E_Slug extends Character {
     }
 
     public void move() {
-        // Pass the JackBomber instance to the collision check method
+        // Pass the Character.Character.JackBomber instance to the collision check method
         background.eslugCollision.checkCollision(this, jackBomber);
 
         // If collision occurs, change direction

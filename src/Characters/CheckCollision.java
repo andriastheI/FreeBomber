@@ -1,3 +1,7 @@
+package Characters;
+
+import Background.Background;
+
 public class CheckCollision {
     Background background;
 

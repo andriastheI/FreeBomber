@@ -1,6 +1,8 @@
+package Background;
+
 import java.awt.image.BufferedImage;
 
 public class Tile {
     protected BufferedImage img;
-    protected boolean collision = false;
+    public boolean collision = false;
 }

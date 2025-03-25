@@ -1,14 +1,16 @@
+package Characters;
+
+import Background.Background;
+
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class E_Slug2 extends E_Slug {
+public class EnemySlug2 extends EnemySlug {
     Background background;
 
-    public E_Slug2(Background bg, JackBomber jack) {
+    public EnemySlug2(Background bg, JackBomber jack) {
         super(bg, jack);
-        // Customize the images for E_Slug2
+        // Customize the images for Character.E_Slug2
         getPlayerImage();  // Load different images
     }
 

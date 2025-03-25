@@ -1,14 +1,18 @@
-public class ESlugCollision {
+package Characters;
+
+import Background.*;
+
+public class EnemyCollision {
     Background background;
     boolean[] collisionDirection = {false, false, false, false}; // up, down, left, right
 
-    public ESlugCollision(Background background) {
+    public EnemyCollision(Background background) {
         this.background = background;
     }
 
-    // Updated to accept both the character and JackBomber as parameters
+    // Updated to accept both the character and Character.Character.JackBomber as parameters
     public void checkCollision(Character character, JackBomber jack) {
-        // Enemy (E_Slug) collision detection with JackBomber
+        // Enemy (Character.E_Slug) collision detection with Character.Character.JackBomber
         int characterLeftX = character.x + character.spriteBounds.x;
         int characterRightX = character.x + character.spriteBounds.x + character.spriteBounds.width;
         int characterTopY = character.y + character.spriteBounds.y;
@@ -19,7 +23,7 @@ public class ESlugCollision {
         int jackTopY = jack.y + jack.spriteBounds.y;
         int jackBottomY = jack.y + jack.spriteBounds.y + jack.spriteBounds.height;
 
-        // Collision detection between character (E_Slug) and JackBomber
+        // Collision detection between character (Character.E_Slug) and Character.Character.JackBomber
         if (characterLeftX < jackRightX && characterRightX > jackLeftX &&
                 characterTopY < jackBottomY && characterBottomY > jackTopY) {
             // Collision detected, trigger game over
