@@ -8,6 +8,7 @@ public class KeyHandler implements KeyListener {
     public boolean downDirection;
     public boolean leftDirection;
     public boolean rightDirection;
+    public boolean bombDrop;
 
 
     @Override
@@ -30,6 +31,9 @@ public class KeyHandler implements KeyListener {
         if (value == KeyEvent.VK_A) {
             leftDirection = true;
         }
+        if (value == KeyEvent.VK_SPACE) {
+            bombDrop = true;
+        }
     }
 
     @Override
@@ -47,6 +51,9 @@ public class KeyHandler implements KeyListener {
         }
         if (value == KeyEvent.VK_A) {
             leftDirection = false;
+        }
+        if (value == KeyEvent.VK_SPACE) {
+            bombDrop = false;
         }
     }
 }

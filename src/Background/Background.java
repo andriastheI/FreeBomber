@@ -1,4 +1,5 @@
 package Background;
+import Bomb.Bomb;
 import Characters.*;
 import javax.swing.*;
 import java.awt.*;
