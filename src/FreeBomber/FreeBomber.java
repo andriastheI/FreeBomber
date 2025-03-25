@@ -1,7 +1,11 @@
+package FreeBomber;
+
+import Background.Background;
+
 import javax.swing.*;
 
-public class Main extends JFrame {
-    public Main() {
+public class FreeBomber extends JFrame {
+    public FreeBomber() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle("FreeBomber");
@@ -14,6 +18,6 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
-        Main main = new Main();
+        FreeBomber freeBomber = new FreeBomber();
     }
 }

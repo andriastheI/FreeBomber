@@ -1,4 +1,4 @@
-<project name="FreeBomber" default="compile" basedir=".">
+<project name="FreeBomber.FreeBomber" default="compile" basedir=".">
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
   <property name="out" location="out"/>
@@ -15,7 +15,7 @@
   <target name="jar" depends="init,compile">
     <jar destfile="${out}/${ant.project.name}.jar" basedir="${out}/classes">
       <manifest>
-        <attribute name="Main-Class" value="Main"/>
+        <attribute name="FreeBomber.FreeBomber-Class" value="FreeBomber.FreeBomber"/>
       </manifest>
       <fileset dir="." includes="storage/**"/>
     </jar>

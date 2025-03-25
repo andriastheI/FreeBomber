@@ -1,8 +1,13 @@
+package Background;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-    protected boolean upDirection, downDirection, leftDirection, rightDirection;
+    public boolean upDirection;
+    public boolean downDirection;
+    public boolean leftDirection;
+    public boolean rightDirection;
 
 
     @Override

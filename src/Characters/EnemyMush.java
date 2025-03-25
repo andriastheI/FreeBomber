@@ -1,3 +1,7 @@
+package Characters;
+
+import Background.Background;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,13 +11,13 @@ import java.io.IOException;
 import javax.swing.Timer;
 import java.util.Random;
 
-public class E_Mush extends Character {
+public class EnemyMush extends Character {
     Background background;
     Timer movementTimer;
     Random random;
     JackBomber jackBomber;
 
-    public E_Mush(Background bg, JackBomber jack) {
+    public EnemyMush(Background bg, JackBomber jack) {
         this.background = bg;
         this.random = new Random();
         this.jackBomber = jack;

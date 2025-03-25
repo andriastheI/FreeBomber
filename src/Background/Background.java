@@ -1,3 +1,5 @@
+package Background;
+import Characters.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,16 +13,16 @@ public class Background extends JPanel implements Runnable {
     public final int screenWidth = screenCols * tileSize;
     public final int screenHeight = screenRows * tileSize;
     public CheckCollision checkCollision = new CheckCollision(this);
-    public ESlugCollision eslugCollision = new ESlugCollision(this);
-    TileManager tileManager = new TileManager(this);
+    public EnemyCollision eslugCollision = new EnemyCollision(this);
+    public TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     JackBomber player = new JackBomber(this, keyHandler);
 
-    E_Rock enemy2 = new E_Rock(this, this.player);
-    E_Mush enemy3 = new E_Mush(this, this.player);
-    E_Slug enemy1 = new E_Slug(this, this.player);
-    E_Slug2 enemy4 = new E_Slug2(this, this.player);
+    EnemyRock enemy2 = new EnemyRock(this, this.player);
+    EnemyMush enemy3 = new EnemyMush(this, this.player);
+    EnemySlug enemy1 = new EnemySlug(this, this.player);
+    EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
 
     // Add the gameOver flag here
     public boolean gameOver = false;

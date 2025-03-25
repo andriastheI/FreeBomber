@@ -1,4 +1,4 @@
-# FreeBomber
+# FreeBomber.FreeBomber
 
 Freebomber is a fun and exciting video game where players must find their way through a dangerous maze to reach a hidden door and escape. The game is easy to learn but hard to master because every level brings new challenges, smarter enemies, and tough choices. Your goal is simple: find the door before your health runs out or time expires. But be careful! enemies, traps, and your own mistakes can stop you!
 
