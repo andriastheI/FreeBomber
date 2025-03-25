@@ -7,11 +7,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+
+import Bomb.Bomb;
 
 public class JackBomber extends Character {
     Background background;
     KeyHandler keyHandler;
-
+    private final List<Bomb> bombs = new ArrayList<Bomb>();
     public JackBomber(Background bg, KeyHandler kh) {
         this.background = bg;
         this.keyHandler = kh;
@@ -111,7 +115,31 @@ public class JackBomber extends Character {
             }
         }
 
+        if (keyHandler.bombDrop) {
+            int bombX = ((x + background.tileSize / 2) / Bomb.SIZE) * Bomb.SIZE;
+            int bombY = ((y + background.tileSize / 2) / Bomb.SIZE) * Bomb.SIZE;
 
+            boolean alreadyPlaced = false;
+            for (Bomb b : bombs) {
+                if (b.x == bombX && b.y == bombY && !b.isFinished()) {
+                    alreadyPlaced = true;
+                    break;
+                }
+            }
+
+            if (!alreadyPlaced) {
+                bombs.add(new Bomb(bombX, bombY)); // background eklendi
+            }
+        }
+
+        for (int i = 0; i < bombs.size(); i++) {
+            Bomb b = bombs.get(i);
+            b.update();
+            if (b.isFinished()) {
+                bombs.remove(i);
+                i--;
+            }
+        }
     }
 
     public void draw(Graphics g) {
@@ -175,6 +203,9 @@ public class JackBomber extends Character {
                 break;
         }
         g.drawImage(img, x, y, background.tileSize, background.tileSize, null);
+        for (Bomb b : bombs) {
+            b.draw((Graphics2D) g);
+        }
     }
 
     private void crop() {
