@@ -7,28 +7,46 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * The EnemySlug class represents an enemy character in the game.
+ * It handles movement, image rendering, and collision detection for the enemy slug.
+ */
 public class EnemySlug extends Character {
     Background background;
-    JackBomber jackBomber; // Add Character.Character.JackBomber reference
+    JackBomber jackBomber; // Reference to the JackBomber character
 
+    /**
+     * Constructor for the EnemySlug class.
+     * Initializes the background and JackBomber instances and sets default values.
+     * Loads the player image and initializes collision bounds for the enemy.
+     * @param bg The background object that holds the game environment.
+     * @param jack The JackBomber character object used for collision detection.
+     */
     public EnemySlug(Background bg, JackBomber jack) {
         this.background = bg;
-        this.jackBomber = jack; // Initialize Character.Character.JackBomber
+        this.jackBomber = jack; // Initialize JackBomber reference
         setDefaultValues();
         getPlayerImage();
 
-        // Collision detection bounds
+        // Set collision detection bounds for the enemy sprite
         spriteBounds = new Rectangle(6, 18, 28, 25);
         move();
     }
 
+    /**
+     * Sets the default values for the enemy slug's position, speed, and direction.
+     */
     public void setDefaultValues() {
-        x = background.screenWidth - 2 * background.tileSize;
-        y = background.screenHeight - 2 * background.tileSize;
+        x = background.getScreenWidth() - 2 * background.getTileSize();
+        y = background.getScreenHeight() - 2 * background.getTileSize();
         speed = 1;
         direction = "left";
     }
 
+    /**
+     * Loads the images for the enemy slug's different directions and sprite frames.
+     * The images are read from the resources and assigned to the corresponding direction variables.
+     */
     public void getPlayerImage() {
         try {
             up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_up1.png"));
@@ -49,38 +67,48 @@ public class EnemySlug extends Character {
         }
     }
 
+    /**
+     * Moves the enemy slug based on its direction and handles collision detection.
+     * If a collision is detected, the enemy will change direction.
+     */
     public void move() {
-        // Pass the Character.Character.JackBomber instance to the collision check method
-        background.eslugCollision.checkCollision(this, jackBomber);
+        // Pass the JackBomber instance to the collision check method
+        background.getEslugCollision().checkCollision(this, jackBomber);
 
-        // If collision occurs, change direction
+        // If a collision occurs, change direction
         if (isBlocked()) {
             changeDirection();
         } else {
             // Move normally if no collision
             if (direction.equals("up") && y - speed >= 0) {
                 y -= speed;
-            } else if (direction.equals("down") && y + speed < background.screenHeight - background.tileSize) {
+            } else if (direction.equals("down") && y + speed < background.getScreenHeight() - background.getTileSize()) {
                 y += speed;
             } else if (direction.equals("left") && x - speed >= 0) {
                 x -= speed;
-            } else if (direction.equals("right") && x + speed < background.screenWidth - background.tileSize) {
+            } else if (direction.equals("right") && x + speed < background.getScreenWidth() - background.getTileSize()) {
                 x += speed;
             }
         }
     }
 
-    // Helper method to determine if the enemy is blocked
+    /**
+     * Helper method to determine if the enemy is blocked based on its direction.
+     * @return true if the enemy is blocked, false otherwise.
+     */
     private boolean isBlocked() {
         switch (direction) {
-            case "up": return !background.eslugCollision.collisionDirection[0];
-            case "down": return !background.eslugCollision.collisionDirection[1];
-            case "left": return !background.eslugCollision.collisionDirection[2];
-            case "right": return !background.eslugCollision.collisionDirection[3];
+            case "up": return !background.getEslugCollision().collisionDirection[0];
+            case "down": return !background.getEslugCollision().collisionDirection[1];
+            case "left": return !background.getEslugCollision().collisionDirection[2];
+            case "right": return !background.getEslugCollision().collisionDirection[3];
             default: return false;
         }
     }
 
+    /**
+     * Changes the direction of the enemy slug to avoid reversing its current direction.
+     */
     public void changeDirection() {
         switch (direction) {
             case "up":
@@ -102,6 +130,10 @@ public class EnemySlug extends Character {
         }
     }
 
+    /**
+     * Updates the sprite animation and movement of the enemy slug.
+     * The sprite will alternate every 8 updates for smooth animation.
+     */
     public void update() {
         move();
         spriteCounter++;
@@ -118,6 +150,10 @@ public class EnemySlug extends Character {
         }
     }
 
+    /**
+     * Draws the enemy slug's current sprite on the screen based on its direction.
+     * @param g The graphics object used for drawing the enemy's image.
+     */
     public void draw(Graphics g) {
         BufferedImage img = null;
         switch (direction) {
@@ -134,6 +170,6 @@ public class EnemySlug extends Character {
                 img = (spriteNum == 1) ? right1 : (spriteNum == 2) ? right2 : right3;
                 break;
         }
-        g.drawImage(img, x, y, background.tileSize, background.tileSize, null);
+        g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
     }
 }

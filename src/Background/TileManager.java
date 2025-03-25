@@ -8,6 +8,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
+/**
+ * The TileManager class is responsible for managing the tiles used in the game.
+ * It handles loading tile images, reading map data, and drawing tiles on the screen.
+ */
 public class TileManager {
 
     public Tile[] tile;
@@ -15,14 +19,23 @@ public class TileManager {
     Background gp;
     public int currentMap = 1;  // Track which map is currently loaded
 
+    /**
+     * Constructor for the TileManager class.
+     * Initializes the tile array and mapTileNum array, then loads tile images and the default map.
+     * @param gp The Background object that holds the game's environment and properties.
+     */
     public TileManager(Background gp) {
         this.gp = gp;
         tile = new Tile[10];
-        mapTileNum = new int[gp.screenCols][gp.screenRows];
+        mapTileNum = new int[gp.getScreenCols()][gp.getScreenRows()];
         getTileImg();
         loadMap(1);  // Load map 1 by default
     }
 
+    /**
+     * Loads tile images and their properties (like collision) from the specified resources.
+     * This method reads images for different tiles (e.g., grass, wall) and assigns collision behavior.
+     */
     public void getTileImg() {
         try {
             tile[0] = new Tile();
@@ -46,7 +59,11 @@ public class TileManager {
         }
     }
 
-    // Reading the map and loading it to a 2D array called mapTiles
+    /**
+     * Loads the map data from a text file corresponding to the specified map number.
+     * The map data is read into a 2D array called mapTileNum, where each entry represents a tile.
+     * @param mapNumber The number of the map to load (e.g., level1, level2).
+     */
     public void loadMap(int mapNumber) {
         try {
             currentMap = mapNumber;  // Set the current map number
@@ -58,16 +75,16 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while (col < gp.screenCols && row < gp.screenRows) {
+            while (col < gp.getScreenCols() && row < gp.getScreenRows()) {
                 String line = br.readLine();
-                while (col < gp.screenCols) {
+                while (col < gp.getScreenCols()) {
                     String[] numbers = line.split(" ");
                     int x = Integer.parseInt(numbers[col]);
 
                     mapTileNum[col][row] = x;
                     col++;
                 }
-                if (col == gp.screenCols) {
+                if (col == gp.getScreenCols()) {
                     col = 0;
                     row++;
                 }
@@ -79,23 +96,28 @@ public class TileManager {
         }
     }
 
+    /**
+     * Draws the map on the screen using the Graphics2D object.
+     * Iterates over the mapTileNum array and draws the corresponding tile images at the appropriate screen coordinates.
+     * @param g2d The Graphics2D object used for drawing the tiles on the screen.
+     */
     public void draw(Graphics2D g2d) {
         int col = 0;
         int row = 0;
         int x = 0;
         int y = 0;
 
-        while (col < gp.screenCols && row < gp.screenRows) {
+        while (col < gp.getScreenCols() && row < gp.getScreenRows()) {
             int tileNum = mapTileNum[col][row];
 
-            g2d.drawImage(tile[tileNum].img, x, y, gp.tileSize, gp.tileSize, null);
+            g2d.drawImage(tile[tileNum].img, x, y, gp.getTileSize(), gp.getTileSize(), null);
             col++;
-            x += gp.tileSize;
-            if (col == gp.screenCols) {
+            x += gp.getTileSize();
+            if (col == gp.getScreenCols()) {
                 col = 0;
                 x = 0;
                 row++;
-                y += gp.tileSize;
+                y += gp.getTileSize();
             }
         }
     }

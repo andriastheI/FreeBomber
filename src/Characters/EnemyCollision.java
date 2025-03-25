@@ -2,17 +2,33 @@ package Characters;
 
 import Background.*;
 
+/**
+ * The EnemyCollision class is responsible for detecting collisions between
+ * the enemy (Character.E_Slug) and the player character (Character.Character.JackBomber),
+ * as well as managing the collision detection with the environment (tiles).
+ */
 public class EnemyCollision {
-    Background background;
-    boolean[] collisionDirection = {false, false, false, false}; // up, down, left, right
+    private final Background background;
+    final boolean[] collisionDirection = {false, false, false, false}; // up, down, left, right
 
+    /**
+     * Constructor for EnemyCollision.
+     * @param background The Background object which holds tile and screen information.
+     */
     public EnemyCollision(Background background) {
         this.background = background;
     }
 
-    // Updated to accept both the character and Character.Character.JackBomber as parameters
+    /**
+     * Checks for collision between the character (enemy) and the player character (JackBomber).
+     * Also checks for collisions with tiles in the current movement direction.
+     * If a collision is detected, the character's movement is blocked.
+     *
+     * @param character The enemy character whose collision needs to be checked.
+     * @param jack The player character (JackBomber) to check for collision with.
+     */
     public void checkCollision(Character character, JackBomber jack) {
-        // Enemy (Character.E_Slug) collision detection with Character.Character.JackBomber
+        // Get coordinates of character (enemy) and JackBomber (player)
         int characterLeftX = character.x + character.spriteBounds.x;
         int characterRightX = character.x + character.spriteBounds.x + character.spriteBounds.width;
         int characterTopY = character.y + character.spriteBounds.y;
@@ -23,7 +39,7 @@ public class EnemyCollision {
         int jackTopY = jack.y + jack.spriteBounds.y;
         int jackBottomY = jack.y + jack.spriteBounds.y + jack.spriteBounds.height;
 
-        // Collision detection between character (Character.E_Slug) and Character.Character.JackBomber
+        // Check for collision between the enemy character and the player character
         if (characterLeftX < jackRightX && characterRightX > jackLeftX &&
                 characterTopY < jackBottomY && characterBottomY > jackTopY) {
             // Collision detected, trigger game over
@@ -31,59 +47,64 @@ public class EnemyCollision {
             gameOver();
         }
 
+        // Get tile properties
+        int tileSize = background.getTileSize();
+        int screenCols = background.getScreenCols();
+        int screenRows = background.getScreenRows();
+        TileManager tileManager = background.getTileManager();
+
         // Ensure values are within bounds for map array
-        int leftTileIndex = Math.max(0, characterLeftX / background.tileSize);
-        int rightTileIndex = Math.min(background.screenCols - 1, characterRightX / background.tileSize);
-        int topTileIndex = Math.max(0, characterTopY / background.tileSize);
-        int bottomTileIndex = Math.min(background.screenRows - 1, characterBottomY / background.tileSize);
+        int leftTileIndex = Math.max(0, characterLeftX / tileSize);
+        int rightTileIndex = Math.min(screenCols - 1, characterRightX / tileSize);
+        int topTileIndex = Math.max(0, characterTopY / tileSize);
+        int bottomTileIndex = Math.min(screenRows - 1, characterBottomY / tileSize);
 
         int tile1, tile2;
 
         // Check for collision with tiles in the current direction
         switch (character.direction) {
             case "up":
-                topTileIndex = Math.max(0, (characterTopY - character.speed) / background.tileSize); // Prevent moving above 0
-                tile1 = background.tileManager.mapTileNum[leftTileIndex][topTileIndex];
-                tile2 = background.tileManager.mapTileNum[rightTileIndex][topTileIndex];
-
-                if (background.tileManager.tile[tile1].collision || background.tileManager.tile[tile2].collision) {
-                    character.collisionOn = true; // Block upward movement if there's a collision
+                topTileIndex = Math.max(0, (characterTopY - character.speed) / tileSize);
+                tile1 = tileManager.mapTileNum[leftTileIndex][topTileIndex];
+                tile2 = tileManager.mapTileNum[rightTileIndex][topTileIndex];
+                if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
+                    character.collisionOn = true;
                     collisionDirection[0] = false;
                 } else {
                     collisionDirection[0] = true;
                 }
                 break;
-            case "down":
-                bottomTileIndex = Math.min(background.screenRows - 1, (characterBottomY + character.speed) / background.tileSize); // Prevent moving below screen
-                tile1 = background.tileManager.mapTileNum[leftTileIndex][bottomTileIndex];
-                tile2 = background.tileManager.mapTileNum[rightTileIndex][bottomTileIndex];
 
-                if (background.tileManager.tile[tile1].collision || background.tileManager.tile[tile2].collision) {
-                    character.collisionOn = true; // Block downward movement if there's a collision
+            case "down":
+                bottomTileIndex = Math.min(screenRows - 1, (characterBottomY + character.speed) / tileSize);
+                tile1 = tileManager.mapTileNum[leftTileIndex][bottomTileIndex];
+                tile2 = tileManager.mapTileNum[rightTileIndex][bottomTileIndex];
+                if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
+                    character.collisionOn = true;
                     collisionDirection[1] = false;
                 } else {
                     collisionDirection[1] = true;
                 }
                 break;
-            case "left":
-                leftTileIndex = Math.max(0, (characterLeftX - character.speed) / background.tileSize); // Prevent moving left of 0
-                tile1 = background.tileManager.mapTileNum[leftTileIndex][topTileIndex];
-                tile2 = background.tileManager.mapTileNum[leftTileIndex][bottomTileIndex];
 
-                if (background.tileManager.tile[tile1].collision || background.tileManager.tile[tile2].collision) {
-                    character.collisionOn = true; // Block leftward movement if there's a collision
+            case "left":
+                leftTileIndex = Math.max(0, (characterLeftX - character.speed) / tileSize);
+                tile1 = tileManager.mapTileNum[leftTileIndex][topTileIndex];
+                tile2 = tileManager.mapTileNum[leftTileIndex][bottomTileIndex];
+                if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
+                    character.collisionOn = true;
                     collisionDirection[2] = false;
                 } else {
                     collisionDirection[2] = true;
                 }
                 break;
-            case "right":
-                rightTileIndex = Math.min(background.screenCols - 1, (characterRightX + character.speed) / background.tileSize); // Prevent moving beyond the right edge
-                tile1 = background.tileManager.mapTileNum[rightTileIndex][topTileIndex];
-                tile2 = background.tileManager.mapTileNum[rightTileIndex][bottomTileIndex];
 
-                if (background.tileManager.tile[tile1].collision || background.tileManager.tile[tile2].collision) {
-                    character.collisionOn = true; // Block rightward movement if there's a collision
+            case "right":
+                rightTileIndex = Math.min(screenCols - 1, (characterRightX + character.speed) / tileSize);
+                tile1 = tileManager.mapTileNum[rightTileIndex][topTileIndex];
+                tile2 = tileManager.mapTileNum[rightTileIndex][bottomTileIndex];
+                if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
+                    character.collisionOn = true;
                     collisionDirection[3] = false;
                 } else {
                     collisionDirection[3] = true;
@@ -92,7 +113,9 @@ public class EnemyCollision {
         }
     }
 
-    // Game over method to display the game over message
+    /**
+     * Displays the game over message and updates the background state to reflect game over.
+     */
     public void gameOver() {
         background.gameOver = true;
         background.repaint();

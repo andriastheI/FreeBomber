@@ -5,19 +5,34 @@ import Background.Background;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
+/**
+ * The EnemySlug2 class represents a specific enemy type in the game, inheriting behavior from EnemySlug.
+ * This class overrides methods to customize the images and movement behavior for the second enemy type.
+ */
 public class EnemySlug2 extends EnemySlug {
-    Background background;
+    private final Background background;
 
+    /**
+     * Constructor for the EnemySlug2 class.
+     *
+     * @param bg   The Background object that holds the game map and other environmental data.
+     * @param jack The player character, used to determine interactions with the enemy.
+     */
     public EnemySlug2(Background bg, JackBomber jack) {
         super(bg, jack);
+        this.background = bg;
         // Customize the images for Character.E_Slug2
-        getPlayerImage();  // Load different images
+        getPlayerImage();  // Load different images specific to this enemy
     }
 
+    /**
+     * Overrides the getPlayerImage method to load different images for EnemySlug2.
+     * This method loads different images for each direction the enemy moves in.
+     */
     @Override
     public void getPlayerImage() {
         try {
-            // Load different images for the second enemy
+            // Load different images for the second enemy (EnemySlug2)
             up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_up1.png"));
             up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_up2.png"));
             down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_down1.png"));
@@ -32,6 +47,11 @@ public class EnemySlug2 extends EnemySlug {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Overrides the changeDirection method to alter the movement behavior of the enemy.
+     * This method changes the enemy's direction to avoid moving in the reverse direction.
+     */
     @Override
     public void changeDirection() {
         switch (direction) {
@@ -53,5 +73,8 @@ public class EnemySlug2 extends EnemySlug {
                 break;
         }
     }
-}
 
+    public Background getBackground() {
+        return background;
+    }
+}
