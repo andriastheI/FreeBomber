@@ -3,98 +3,91 @@ import Characters.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The Background class represents the game panel where the game logic and rendering occur.
+ * It handles game updates, rendering, and switching between maps.
+ */
 public class Background extends JPanel implements Runnable {
 
-    final static int FPS = 60;
-    public final int tileSize = 46;
-    public final int screenCols = 18;
-    public final int screenRows = 14;
+    // Frames per second for the game loop
+    private static final int FPS = 60;
 
-    public final int screenWidth = screenCols * tileSize;
-    public final int screenHeight = screenRows * tileSize;
-    public CheckCollision checkCollision = new CheckCollision(this);
-    public EnemyCollision eslugCollision = new EnemyCollision(this);
-    public TileManager tileManager = new TileManager(this);
-    KeyHandler keyHandler = new KeyHandler();
-    Thread gameThread;
-    JackBomber player = new JackBomber(this, keyHandler);
+    // Tile and screen dimensions
+    private final int tileSize = 46;
+    private final int screenCols = 18;
+    private final int screenRows = 14;
+    private final int screenWidth = screenCols * tileSize;
+    private final int screenHeight = screenRows * tileSize;
 
-    EnemyRock enemy2 = new EnemyRock(this, this.player);
-    EnemyMush enemy3 = new EnemyMush(this, this.player);
-    EnemySlug enemy1 = new EnemySlug(this, this.player);
-    EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
+    // Game management objects
+    private final CheckCollision checkCollision = new CheckCollision(this);
+    private final EnemyCollision eslugCollision = new EnemyCollision(this);
+    private final TileManager tileManager = new TileManager(this);
+    private final KeyHandler keyHandler = new KeyHandler();
+    private Thread gameThread;
 
-    // Add the gameOver flag here
+    // Player and enemies
+    private final JackBomber player = new JackBomber(this, keyHandler);
+    private final EnemyRock enemy2 = new EnemyRock(this, this.player);
+    private final EnemyMush enemy3 = new EnemyMush(this, this.player);
+    private final EnemySlug enemy1 = new EnemySlug(this, this.player);
+    private final EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
+
+    // Indicates whether the game is over
     public boolean gameOver = false;
 
-    //private JButton toggleButton;
-
+    /**
+     * Constructs the Background panel, initializing its size, background color, and key listeners.
+     */
     public Background() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
         addKeyListener(keyHandler);
         setFocusable(true);
-
-        // Set layout to null to manually place the button
         setLayout(null);
-
-        // Create a toggle map button
-        //toggleButton = new JButton("Toggle Map");
-        //toggleButton.setBounds(10, 10, 120, 40);  // Position the button at the top-left corner
-        //toggleButton.addActionListener(e -> toggleMap());  // Attach the action to the button
-        //add(toggleButton);
-        //toggleButton.setFocusable(false);
     }
 
-    // Method to switch maps
+    /**
+     * Switches the game map to the next in sequence.
+     */
     private void toggleMap() {
-        // Get the next map in the sequence
-        if (tileManager.currentMap == 1) {
-            tileManager.loadMap(2);  // Switch to map 2
-        } else if (tileManager.currentMap == 2) {
-            tileManager.loadMap(3);  // Switch to map 3
-        } else if (tileManager.currentMap == 3) {
-            tileManager.loadMap(4);  // Switch to map 4
-        } else if (tileManager.currentMap == 4) {
-            tileManager.loadMap(5);  // Switch to map 5
-        } else {
-            tileManager.loadMap(1);  // Switch back to map 1
-        }
-        repaint();  // Refresh the panel to show the new map
+        tileManager.loadMap((tileManager.currentMap % 5) + 1);
+        repaint();
     }
 
-
+    /**
+     * Starts the game thread, which continuously updates and repaints the game screen.
+     */
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
+    /**
+     * Runs the game loop, updating and rendering the game at a fixed frame rate.
+     */
     @Override
     public void run() {
-        double drawInterval = (double) 1000000000 / FPS;
-        double nextDrawT = System.nanoTime() + drawInterval;
+        double drawInterval = 1_000_000_000.0 / FPS;
+        double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (gameThread != null) {
-
             update();
-
             repaint();
             try {
-                double remainingTime = nextDrawT - System.nanoTime();
-                remainingTime = remainingTime / 1000000;
-
-                if (remainingTime < 0) {
-                    remainingTime = 0;
-                }
-                Thread.sleep((long) remainingTime);
-                nextDrawT += drawInterval;
+                double remainingTime = (nextDrawTime - System.nanoTime()) / 1_000_000;
+                Thread.sleep(Math.max(0, (long) remainingTime));
+                nextDrawTime += drawInterval;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    /**
+     * Updates the game state, including the player and enemy characters.
+     */
     public void update() {
         player.update();
         enemy1.update();
@@ -102,25 +95,74 @@ public class Background extends JPanel implements Runnable {
         enemy3.update();
         enemy4.update();
     }
-    public void paintComponent(Graphics g){
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
 
-            tileManager.draw(g2);
-            player.draw(g2);
-            enemy1.draw(g2);
-            enemy2.draw(g2);
-            enemy3.draw(g2);
-            enemy4.draw(g2);
+    /**
+     * Gets the tile size.
+     * @return tile size in pixels.
+     */
+    public int getTileSize() { return tileSize; }
 
-            // If the game is over, display the Game Over message
-            if (gameOver) {
-                String message = "GAME OVER";
-                Font font = new Font("Arial", Font.BOLD, 60);
-                g2.setFont(font);
-                g2.setColor(Color.RED);
-                g2.drawString(message, screenWidth / 4, screenHeight / 2);
-            }
-            g2.dispose();
-        }
+    /**
+     * Gets the tile manager.
+     * @return tile manager of the background.
+     */
+    public TileManager getTileManager() {
+        return tileManager;
     }
+    /**
+     * Gets the screen width.
+     * @return screen width in pixels.
+     */
+    public int getScreenWidth() { return screenWidth; }
+
+    /**
+     * Gets the screen height.
+     * @return screen height in pixels.
+     */
+    public int getScreenHeight() { return screenHeight; }
+
+    /**
+     * Gets the number of screen rows.
+     * @return screen row count.
+     */
+    public int getScreenRows() { return screenRows; }
+
+    /**
+     * Gets the number of screen columns.
+     * @return screen column count.
+     */
+    public int getScreenCols() { return screenCols; }
+
+    /**
+     * Paints the game components onto the screen, including the player, enemies, and tiles.
+     * @param g The graphics context used for drawing.
+     */
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        tileManager.draw(g2);
+        player.draw(g2);
+        enemy1.draw(g2);
+        enemy2.draw(g2);
+        enemy3.draw(g2);
+        enemy4.draw(g2);
+
+        if (gameOver) {
+            String message = "GAME OVER";
+            g2.setFont(new Font("Arial", Font.BOLD, 60));
+            g2.setColor(Color.RED);
+            g2.drawString(message, screenWidth / 4, screenHeight / 2);
+        }
+        g2.dispose();
+    }
+
+    public CheckCollision getCheckCollision() {
+        return checkCollision;
+    }
+
+    public EnemyCollision getEslugCollision() {
+        return eslugCollision;
+    }
+}

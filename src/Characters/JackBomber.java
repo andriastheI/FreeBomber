@@ -56,20 +56,20 @@ public class JackBomber extends Character {
 
     public void update() {
 
-        if (keyHandler.upDirection || keyHandler.downDirection ||
-                keyHandler.leftDirection || keyHandler.rightDirection) {
-            if (keyHandler.upDirection) {
+        if (keyHandler.isUpDirection() || keyHandler.isDownDirection() ||
+                keyHandler.isLeftDirection() || keyHandler.isRightDirection()) {
+            if (keyHandler.isUpDirection()) {
                 direction = "up";
-            } else if (keyHandler.downDirection) {
+            } else if (keyHandler.isDownDirection()) {
                 direction = "down";
-            } else if (keyHandler.leftDirection) {
+            } else if (keyHandler.isLeftDirection()) {
                 direction = "left";
             } else {
                 direction = "right";
             }
 
             collisionOn = false;
-            background.checkCollision.checkCollision(this);
+            background.getCheckCollision().checkCollision(this);
 
             if (!collisionOn) {
                 // Prevent player from going out of bounds
@@ -79,7 +79,7 @@ public class JackBomber extends Character {
                     }
                 }
                 if (direction.equals("down")) {
-                    if (y + speed < background.screenHeight - background.tileSize) { // Prevent moving below the bottom of the screen
+                    if (y + speed < background.getScreenHeight() - background.getTileSize()) { // Prevent moving below the bottom of the screen
                         y += speed;
                     }
                 }
@@ -89,7 +89,7 @@ public class JackBomber extends Character {
                     }
                 }
                 if (direction.equals("right")) {
-                    if (x + speed < background.screenWidth - background.tileSize) { // Prevent moving right off the screen
+                    if (x + speed < background.getScreenWidth() - background.getTileSize()) { // Prevent moving right off the screen
                         x += speed;
                     }
                 }
@@ -174,7 +174,7 @@ public class JackBomber extends Character {
                 }
                 break;
         }
-        g.drawImage(img, x, y, background.tileSize, background.tileSize, null);
+        g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
     }
 
     private void crop() {
@@ -200,14 +200,5 @@ public class JackBomber extends Character {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public JackBomber() {
-
-    }
-
-    public static void main(String[] args) {
-        JackBomber test = new JackBomber();
-        test.crop();
     }
 }

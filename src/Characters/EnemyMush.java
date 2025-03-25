@@ -38,8 +38,8 @@ public class EnemyMush extends Character {
     }
 
     public void setDefaultValues() {
-        x = background.screenWidth - 2 * background.tileSize;
-        y = background.screenHeight - 2 * background.tileSize;
+        x = background.getScreenWidth() - 2 * background.getTileSize();
+        y = background.getScreenHeight() - 2 * background.getTileSize();
         speed = 10;
         direction = "left";
     }
@@ -68,7 +68,7 @@ public class EnemyMush extends Character {
 
     public void moveRandomly() {
         collisionOn = false;
-        background.eslugCollision.checkCollision(this, jackBomber);
+        background.getEslugCollision().checkCollision(this, jackBomber);
 
         if (!collisionOn) {
             switch (direction) {
@@ -78,7 +78,7 @@ public class EnemyMush extends Character {
                     }
                     break;
                 case "down":
-                    if (y + speed < background.screenHeight - background.tileSize) {
+                    if (y + speed < background.getScreenHeight() - background.getTileSize()) {
                         y += speed;
                     }
                     break;
@@ -88,7 +88,7 @@ public class EnemyMush extends Character {
                     }
                     break;
                 case "right":
-                    if (x + speed < background.screenWidth - background.tileSize) {
+                    if (x + speed < background.getScreenWidth() - background.getTileSize()) {
                         x += speed;
                     }
                     break;
@@ -166,7 +166,7 @@ public class EnemyMush extends Character {
                 }
                 break;
         }
-        g.drawImage(img, x, y, background.tileSize, background.tileSize, null);
+        g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
     }
 }
 
