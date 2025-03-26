@@ -32,6 +32,7 @@ public class EnemySlug2 extends EnemySlug {
             e.printStackTrace();
         }
     }
+
     @Override
     public void changeDirection() {
         switch (direction) {

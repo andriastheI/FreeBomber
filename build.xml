@@ -15,7 +15,7 @@
   <target name="jar" depends="init,compile">
     <jar destfile="${out}/${ant.project.name}.jar" basedir="${out}/classes">
       <manifest>
-        <attribute name="FreeBomber.FreeBomber-Class" value="FreeBomber.FreeBomber"/>
+        <attribute name="Main-Class" value="FreeBomber.FreeBomber"/>
       </manifest>
       <fileset dir="." includes="storage/**"/>
     </jar>

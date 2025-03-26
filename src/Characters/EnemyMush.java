@@ -3,12 +3,12 @@ package Characters;
 import Background.Background;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.swing.Timer;
 import java.util.Random;
 
 public class EnemyMush extends Character {

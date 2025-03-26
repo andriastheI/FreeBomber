@@ -1,6 +1,6 @@
 package Characters;
 
-import Background.*;
+import Background.Background;
 
 public class EnemyCollision {
     Background background;
