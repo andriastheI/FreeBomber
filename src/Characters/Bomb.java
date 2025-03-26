@@ -8,12 +8,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Bomb extends Character {
-    public int getSize() {
-        return size;
-    }
 
-    private final int size = 32; // Assuming tile size
     private static final int COUNTDOWN = 180; // ~3 seconds if game runs at 60 FPS
+    private final int size = 32; // Assuming tile size
     public int x, y;
     public int timer;
     public boolean exploded;
@@ -27,6 +24,9 @@ public class Bomb extends Character {
         this.timer = COUNTDOWN;
         this.exploded = false;
         getBombImage();
+    }
+
+    public Bomb() {
     }
 
     public void update() {
@@ -100,5 +100,9 @@ public class Bomb extends Character {
 
     public boolean isFinished() {
         return exploded && timer <= -30;
+    }
+
+    public int getSize() {
+        return size;
     }
 }

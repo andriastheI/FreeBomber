@@ -19,7 +19,8 @@ public class EnemySlug extends Character {
      * Constructor for the EnemySlug class.
      * Initializes the background and JackBomber instances and sets default values.
      * Loads the player image and initializes collision bounds for the enemy.
-     * @param bg The background object that holds the game environment.
+     *
+     * @param bg   The background object that holds the game environment.
      * @param jack The JackBomber character object used for collision detection.
      */
     public EnemySlug(Background bg, JackBomber jack) {
@@ -94,28 +95,21 @@ public class EnemySlug extends Character {
 
     /**
      * Helper method to determine if the enemy is blocked based on its direction.
+     *
      * @return true if the enemy is blocked, false otherwise.
      */
     private boolean isBlocked() {
         switch (direction) {
-<<<<<<< HEAD
-            case "up": return !background.getEslugCollision().collisionDirection[0];
-            case "down": return !background.getEslugCollision().collisionDirection[1];
-            case "left": return !background.getEslugCollision().collisionDirection[2];
-            case "right": return !background.getEslugCollision().collisionDirection[3];
-            default: return false;
-=======
             case "up":
-                return !background.eslugCollision.collisionDirection[0];
+                return !background.getEslugCollision().collisionDirection[0];
             case "down":
-                return !background.eslugCollision.collisionDirection[1];
+                return !background.getEslugCollision().collisionDirection[1];
             case "left":
-                return !background.eslugCollision.collisionDirection[2];
+                return !background.getEslugCollision().collisionDirection[2];
             case "right":
-                return !background.eslugCollision.collisionDirection[3];
+                return !background.getEslugCollision().collisionDirection[3];
             default:
                 return false;
->>>>>>> BombM
         }
     }
 
@@ -165,6 +159,7 @@ public class EnemySlug extends Character {
 
     /**
      * Draws the enemy slug's current sprite on the screen based on its direction.
+     *
      * @param g The graphics object used for drawing the enemy's image.
      */
     public void draw(Graphics g) {
