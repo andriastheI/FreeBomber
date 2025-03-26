@@ -31,7 +31,6 @@ public class JackBomber extends Character {
     }
 
     public JackBomber() {
-
     }
 
     public static void main(String[] args) {
@@ -134,7 +133,7 @@ public class JackBomber extends Character {
 
                 boolean alreadyPlaced = false;
                 for (Bomb b : bombs) {
-                    if (b.x == bombX && b.y == bombY && !b.isFinished()) {
+                    if (b.getX() == bombX && b.getY() == bombY && !b.isFinished()) {
                         alreadyPlaced = true;
                         break;
                     }
@@ -228,18 +227,18 @@ public class JackBomber extends Character {
 
     private void crop() {
         try {
-            File imageFile = new File("storage/bombs/bomb1.png");
+            File imageFile = new File("storage/bombs/explosion.png");
             BufferedImage img = ImageIO.read(imageFile);
 //            String[] naming = {"down", "up", "right", "left"};
-            for (int i = 0; i < 16; i++) {
+            for (int i = 0; i < 9; i++) {
 //                for (int j = 0; j < 3; j++) {
                 int cropX = i * 32;
-                int cropY = 0;
+                int cropY = 64;
                 int cropWidth = 32;
                 int cropHeight = 32;
                 BufferedImage croppedImage = img.getSubimage(cropX, cropY, cropWidth, cropHeight);
                 System.out.println("cropX = " + cropX + " cropY = " + cropY + " cropWidth = " + cropWidth + " cropHeight = " + cropHeight + "");
-                File outputfile = new File("storage/bombs/time_cropped_bomb_" + (i + 1) + ".png");
+                File outputfile = new File("storage/bombs/explosion_cropped_extensionVertical" + (i + 1) + ".png");
                 ImageIO.write(croppedImage, "png", outputfile);
                 System.out.println("Done");
 //                }
