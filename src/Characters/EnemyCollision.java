@@ -1,6 +1,6 @@
 package Characters;
 
-import Background.*;
+import Background.Background;
 
 /**
  * The EnemyCollision class is responsible for detecting collisions between

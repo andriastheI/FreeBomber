@@ -98,11 +98,24 @@ public class EnemySlug extends Character {
      */
     private boolean isBlocked() {
         switch (direction) {
+<<<<<<< HEAD
             case "up": return !background.getEslugCollision().collisionDirection[0];
             case "down": return !background.getEslugCollision().collisionDirection[1];
             case "left": return !background.getEslugCollision().collisionDirection[2];
             case "right": return !background.getEslugCollision().collisionDirection[3];
             default: return false;
+=======
+            case "up":
+                return !background.eslugCollision.collisionDirection[0];
+            case "down":
+                return !background.eslugCollision.collisionDirection[1];
+            case "left":
+                return !background.eslugCollision.collisionDirection[2];
+            case "right":
+                return !background.eslugCollision.collisionDirection[3];
+            default:
+                return false;
+>>>>>>> BombM
         }
     }
 

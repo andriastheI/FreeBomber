@@ -1,5 +1,7 @@
 package Background;
+
 import Characters.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,15 +21,17 @@ public class Background extends JPanel implements Runnable {
     private final int screenWidth = screenCols * tileSize;
     private final int screenHeight = screenRows * tileSize;
 
+
     // Game management objects
     private final CheckCollision checkCollision = new CheckCollision(this);
     private final EnemyCollision eslugCollision = new EnemyCollision(this);
     private final TileManager tileManager = new TileManager(this);
     private final KeyHandler keyHandler = new KeyHandler();
     private Thread gameThread;
+    private Bomb bomb;
 
     // Player and enemies
-    private final JackBomber player = new JackBomber(this, keyHandler);
+    private final JackBomber player = new JackBomber(this, keyHandler, bomb);
     private final EnemyRock enemy2 = new EnemyRock(this, this.player);
     private final EnemyMush enemy3 = new EnemyMush(this, this.player);
     private final EnemySlug enemy1 = new EnemySlug(this, this.player);

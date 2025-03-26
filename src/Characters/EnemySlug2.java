@@ -48,10 +48,13 @@ public class EnemySlug2 extends EnemySlug {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Overrides the changeDirection method to alter the movement behavior of the enemy.
      * This method changes the enemy's direction to avoid moving in the reverse direction.
      */
+=======
+>>>>>>> BombM
     @Override
     public void changeDirection() {
         switch (direction) {
