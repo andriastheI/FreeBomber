@@ -16,8 +16,8 @@ public class TileManager {
 
     public Tile[] tile;
     public int[][] mapTileNum;
-    Background gp;
     public int currentMap = 1;  // Track which map is currently loaded
+    Background gp;
 
     /**
      * Constructor for the TileManager class.

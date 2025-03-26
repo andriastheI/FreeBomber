@@ -7,9 +7,21 @@ import java.awt.event.KeyListener;
  * Handles keyboard input for movement using the KeyListener interface.
  */
 public class KeyHandler implements KeyListener {
-
     // Movement direction flags
-    private boolean upDirection, downDirection, leftDirection, rightDirection;
+    private boolean upDirection;
+    private boolean downDirection;
+    private boolean leftDirection;
+    private boolean rightDirection;
+
+    public boolean isBombDrop() {
+        return bombDrop;
+    }
+
+    public void setBombDrop(boolean bombDrop) {
+        this.bombDrop = bombDrop;
+    }
+
+    private boolean bombDrop;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -18,7 +30,27 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
         toggleDirection(e.getKeyCode(), true);
+
+        int value = e.getKeyCode();
+
+        if (value == KeyEvent.VK_W) {
+            upDirection = true;
+        }
+        if (value == KeyEvent.VK_S) {
+            downDirection = true;
+        }
+        if (value == KeyEvent.VK_D) {
+            rightDirection = true;
+        }
+        if (value == KeyEvent.VK_A) {
+            leftDirection = true;
+        }
+        if (value == KeyEvent.VK_SPACE) {
+            bombDrop = true;
+        }
+
     }
 
     @Override

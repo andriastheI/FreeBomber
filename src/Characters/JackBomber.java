@@ -7,21 +7,32 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import Characters.Bomb;
 
 public class JackBomber extends Character {
+    private final List<Bomb> bombs = new ArrayList<Bomb>();
     Background background;
     KeyHandler keyHandler;
+    Bomb bomb;
 
-    public JackBomber(Background bg, KeyHandler kh) {
+    public JackBomber(Background bg, KeyHandler kh, Bomb bomb) {
         this.background = bg;
         this.keyHandler = kh;
         setDefaultValues();
         getPlayerImage();
+        this.bomb = bomb;
 
         //this rectangle is used as a collision detector that is smaller than the champion player
         //so that it is flexible for going through tight spaces.
         spriteBounds = new Rectangle(6, 18, 28, 25);
     }
+
+    public JackBomber() {
+
+    }
+
 
     public void setDefaultValues() {
         x = 1;
@@ -111,7 +122,31 @@ public class JackBomber extends Character {
             }
         }
 
+        if (keyHandler.isBombDrop()) {
+            int bombX = x + background.getTileSize() / 2 - bomb.getSize()/ 2;
+            int bombY = y + background.getTileSize() / 2 - bomb.getSize() / 2;
 
+            boolean alreadyPlaced = false;
+            for (Bomb b : bombs) {
+                if (b.x == bombX && b.y == bombY && !b.isFinished()) {
+                    alreadyPlaced = true;
+                    break;
+                }
+            }
+
+            if (!alreadyPlaced) {
+                bombs.add(new Bomb(bombX, bombY));
+            }
+        }
+
+        for (int i = 0; i < bombs.size(); i++) {
+            Bomb b = bombs.get(i);
+            b.update();
+            if (b.isFinished()) {
+                bombs.remove(i);
+                i--;
+            }
+        }
     }
 
     public void draw(Graphics g) {
@@ -175,30 +210,38 @@ public class JackBomber extends Character {
                 break;
         }
         g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
+        for (Bomb b : bombs) {
+            b.draw((Graphics2D) g);
+        }
     }
 
     private void crop() {
         try {
-            File imageFile = new File("storage/Enemies/Enemy2.png");
+            File imageFile = new File("storage/bombs/bomb1.png");
             BufferedImage img = ImageIO.read(imageFile);
-            String[] naming = {"down", "up", "right", "left"};
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 3; j++) {
-                    int cropX = j * 16;
-                    int cropY = i * 16;
-                    int cropWidth = 16;
-                    int cropHeight = 16;
-                    BufferedImage croppedImage = img.getSubimage(cropX, cropY, cropWidth, cropHeight);
-                    System.out.println("cropX = " + cropX + " cropY = " + cropY + " cropWidth = " + cropWidth + " cropHeight = " + cropHeight + "");
-                    File outputfile = new File("storage/Enemies/Enemy3_cropped_" + naming[i] + "_" + (j + 1) + ".png");
-                    ImageIO.write(croppedImage, "png", outputfile);
-                    System.out.println("Done");
-                }
+//            String[] naming = {"down", "up", "right", "left"};
+            for (int i = 0; i < 16; i++) {
+//                for (int j = 0; j < 3; j++) {
+                int cropX = i * 32;
+                int cropY = 0;
+                int cropWidth = 32;
+                int cropHeight = 32;
+                BufferedImage croppedImage = img.getSubimage(cropX, cropY, cropWidth, cropHeight);
+                System.out.println("cropX = " + cropX + " cropY = " + cropY + " cropWidth = " + cropWidth + " cropHeight = " + cropHeight + "");
+                File outputfile = new File("storage/bombs/time_cropped_bomb_" + (i + 1) + ".png");
+                ImageIO.write(croppedImage, "png", outputfile);
+                System.out.println("Done");
+//                }
             }
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        JackBomber test = new JackBomber();
+        test.crop();
     }
 }
