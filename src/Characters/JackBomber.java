@@ -1,21 +1,22 @@
 package Characters;
 
-import Background.*;
+import Background.Background;
+import Background.KeyHandler;
+import Bomb.Bomb;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
-
-import Bomb.Bomb;
+import java.util.List;
 
 public class JackBomber extends Character {
+    private final List<Bomb> bombs = new ArrayList<Bomb>();
     Background background;
     KeyHandler keyHandler;
-    private final List<Bomb> bombs = new ArrayList<Bomb>();
+
     public JackBomber(Background bg, KeyHandler kh) {
         this.background = bg;
         this.keyHandler = kh;
@@ -25,6 +26,15 @@ public class JackBomber extends Character {
         //this rectangle is used as a collision detector that is smaller than the champion player
         //so that it is flexible for going through tight spaces.
         spriteBounds = new Rectangle(6, 18, 28, 25);
+    }
+
+    public JackBomber() {
+
+    }
+
+    public static void main(String[] args) {
+        JackBomber test = new JackBomber();
+        test.crop();
     }
 
     public void setDefaultValues() {
@@ -116,8 +126,8 @@ public class JackBomber extends Character {
         }
 
         if (keyHandler.bombDrop) {
-            int bombX = ((x + background.tileSize / 2) / Bomb.SIZE) * Bomb.SIZE;
-            int bombY = ((y + background.tileSize / 2) / Bomb.SIZE) * Bomb.SIZE;
+            int bombX = x + background.tileSize / 2 - Bomb.SIZE / 2;
+            int bombY = y + background.tileSize / 2 - Bomb.SIZE / 2;
 
             boolean alreadyPlaced = false;
             for (Bomb b : bombs) {
@@ -128,7 +138,7 @@ public class JackBomber extends Character {
             }
 
             if (!alreadyPlaced) {
-                bombs.add(new Bomb(bombX, bombY)); // background eklendi
+                bombs.add(new Bomb(bombX, bombY));
             }
         }
 
@@ -210,35 +220,26 @@ public class JackBomber extends Character {
 
     private void crop() {
         try {
-            File imageFile = new File("storage/Enemies/Enemy2.png");
+            File imageFile = new File("storage/bombs/bomb1.png");
             BufferedImage img = ImageIO.read(imageFile);
-            String[] naming = {"down", "up", "right", "left"};
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 3; j++) {
-                    int cropX = j * 16;
-                    int cropY = i * 16;
-                    int cropWidth = 16;
-                    int cropHeight = 16;
-                    BufferedImage croppedImage = img.getSubimage(cropX, cropY, cropWidth, cropHeight);
-                    System.out.println("cropX = " + cropX + " cropY = " + cropY + " cropWidth = " + cropWidth + " cropHeight = " + cropHeight + "");
-                    File outputfile = new File("storage/Enemies/Enemy3_cropped_" + naming[i] + "_" + (j + 1) + ".png");
-                    ImageIO.write(croppedImage, "png", outputfile);
-                    System.out.println("Done");
-                }
+//            String[] naming = {"down", "up", "right", "left"};
+            for (int i = 0; i < 16; i++) {
+//                for (int j = 0; j < 3; j++) {
+                int cropX = i * 32;
+                int cropY = 0;
+                int cropWidth = 32;
+                int cropHeight = 32;
+                BufferedImage croppedImage = img.getSubimage(cropX, cropY, cropWidth, cropHeight);
+                System.out.println("cropX = " + cropX + " cropY = " + cropY + " cropWidth = " + cropWidth + " cropHeight = " + cropHeight + "");
+                File outputfile = new File("storage/bombs/time_cropped_bomb_" + (i + 1) + ".png");
+                ImageIO.write(croppedImage, "png", outputfile);
+                System.out.println("Done");
+//                }
             }
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public JackBomber() {
-
-    }
-
-    public static void main(String[] args) {
-        JackBomber test = new JackBomber();
-        test.crop();
     }
 }

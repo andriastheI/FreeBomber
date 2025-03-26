@@ -1,6 +1,7 @@
 package Background;
-import Bomb.Bomb;
+
 import Characters.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,17 +17,15 @@ public class Background extends JPanel implements Runnable {
     public CheckCollision checkCollision = new CheckCollision(this);
     public EnemyCollision eslugCollision = new EnemyCollision(this);
     public TileManager tileManager = new TileManager(this);
+    // Add the gameOver flag here
+    public boolean gameOver = false;
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     JackBomber player = new JackBomber(this, keyHandler);
-
     EnemyRock enemy2 = new EnemyRock(this, this.player);
     EnemyMush enemy3 = new EnemyMush(this, this.player);
     EnemySlug enemy1 = new EnemySlug(this, this.player);
     EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
-
-    // Add the gameOver flag here
-    public boolean gameOver = false;
 
     //private JButton toggleButton;
 
@@ -103,25 +102,26 @@ public class Background extends JPanel implements Runnable {
         enemy3.update();
         enemy4.update();
     }
-    public void paintComponent(Graphics g){
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
 
-            tileManager.draw(g2);
-            player.draw(g2);
-            enemy1.draw(g2);
-            enemy2.draw(g2);
-            enemy3.draw(g2);
-            enemy4.draw(g2);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
 
-            // If the game is over, display the Game Over message
-            if (gameOver) {
-                String message = "GAME OVER";
-                Font font = new Font("Arial", Font.BOLD, 60);
-                g2.setFont(font);
-                g2.setColor(Color.RED);
-                g2.drawString(message, screenWidth / 4, screenHeight / 2);
-            }
-            g2.dispose();
+        tileManager.draw(g2);
+        player.draw(g2);
+        enemy1.draw(g2);
+        enemy2.draw(g2);
+        enemy3.draw(g2);
+        enemy4.draw(g2);
+
+        // If the game is over, display the Game Over message
+        if (gameOver) {
+            String message = "GAME OVER";
+            Font font = new Font("Arial", Font.BOLD, 60);
+            g2.setFont(font);
+            g2.setColor(Color.RED);
+            g2.drawString(message, screenWidth / 4, screenHeight / 2);
         }
+        g2.dispose();
     }
+}

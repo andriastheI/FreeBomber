@@ -73,11 +73,16 @@ public class EnemySlug extends Character {
     // Helper method to determine if the enemy is blocked
     private boolean isBlocked() {
         switch (direction) {
-            case "up": return !background.eslugCollision.collisionDirection[0];
-            case "down": return !background.eslugCollision.collisionDirection[1];
-            case "left": return !background.eslugCollision.collisionDirection[2];
-            case "right": return !background.eslugCollision.collisionDirection[3];
-            default: return false;
+            case "up":
+                return !background.eslugCollision.collisionDirection[0];
+            case "down":
+                return !background.eslugCollision.collisionDirection[1];
+            case "left":
+                return !background.eslugCollision.collisionDirection[2];
+            case "right":
+                return !background.eslugCollision.collisionDirection[3];
+            default:
+                return false;
         }
     }
 
