@@ -22,6 +22,7 @@ public class TileManager {
     /**
      * Constructor for the TileManager class.
      * Initializes the tile array and mapTileNum array, then loads tile images and the default map.
+     *
      * @param gp The Background object that holds the game's environment and properties.
      */
     public TileManager(Background gp) {
@@ -62,6 +63,7 @@ public class TileManager {
     /**
      * Loads the map data from a text file corresponding to the specified map number.
      * The map data is read into a 2D array called mapTileNum, where each entry represents a tile.
+     *
      * @param mapNumber The number of the map to load (e.g., level1, level2).
      */
     public void loadMap(int mapNumber) {
@@ -99,6 +101,7 @@ public class TileManager {
     /**
      * Draws the map on the screen using the Graphics2D object.
      * Iterates over the mapTileNum array and draws the corresponding tile images at the appropriate screen coordinates.
+     *
      * @param g2d The Graphics2D object used for drawing the tiles on the screen.
      */
     public void draw(Graphics2D g2d) {

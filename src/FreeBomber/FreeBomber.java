@@ -29,6 +29,7 @@ public class FreeBomber extends JFrame {
     /**
      * The main method, which serves as the entry point for the FreeBomber game.
      * It creates an instance of FreeBomber to launch the game.
+     *
      * @param args Command line arguments (not used in this case).
      */
     public static void main(String[] args) {

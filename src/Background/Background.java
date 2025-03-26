@@ -27,18 +27,16 @@ public class Background extends JPanel implements Runnable {
     private final EnemyCollision eslugCollision = new EnemyCollision(this);
     private final TileManager tileManager = new TileManager(this);
     private final KeyHandler keyHandler = new KeyHandler();
-    private Thread gameThread;
-    private Bomb bomb;
-
     // Player and enemies
-    private final JackBomber player = new JackBomber(this, keyHandler, bomb);
+    private final JackBomber player = new JackBomber(this, keyHandler, new Bomb());
     private final EnemyRock enemy2 = new EnemyRock(this, this.player);
     private final EnemyMush enemy3 = new EnemyMush(this, this.player);
     private final EnemySlug enemy1 = new EnemySlug(this, this.player);
     private final EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
-
     // Indicates whether the game is over
     public boolean gameOver = false;
+    private Thread gameThread;
+    private Bomb bomb;
 
     /**
      * Constructs the Background panel, initializing its size, background color, and key listeners.
@@ -102,43 +100,61 @@ public class Background extends JPanel implements Runnable {
 
     /**
      * Gets the tile size.
+     *
      * @return tile size in pixels.
      */
-    public int getTileSize() { return tileSize; }
+    public int getTileSize() {
+        return tileSize;
+    }
 
     /**
      * Gets the tile manager.
+     *
      * @return tile manager of the background.
      */
     public TileManager getTileManager() {
         return tileManager;
     }
+
     /**
      * Gets the screen width.
+     *
      * @return screen width in pixels.
      */
-    public int getScreenWidth() { return screenWidth; }
+    public int getScreenWidth() {
+        return screenWidth;
+    }
 
     /**
      * Gets the screen height.
+     *
      * @return screen height in pixels.
      */
-    public int getScreenHeight() { return screenHeight; }
+    public int getScreenHeight() {
+        return screenHeight;
+    }
 
     /**
      * Gets the number of screen rows.
+     *
      * @return screen row count.
      */
-    public int getScreenRows() { return screenRows; }
+    public int getScreenRows() {
+        return screenRows;
+    }
 
     /**
      * Gets the number of screen columns.
+     *
      * @return screen column count.
      */
-    public int getScreenCols() { return screenCols; }
+    public int getScreenCols() {
+        return screenCols;
+    }
 
     /**
      * Paints the game components onto the screen, including the player, enemies, and tiles.
+     *
      * @param g The graphics context used for drawing.
      */
     @Override

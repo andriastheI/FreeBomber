@@ -1,6 +1,7 @@
 package Characters;
 
 import Background.Background;
+import Background.TileManager;
 
 /**
  * The EnemyCollision class is responsible for detecting collisions between
@@ -8,11 +9,12 @@ import Background.Background;
  * as well as managing the collision detection with the environment (tiles).
  */
 public class EnemyCollision {
-    private final Background background;
     final boolean[] collisionDirection = {false, false, false, false}; // up, down, left, right
+    private final Background background;
 
     /**
      * Constructor for EnemyCollision.
+     *
      * @param background The Background object which holds tile and screen information.
      */
     public EnemyCollision(Background background) {
@@ -25,7 +27,7 @@ public class EnemyCollision {
      * If a collision is detected, the character's movement is blocked.
      *
      * @param character The enemy character whose collision needs to be checked.
-     * @param jack The player character (JackBomber) to check for collision with.
+     * @param jack      The player character (JackBomber) to check for collision with.
      */
     public void checkCollision(Character character, JackBomber jack) {
         // Get coordinates of character (enemy) and JackBomber (player)

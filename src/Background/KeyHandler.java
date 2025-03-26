@@ -12,6 +12,7 @@ public class KeyHandler implements KeyListener {
     private boolean downDirection;
     private boolean leftDirection;
     private boolean rightDirection;
+    private boolean bombDrop;
 
     public boolean isBombDrop() {
         return bombDrop;
@@ -20,8 +21,6 @@ public class KeyHandler implements KeyListener {
     public void setBombDrop(boolean bombDrop) {
         this.bombDrop = bombDrop;
     }
-
-    private boolean bombDrop;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -55,12 +54,20 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        toggleDirection(e.getKeyCode(), false);
+        int value = e.getKeyCode();
+        if (value == KeyEvent.VK_SPACE) {
+            bombDrop = false;
+        }
+        toggleDirection(e.getKeyCode(), false
+
+
+        );
     }
 
     /**
      * Toggles the movement direction based on the key event.
-     * @param keyCode The key code of the pressed/released key.
+     *
+     * @param keyCode   The key code of the pressed/released key.
      * @param isPressed True if the key is pressed, false if released.
      */
     private void toggleDirection(int keyCode, boolean isPressed) {
@@ -72,13 +79,35 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    public boolean isUpDirection() { return upDirection; }
-    public boolean isDownDirection() { return downDirection; }
-    public boolean isLeftDirection() { return leftDirection; }
-    public boolean isRightDirection() { return rightDirection; }
+    public boolean isUpDirection() {
+        return upDirection;
+    }
 
-    public void setUpDirection(boolean upDirection) { this.upDirection = upDirection; }
-    public void setDownDirection(boolean downDirection) { this.downDirection = downDirection; }
-    public void setLeftDirection(boolean leftDirection) { this.leftDirection = leftDirection; }
-    public void setRightDirection(boolean rightDirection) { this.rightDirection = rightDirection; }
+    public void setUpDirection(boolean upDirection) {
+        this.upDirection = upDirection;
+    }
+
+    public boolean isDownDirection() {
+        return downDirection;
+    }
+
+    public void setDownDirection(boolean downDirection) {
+        this.downDirection = downDirection;
+    }
+
+    public boolean isLeftDirection() {
+        return leftDirection;
+    }
+
+    public void setLeftDirection(boolean leftDirection) {
+        this.leftDirection = leftDirection;
+    }
+
+    public boolean isRightDirection() {
+        return rightDirection;
+    }
+
+    public void setRightDirection(boolean rightDirection) {
+        this.rightDirection = rightDirection;
+    }
 }

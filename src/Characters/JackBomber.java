@@ -1,6 +1,7 @@
 package Characters;
 
-import Background.*;
+import Background.Background;
+import Background.KeyHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,13 +10,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import Characters.Bomb;
 
 public class JackBomber extends Character {
     private final List<Bomb> bombs = new ArrayList<Bomb>();
     Background background;
     KeyHandler keyHandler;
     Bomb bomb;
+    private boolean bombJustDropped = false;
 
     public JackBomber(Background bg, KeyHandler kh, Bomb bomb) {
         this.background = bg;
@@ -33,6 +34,10 @@ public class JackBomber extends Character {
 
     }
 
+    public static void main(String[] args) {
+        JackBomber test = new JackBomber();
+        test.crop();
+    }
 
     public void setDefaultValues() {
         x = 1;
@@ -123,20 +128,26 @@ public class JackBomber extends Character {
         }
 
         if (keyHandler.isBombDrop()) {
-            int bombX = x + background.getTileSize() / 2 - bomb.getSize()/ 2;
-            int bombY = y + background.getTileSize() / 2 - bomb.getSize() / 2;
+            if (!bombJustDropped) {
+                int bombX = x + background.getTileSize() / 2 - bomb.getSize() / 2;
+                int bombY = y + background.getTileSize() / 2 - bomb.getSize() / 2;
 
-            boolean alreadyPlaced = false;
-            for (Bomb b : bombs) {
-                if (b.x == bombX && b.y == bombY && !b.isFinished()) {
-                    alreadyPlaced = true;
-                    break;
+                boolean alreadyPlaced = false;
+                for (Bomb b : bombs) {
+                    if (b.x == bombX && b.y == bombY && !b.isFinished()) {
+                        alreadyPlaced = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!alreadyPlaced) {
-                bombs.add(new Bomb(bombX, bombY));
+                if (!alreadyPlaced) {
+                    bombs.add(new Bomb(bombX, bombY));
+                }
+
+                bombJustDropped = true; // bir kez bastı
             }
+        } else {
+            bombJustDropped = false; // tuş bırakıldı
         }
 
         for (int i = 0; i < bombs.size(); i++) {
@@ -238,10 +249,5 @@ public class JackBomber extends Character {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        JackBomber test = new JackBomber();
-        test.crop();
     }
 }
