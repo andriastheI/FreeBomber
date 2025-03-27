@@ -169,6 +169,7 @@ public class EnemyMush extends Character {
         }
         g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
     }
+
     public void handleExplosion(Rectangle explosionArea) {
         Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
 

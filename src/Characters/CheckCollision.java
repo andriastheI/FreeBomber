@@ -28,6 +28,7 @@ public class CheckCollision {
         int topTileIndex = Math.max(0, characterTopY / tileSize);
         int bottomTileIndex = Math.min(screenRows - 1, characterBottomY / tileSize);
 
+
         int tile1, tile2;
 
         switch (character.direction) {

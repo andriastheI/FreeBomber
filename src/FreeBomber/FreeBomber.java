@@ -21,7 +21,7 @@ public class FreeBomber extends JFrame {
         setResizable(false);
         // Set the window title
         setTitle("FreeBomber");
-        // Create a new game panel
+        // Create a new game paneldwdsdwwd
         Background gamePanel = new Background();
         // Add the game panel to the JFrame
         add(gamePanel);

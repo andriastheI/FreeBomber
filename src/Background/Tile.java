@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 public class Tile {
     public boolean collision = false;
     protected BufferedImage img;
+    private boolean levelUp = false;
 
     public boolean isLevelUp() {
         return levelUp;
@@ -13,6 +14,4 @@ public class Tile {
     public void setLevelUp(boolean levelUp) {
         this.levelUp = levelUp;
     }
-
-    private boolean levelUp = false;
 }

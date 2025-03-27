@@ -1,7 +1,7 @@
 package Background;
 
-import Characters.*;
 import Characters.Character;
+import Characters.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +34,28 @@ public class Background extends JPanel implements Runnable {
 
     // Player and enemies
     private final JackBomber player = new JackBomber(this, keyHandler, new Bomb(this));
+    private final EnemyRock enemy2 = new EnemyRock(this, this.player);
+    private final EnemyMush enemy3 = new EnemyMush(this, this.player);
+    private final EnemySlug enemy1 = new EnemySlug(this, this.player);
+    private final EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
+    // Indicates whether the game is over
+    public boolean gameOver = false;
+    private Thread gameThread;
+    /**
+     * Constructs the Background panel, initializing its size, background color, and key listeners.
+     */
+    public Background() {
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setBackground(Color.BLACK);
+        setDoubleBuffered(true);
+        addKeyListener(keyHandler);
+        setFocusable(true);
+        setLayout(null);
+        characters.add(player);
+        characters.add(enemy1);
+        characters.add(enemy2);
+        characters.add(enemy4);
+    }
 
     public EnemyRock getEnemy2() {
         return enemy2;
@@ -49,31 +71,6 @@ public class Background extends JPanel implements Runnable {
 
     public EnemySlug2 getEnemy4() {
         return enemy4;
-    }
-
-    private final EnemyRock enemy2 = new EnemyRock(this, this.player);
-    private final EnemyMush enemy3 = new EnemyMush(this, this.player);
-    private final EnemySlug enemy1 = new EnemySlug(this, this.player);
-    private final EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
-    // Indicates whether the game is over
-    public boolean gameOver = false;
-    private Thread gameThread;
-
-
-    /**
-     * Constructs the Background panel, initializing its size, background color, and key listeners.
-     */
-    public Background() {
-        setPreferredSize(new Dimension(screenWidth, screenHeight));
-        setBackground(Color.BLACK);
-        setDoubleBuffered(true);
-        addKeyListener(keyHandler);
-        setFocusable(true);
-        setLayout(null);
-        characters.add(player);
-        characters.add(enemy1);
-        characters.add(enemy2);
-        characters.add(enemy4);
     }
 
     /**
@@ -117,19 +114,19 @@ public class Background extends JPanel implements Runnable {
      * Updates the game state, including the player and enemy characters.
      */
     public void update() {
-        if (player.isAlive()){
+        if (player.isAlive()) {
             player.update();
         }
-        if (enemy1.isAlive()){
+        if (enemy1.isAlive()) {
             enemy1.update();
         }
-        if (enemy2.isAlive()){
+        if (enemy2.isAlive()) {
             enemy2.update();
         }
-        if (enemy3.isAlive()){
+        if (enemy3.isAlive()) {
             enemy3.update();
         }
-        if (enemy4.isAlive()){
+        if (enemy4.isAlive()) {
             enemy4.update();
         }
     }
@@ -199,19 +196,19 @@ public class Background extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         tileManager.draw(g2);
-        if (player.isAlive()){
+        if (player.isAlive()) {
             player.draw(g2);
         }
-        if (enemy1.isAlive()){
+        if (enemy1.isAlive()) {
             enemy1.draw(g2);
         }
-        if (enemy2.isAlive()){
+        if (enemy2.isAlive()) {
             enemy2.draw(g2);
         }
-        if (enemy3.isAlive()){
+        if (enemy3.isAlive()) {
             enemy3.draw(g2);
         }
-        if (enemy4.isAlive()){
+        if (enemy4.isAlive()) {
             enemy4.draw(g2);
         }
 
@@ -228,6 +225,7 @@ public class Background extends JPanel implements Runnable {
     public JackBomber getPlayer() {
         return player;
     }
+
     public CheckCollision getCheckCollision() {
         return checkCollision;
     }

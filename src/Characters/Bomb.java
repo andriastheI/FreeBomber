@@ -1,7 +1,7 @@
 package Characters;
 
 
-import Background.*;
+import Background.Background;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,14 +15,8 @@ public class Bomb extends Character {
     Background background;
     private int x, y;
     private int timer;
-
-    public boolean isExploded() {
-        return exploded;
-    }
-
     private boolean exploded;
     private boolean collision;
-
     private BufferedImage bomb1, bomb2, bomb3, bomb4, bomb5, bomb6, bomb7,
             bomb8, bomb9, bomb10, bomb11, bomb12, bomb13, bomb14, bomb15, bomb16;
     private BufferedImage[] bombFrames;
@@ -37,7 +31,6 @@ public class Bomb extends Character {
     private BufferedImage[] explosionUpFrames;
     private BufferedImage[] explosionDownFrames;
     private BufferedImage[] explosionMiddleFrames;
-
     private BombCollision bombCollision;
 
     public Bomb(int x, int y, Background bg) {
@@ -49,8 +42,13 @@ public class Bomb extends Character {
         getBombImage();
     }
 
-    public Bomb(Background bg) {;
+    public Bomb(Background bg) {
+        ;
         this.background = bg;
+    }
+
+    public boolean isExploded() {
+        return exploded;
     }
 
     public void update() {
@@ -60,13 +58,13 @@ public class Bomb extends Character {
             } else {
                 triggerExplosion(); // Move explosion logic into a separate method
             }
-        }else{
+        } else {
             timer--;
         }
     }
 
     private void triggerExplosion() {
-        int explosionRadius = 26;
+        int explosionRadius = 28;
         Rectangle explosionArea = new Rectangle(x - explosionRadius, y - explosionRadius, 2 * explosionRadius, 2 * explosionRadius);
         background.getTileManager().handleExplosion(explosionArea);// Handle explosion and replace soft walls
         background.getEnemy1().handleExplosion(explosionArea);
@@ -212,6 +210,7 @@ public class Bomb extends Character {
     public int getY() {
         return y;
     }
+
     private void explode() {
         exploded = true;
     }

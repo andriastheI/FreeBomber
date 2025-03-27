@@ -112,6 +112,7 @@ public class EnemySlug extends Character {
                 return false;
         }
     }
+
     public void handleExplosion(Rectangle explosionArea) {
         Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
 
