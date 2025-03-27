@@ -15,7 +15,7 @@ public class JackBomber extends Character {
     private final List<Bomb> bombs = new ArrayList<Bomb>();
     Background background;
     KeyHandler keyHandler;
-    Bomb bomb;
+    public Bomb bomb;
     private boolean bombJustDropped = false;
 
     public JackBomber(Background bg, KeyHandler kh, Bomb bomb) {
@@ -140,7 +140,7 @@ public class JackBomber extends Character {
                 }
 
                 if (!alreadyPlaced) {
-                    bombs.add(new Bomb(bombX, bombY));
+                    bombs.add(new Bomb(bombX, bombY, this.background));
                 }
 
                 bombJustDropped = true; // bir kez bastı

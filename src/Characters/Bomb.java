@@ -1,6 +1,7 @@
 package Characters;
 
-import Background.Background;
+
+import Background.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,7 +15,14 @@ public class Bomb extends Character {
     Background background;
     private int x, y;
     private int timer;
+
+    public boolean isExploded() {
+        return exploded;
+    }
+
     private boolean exploded;
+    private boolean collision;
+
     private BufferedImage bomb1, bomb2, bomb3, bomb4, bomb5, bomb6, bomb7,
             bomb8, bomb9, bomb10, bomb11, bomb12, bomb13, bomb14, bomb15, bomb16;
     private BufferedImage[] bombFrames;
@@ -30,15 +38,19 @@ public class Bomb extends Character {
     private BufferedImage[] explosionDownFrames;
     private BufferedImage[] explosionMiddleFrames;
 
-    public Bomb(int x, int y) {
+    private BombCollision bombCollision;
+
+    public Bomb(int x, int y, Background bg) {
         this.x = x;
         this.y = y;
         this.timer = COUNTDOWN;
         this.exploded = false;
+        this.background = bg;
         getBombImage();
     }
 
-    public Bomb() {
+    public Bomb(Background bg) {;
+        this.background = bg;
     }
 
     public void update() {
@@ -46,12 +58,24 @@ public class Bomb extends Character {
             if (timer > 0) {
                 timer--;
             } else {
-                explode();
+                triggerExplosion(); // Move explosion logic into a separate method
             }
-        } else {
+        }else{
             timer--;
         }
     }
+
+    private void triggerExplosion() {
+        int explosionRadius = 40;
+        Rectangle explosionArea = new Rectangle(x - explosionRadius, y - explosionRadius, 2 * explosionRadius, 2 * explosionRadius);
+        background.getTileManager().handleExplosion(explosionArea);// Handle explosion and replace soft walls
+        background.getEnemy1().handleExplosion(explosionArea);
+        background.getEnemy2().handleExplosion(explosionArea);
+        background.getEnemy3().handleExplosion(explosionArea);
+        background.getEnemy4().handleExplosion(explosionArea);
+        exploded = true;
+    }
+
 
     public void getBombImage() {
         try {
@@ -173,10 +197,6 @@ public class Bomb extends Character {
         g.drawImage(img, x, y, null);
     }
 
-    private void explode() {
-        exploded = true;
-    }
-
     public boolean isFinished() {
         return exploded && timer <= -30;
     }
@@ -192,5 +212,36 @@ public class Bomb extends Character {
     public int getY() {
         return y;
     }
+    private void explode() {
+        exploded = true;
+    }
 
+    private void destroyNearbyBoxes(int tileX, int tileY) {
+        // Check nearby tiles (left, right, up, down) for boxes (assuming box is represented by a specific tile index)
+        if (this.background.getTileManager().mapTileNum[tileX][tileY] == 2) { // Assume '1' is the tile representing a box
+            this.background.getTileManager().mapTileNum[tileX][tileY] = 0; // Destroy box by setting it to empty space
+        }
+        // Check in adjacent directions
+        if (tileX > 0 && this.background.getTileManager().mapTileNum[tileX - 1][tileY] == 2) {
+            this.background.getTileManager().mapTileNum[tileX - 1][tileY] = 0; // Destroy box to the left
+        }
+        if (tileX < this.background.getTileManager().mapTileNum.length - 1 && this.background.getTileManager().mapTileNum[tileX + 1][tileY] == 1) {
+            this.background.getTileManager().mapTileNum[tileX + 1][tileY] = 0; // Destroy box to the right
+        }
+        if (tileY > 0 && this.background.getTileManager().mapTileNum[tileX][tileY - 1] == 2) {
+            this.background.getTileManager().mapTileNum[tileX][tileY - 1] = 0; // Destroy box above
+        }
+        if (tileY < this.background.getTileManager().mapTileNum[0].length - 1 && this.background.getTileManager().mapTileNum[tileX][tileY + 1] == 2) {
+            this.background.getTileManager().mapTileNum[tileX][tileY + 1] = 0; // Destroy box below
+        }
+    }
+
+
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
 }

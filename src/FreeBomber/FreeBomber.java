@@ -10,7 +10,7 @@ import javax.swing.*;
  */
 public class FreeBomber extends JFrame {
 
-    /**
+    /**wdsdsdawdwdsdwdwsdsdwd
      * Constructor for the FreeBomber class.
      * Sets up the JFrame, adds the game panel (Background), and starts the game thread.
      */

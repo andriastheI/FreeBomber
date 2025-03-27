@@ -99,6 +99,28 @@ public class TileManager {
     }
 
     /**
+     * Handles the explosion logic and replaces soft walls with grass after a bomb explosion.
+     * @param explosionArea The area affected by the explosion.
+     */
+    public void handleExplosion(Rectangle explosionArea) {
+        for (int col = 0; col < gp.getScreenCols(); col++) {
+            for (int row = 0; row < gp.getScreenRows(); row++) {
+                // Check if the tile is a soft wall (tile[2]) and is within the explosion area
+                if (mapTileNum[col][row] == 2) {
+                    int tileX = col * gp.getTileSize();
+                    int tileY = row * gp.getTileSize();
+                    Rectangle tileRect = new Rectangle(tileX, tileY, gp.getTileSize(), gp.getTileSize());
+
+                    if (explosionArea.intersects(tileRect)) {
+                        // Replace soft wall with grass after explosion
+                        mapTileNum[col][row] = 0; // Change tile to grass (tile[0])
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Draws the map on the screen using the Graphics2D object.
      * Iterates over the mapTileNum array and draws the corresponding tile images at the appropriate screen coordinates.
      *

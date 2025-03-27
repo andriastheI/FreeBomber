@@ -17,6 +17,7 @@ public class EnemyMush extends Character {
     Random random;
     JackBomber jackBomber;
 
+
     public EnemyMush(Background bg, JackBomber jack) {
         this.background = bg;
         this.random = new Random();
@@ -167,6 +168,14 @@ public class EnemyMush extends Character {
                 break;
         }
         g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
+    }
+    public void handleExplosion(Rectangle explosionArea) {
+        Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
+
+        if (explosionArea.intersects(enemyRect)) {
+            // Enemy is hit by the explosion, remove or mark as defeated
+            this.setAlive(false);
+        }
     }
 }
 

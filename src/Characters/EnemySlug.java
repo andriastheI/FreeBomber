@@ -112,6 +112,14 @@ public class EnemySlug extends Character {
                 return false;
         }
     }
+    public void handleExplosion(Rectangle explosionArea) {
+        Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
+
+        if (explosionArea.intersects(enemyRect)) {
+            // Enemy is hit by the explosion, remove or mark as defeated
+            this.setAlive(false);
+        }
+    }
 
     /**
      * Changes the direction of the enemy slug to avoid reversing its current direction.

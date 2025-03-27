@@ -14,4 +14,13 @@ public class Character {
     public int spriteNum = 1;
     public Rectangle spriteBounds;
     public boolean collisionOn = false;
+    private boolean alive = true;
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
 }

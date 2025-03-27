@@ -1,9 +1,11 @@
 package Background;
 
 import Characters.*;
+import Characters.Character;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * The Background class represents the game panel where the game logic and rendering occur.
@@ -27,8 +29,28 @@ public class Background extends JPanel implements Runnable {
     private final EnemyCollision eslugCollision = new EnemyCollision(this);
     private final TileManager tileManager = new TileManager(this);
     private final KeyHandler keyHandler = new KeyHandler();
+    private final ArrayList<Character> characters = new ArrayList<>();
+
+
     // Player and enemies
-    private final JackBomber player = new JackBomber(this, keyHandler, new Bomb());
+    private final JackBomber player = new JackBomber(this, keyHandler, new Bomb(this));
+
+    public EnemyRock getEnemy2() {
+        return enemy2;
+    }
+
+    public EnemyMush getEnemy3() {
+        return enemy3;
+    }
+
+    public EnemySlug getEnemy1() {
+        return enemy1;
+    }
+
+    public EnemySlug2 getEnemy4() {
+        return enemy4;
+    }
+
     private final EnemyRock enemy2 = new EnemyRock(this, this.player);
     private final EnemyMush enemy3 = new EnemyMush(this, this.player);
     private final EnemySlug enemy1 = new EnemySlug(this, this.player);
@@ -36,7 +58,7 @@ public class Background extends JPanel implements Runnable {
     // Indicates whether the game is over
     public boolean gameOver = false;
     private Thread gameThread;
-    private Bomb bomb;
+
 
     /**
      * Constructs the Background panel, initializing its size, background color, and key listeners.
@@ -48,6 +70,10 @@ public class Background extends JPanel implements Runnable {
         addKeyListener(keyHandler);
         setFocusable(true);
         setLayout(null);
+        characters.add(player);
+        characters.add(enemy1);
+        characters.add(enemy2);
+        characters.add(enemy4);
     }
 
     /**
@@ -91,11 +117,21 @@ public class Background extends JPanel implements Runnable {
      * Updates the game state, including the player and enemy characters.
      */
     public void update() {
-        player.update();
-        enemy1.update();
-        enemy2.update();
-        enemy3.update();
-        enemy4.update();
+        if (player.isAlive()){
+            player.update();
+        }
+        if (enemy1.isAlive()){
+            enemy1.update();
+        }
+        if (enemy2.isAlive()){
+            enemy2.update();
+        }
+        if (enemy3.isAlive()){
+            enemy3.update();
+        }
+        if (enemy4.isAlive()){
+            enemy4.update();
+        }
     }
 
     /**
@@ -163,11 +199,21 @@ public class Background extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         tileManager.draw(g2);
-        player.draw(g2);
-        enemy1.draw(g2);
-        enemy2.draw(g2);
-        enemy3.draw(g2);
-        enemy4.draw(g2);
+        if (player.isAlive()){
+            player.draw(g2);
+        }
+        if (enemy1.isAlive()){
+            enemy1.draw(g2);
+        }
+        if (enemy2.isAlive()){
+            enemy2.draw(g2);
+        }
+        if (enemy3.isAlive()){
+            enemy3.draw(g2);
+        }
+        if (enemy4.isAlive()){
+            enemy4.draw(g2);
+        }
 
         if (gameOver) {
             String message = "GAME OVER";
@@ -178,6 +224,10 @@ public class Background extends JPanel implements Runnable {
         g2.dispose();
     }
 
+
+    public JackBomber getPlayer() {
+        return player;
+    }
     public CheckCollision getCheckCollision() {
         return checkCollision;
     }
