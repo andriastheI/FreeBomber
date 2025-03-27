@@ -6,7 +6,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
+
 
 /**
  * The TileManager class is responsible for managing the tiles used in the game.
@@ -18,6 +23,9 @@ public class TileManager {
     public int[][] mapTileNum;
     public int currentMap = 1;  // Track which map is currently loaded
     Background gp;
+    private Random theWizard = new Random();
+    private int[] theDoor;
+    private List<int[]> doorLocations = new ArrayList<>();
 
     /**
      * Constructor for the TileManager class.
@@ -32,6 +40,11 @@ public class TileManager {
         getTileImg();
         loadMap(1);  // Load map 1 by default
     }
+
+    public int[] getTheDoor() {
+        return theDoor;
+    }
+
 
     /**
      * Loads tile images and their properties (like collision) from the specified resources.
@@ -49,11 +62,13 @@ public class TileManager {
 
             tile[2] = new Tile();
             tile[2].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("storage/tiles/softWall.png")));
-            tile[2].collision = false;
+
+            tile[2].collision = true;
 
             tile[3] = new Tile();
-            tile[3].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("storage/tiles/wall2.png")));
-            tile[3].collision = true;
+            tile[3].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("storage/tiles/thedoor.png")));
+            tile[3].setLevelUp(false);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,6 +98,10 @@ public class TileManager {
                     String[] numbers = line.split(" ");
                     int x = Integer.parseInt(numbers[col]);
 
+                    if (x == 2) {
+                        doorLocations.add(new int[]{col, row});
+                    }
+
                     mapTileNum[col][row] = x;
                     col++;
                 }
@@ -95,6 +114,35 @@ public class TileManager {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (!doorLocations.isEmpty()) {
+            theDoor = doorLocations.get(theWizard.nextInt(doorLocations.size()));
+        }
+    }
+
+    /**
+     * Handles the explosion logic and replaces soft walls with grass after a bomb explosion.
+     *
+     * @param explosionArea The area affected by the explosion.
+     */
+    public void handleExplosion(Rectangle explosionArea) {
+        for (int col = 0; col < gp.getScreenCols(); col++) {
+            for (int row = 0; row < gp.getScreenRows(); row++) {
+                // Check if the tile is a soft wall (tile[2]) and is within the explosion area
+                if (mapTileNum[col][row] == 2) {
+                    int tileX = col * gp.getTileSize();
+                    int tileY = row * gp.getTileSize();
+                    Rectangle tileRect = new Rectangle(tileX, tileY, gp.getTileSize(), gp.getTileSize());
+
+                    if (explosionArea.intersects(tileRect) && col == theDoor[0] && row == theDoor[1]) {
+                        // Replace soft wall with grass after explosion
+                        mapTileNum[col][row] = 3; // Change tile to grass (tile[0])
+                    } else if (explosionArea.intersects(tileRect)) {
+                        mapTileNum[col][row] = 0;
+                    }
+                }
+            }
         }
     }
 

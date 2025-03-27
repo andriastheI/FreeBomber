@@ -15,7 +15,9 @@ public class JackBomber extends Character {
     private final List<Bomb> bombs = new ArrayList<Bomb>();
     Background background;
     KeyHandler keyHandler;
-    Bomb bomb;
+    public Bomb bomb;
+
+
     private boolean bombJustDropped = false;
 
     public JackBomber(Background bg, KeyHandler kh, Bomb bomb) {
@@ -128,8 +130,10 @@ public class JackBomber extends Character {
 
         if (keyHandler.isBombDrop()) {
             if (!bombJustDropped) {
-                int bombX = x + background.getTileSize() / 2 - bomb.getSize() / 2;
-                int bombY = y + background.getTileSize() / 2 - bomb.getSize() / 2;
+
+                int bombX = x + background.getTileSize() / 4;
+                int bombY = y + background.getTileSize() / 2;
+
 
                 boolean alreadyPlaced = false;
                 for (Bomb b : bombs) {
@@ -140,7 +144,7 @@ public class JackBomber extends Character {
                 }
 
                 if (!alreadyPlaced) {
-                    bombs.add(new Bomb(bombX, bombY));
+                    bombs.add(new Bomb(bombX, bombY, this.background));
                 }
 
                 bombJustDropped = true; // bir kez bastı

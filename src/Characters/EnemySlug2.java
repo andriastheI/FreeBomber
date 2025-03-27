@@ -3,6 +3,9 @@ package Characters;
 import Background.Background;
 
 import javax.imageio.ImageIO;
+
+import java.awt.*;
+
 import java.io.IOException;
 
 /**
@@ -77,4 +80,14 @@ public class EnemySlug2 extends EnemySlug {
     public Background getBackground() {
         return background;
     }
+
+    public void handleExplosion(Rectangle explosionArea) {
+        Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
+
+        if (explosionArea.intersects(enemyRect)) {
+            // Enemy is hit by the explosion, remove or mark as defeated
+            this.setAlive(false);
+        }
+    }
+
 }

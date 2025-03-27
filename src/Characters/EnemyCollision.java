@@ -42,12 +42,16 @@ public class EnemyCollision {
         int jackBottomY = jack.y + jack.spriteBounds.y + jack.spriteBounds.height;
 
         // Check for collision between the enemy character and the player character
-        if (characterLeftX < jackRightX && characterRightX > jackLeftX &&
-                characterTopY < jackBottomY && characterBottomY > jackTopY) {
-            // Collision detected, trigger game over
-            character.collisionOn = true;
-            gameOver();
+
+        if (character.isAlive()) {
+            if (characterLeftX < jackRightX && characterRightX > jackLeftX &&
+                    characterTopY < jackBottomY && characterBottomY > jackTopY) {
+                // Collision detected, trigger game over
+                character.collisionOn = true;
+                gameOver();
+            }
         }
+
 
         // Get tile properties
         int tileSize = background.getTileSize();
