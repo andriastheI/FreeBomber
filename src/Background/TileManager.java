@@ -6,7 +6,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.*;
+
+
 
 /**
  * The TileManager class is responsible for managing the tiles used in the game.
@@ -18,6 +23,10 @@ public class TileManager {
     public int[][] mapTileNum;
     public int currentMap = 1;  // Track which map is currently loaded
     Background gp;
+    private Random theWizard = new Random();
+    private int[] theDoor;
+    private List<int[]> doorLocations = new ArrayList<>();
+
 
     /**
      * Constructor for the TileManager class.
@@ -52,8 +61,8 @@ public class TileManager {
             tile[2].collision = false;
 
             tile[3] = new Tile();
-            tile[3].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("storage/tiles/wall2.png")));
-            tile[3].collision = true;
+            tile[3].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("storage/tiles/thedoor.png")));
+            tile[3].collision = false;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,7 +91,9 @@ public class TileManager {
                 while (col < gp.getScreenCols()) {
                     String[] numbers = line.split(" ");
                     int x = Integer.parseInt(numbers[col]);
-
+                    if(x == 2){
+                        doorLocations.add(new int[]{row, col});
+                    }
                     mapTileNum[col][row] = x;
                     col++;
                 }
@@ -95,6 +106,9 @@ public class TileManager {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if(!doorLocations.isEmpty()){
+            theDoor = doorLocations.get(theWizard.nextInt(doorLocations.size()));
         }
     }
 
@@ -111,9 +125,11 @@ public class TileManager {
                     int tileY = row * gp.getTileSize();
                     Rectangle tileRect = new Rectangle(tileX, tileY, gp.getTileSize(), gp.getTileSize());
 
-                    if (explosionArea.intersects(tileRect)) {
+                    if (explosionArea.intersects(tileRect) && col == theDoor[1] && row == theDoor[0]) {
                         // Replace soft wall with grass after explosion
-                        mapTileNum[col][row] = 0; // Change tile to grass (tile[0])
+                        mapTileNum[col][row] = 3; // Change tile to grass (tile[0])
+                    }else if(explosionArea.intersects(tileRect)){
+                        mapTileNum[col][row] = 0;
                     }
                 }
             }

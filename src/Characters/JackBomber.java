@@ -33,11 +33,6 @@ public class JackBomber extends Character {
     public JackBomber() {
     }
 
-    public static void main(String[] args) {
-        JackBomber test = new JackBomber();
-        test.crop();
-    }
-
     public void setDefaultValues() {
         x = 1;
         y = 1;
