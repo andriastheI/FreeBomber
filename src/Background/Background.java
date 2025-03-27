@@ -43,6 +43,7 @@ public class Background extends JPanel implements Runnable {
     // Indicates whether the game is over
     public boolean gameOver = false;
     private Thread gameThread;
+
     /**
      * Constructs the Background panel, initializing its size, background color, and key listeners.
      */

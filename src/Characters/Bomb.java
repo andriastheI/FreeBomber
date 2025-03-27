@@ -45,7 +45,6 @@ public class Bomb extends Character {
     }
 
     public Bomb(Background bg) {
-        ;
         this.background = bg;
     }
 
@@ -70,7 +69,7 @@ public class Bomb extends Character {
 
     private void triggerExplosion() {
         int explosionRadius = 28;
-        Rectangle explosionArea = new Rectangle(x - explosionRadius, y - explosionRadius, 2 * explosionRadius, 2 * explosionRadius);
+        Rectangle explosionArea = new Rectangle(this.getX() - explosionRadius, this.getY() - explosionRadius, 2 * explosionRadius, 2 * explosionRadius);
         background.getTileManager().handleExplosion(explosionArea);// Handle explosion and replace soft walls
         background.getEnemy1().handleExplosion(explosionArea);
         background.getEnemy2().handleExplosion(explosionArea);
