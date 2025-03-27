@@ -24,6 +24,11 @@ public class TileManager {
     public int currentMap = 1;  // Track which map is currently loaded
     Background gp;
     private Random theWizard = new Random();
+
+    public int[] getTheDoor() {
+        return theDoor;
+    }
+
     private int[] theDoor;
     private List<int[]> doorLocations = new ArrayList<>();
 
@@ -62,7 +67,7 @@ public class TileManager {
 
             tile[3] = new Tile();
             tile[3].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("storage/tiles/thedoor.png")));
-            tile[3].collision = false;
+            tile[3].setLevelUp(false);
 
         } catch (IOException e) {
             e.printStackTrace();
