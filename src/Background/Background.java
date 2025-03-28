@@ -1,9 +1,9 @@
 package Background;
 
 
-
-import Characters.*;
 import Characters.Character;
+import Characters.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

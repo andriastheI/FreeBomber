@@ -20,16 +20,24 @@ import java.util.Random;
  */
 public class EnemyMush extends Character {
 
-    /** Reference to the game background for movement boundaries and collision. */
+    /**
+     * Reference to the game background for movement boundaries and collision.
+     */
     Background background;
 
-    /** Timer that triggers movement updates every 200ms. */
+    /**
+     * Timer that triggers movement updates every 200ms.
+     */
     Timer movementTimer;
 
-    /** Random object to generate directions. */
+    /**
+     * Random object to generate directions.
+     */
     Random random;
 
-    /** Reference to the JackBomber player, used for collision handling. */
+    /**
+     * Reference to the JackBomber player, used for collision handling.
+     */
     JackBomber jackBomber;
 
     /**

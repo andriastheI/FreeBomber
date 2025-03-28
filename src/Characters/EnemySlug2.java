@@ -3,9 +3,7 @@ package Characters;
 import Background.Background;
 
 import javax.imageio.ImageIO;
-
 import java.awt.*;
-
 import java.io.IOException;
 
 /**

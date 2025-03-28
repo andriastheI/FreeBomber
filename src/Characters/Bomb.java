@@ -1,6 +1,7 @@
 package Characters;
 
 import Background.Background;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,28 +16,44 @@ import java.io.IOException;
  */
 public class Bomb extends Character {
 
-    /** Countdown value in frames before bomb explodes (~3 seconds at 60 FPS). */
+    /**
+     * Countdown value in frames before bomb explodes (~3 seconds at 60 FPS).
+     */
     private static final int COUNTDOWN = 180;
 
-    /** Size of the bomb, typically matching the tile size. */
+    /**
+     * Size of the bomb, typically matching the tile size.
+     */
     private final int size = 32;
 
-    /** Game background for managing tiles and enemies. */
+    /**
+     * Game background for managing tiles and enemies.
+     */
     Background background;
 
-    /** Position of the bomb in pixels. */
+    /**
+     * Position of the bomb in pixels.
+     */
     private int x, y;
 
-    /** Countdown timer that decreases every frame. */
+    /**
+     * Countdown timer that decreases every frame.
+     */
     private int timer;
 
-    /** Whether the bomb has exploded. */
+    /**
+     * Whether the bomb has exploded.
+     */
     private boolean exploded;
 
-    /** Whether the bomb has collided with something. */
+    /**
+     * Whether the bomb has collided with something.
+     */
     private boolean collision;
 
-    /** Individual frames (not directly used outside init) */
+    /**
+     * Individual frames (not directly used outside init)
+     */
     private BufferedImage bomb1, bomb2, bomb3, bomb4, bomb5, bomb6, bomb7,
             bomb8, bomb9, bomb10, bomb11, bomb12, bomb13, bomb14, bomb15, bomb16,
             expLeft1, expLeft2, expLeft3, expLeft4, expLeft5, expLeft6,
@@ -46,10 +63,14 @@ public class Bomb extends Character {
             expDown4, expDown5, expDown6, expDown7, expDown8, expDown9, expMid1, expMid2,
             expMid3, expMid4, expMid5, expMid6, expMid7, expMid8, expMid9;
 
-    /** Bomb animation frames */
+    /**
+     * Bomb animation frames
+     */
     private BufferedImage[] bombFrames;
 
-    /** Explosion animation frames (in each direction) */
+    /**
+     * Explosion animation frames (in each direction)
+     */
     private BufferedImage[] explosionLeftFrames;
     private BufferedImage[] explosionRightFrames;
     private BufferedImage[] explosionUpFrames;
@@ -59,7 +80,8 @@ public class Bomb extends Character {
     /**
      * Minimal constructor used for placeholder instantiation.
      */
-    public Bomb(int x, int y) {}
+    public Bomb(int x, int y) {
+    }
 
     /**
      * Full constructor used to create an active bomb.

@@ -20,26 +20,32 @@ import java.util.List;
  */
 public class JackBomber extends Character {
 
-    /** List of active bombs placed by the player. */
+    /**
+     * List of active bombs placed by the player.
+     */
     private final List<Bomb> bombs = new ArrayList<Bomb>();
-
-    /** Reference to the game background. */
-    Background background;
-
-    /** Reference to the key handler for capturing input. */
-    KeyHandler keyHandler;
-
-    /** The current bomb object being placed. */
+    /**
+     * The current bomb object being placed.
+     */
     public Bomb bomb;
-
-    /** Flag indicating whether a bomb was just dropped. */
+    /**
+     * Reference to the game background.
+     */
+    Background background;
+    /**
+     * Reference to the key handler for capturing input.
+     */
+    KeyHandler keyHandler;
+    /**
+     * Flag indicating whether a bomb was just dropped.
+     */
     private boolean bombJustDropped = false;
 
     /**
      * Constructs a new JackBomber with background and input handler.
      *
-     * @param bg    the background environment
-     * @param kh    the key handler
+     * @param bg   the background environment
+     * @param kh   the key handler
      * @param bomb the bomb reference
      */
     public JackBomber(Background bg, KeyHandler kh, Bomb bomb) {
@@ -54,7 +60,9 @@ public class JackBomber extends Character {
         spriteBounds = new Rectangle(6, 18, 28, 25);
     }
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public JackBomber() {
     }
 
