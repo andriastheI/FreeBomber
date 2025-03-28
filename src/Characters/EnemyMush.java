@@ -11,13 +11,35 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * Represents a mushroom-type enemy character in the game.
+ * <p>
+ * EnemyMush moves randomly, checks for collisions with the environment and player,
+ * and reacts to bomb explosions. It uses a timer-based system to update direction periodically.
+ * </p>
+ */
 public class EnemyMush extends Character {
+
+    /** Reference to the game background for movement boundaries and collision. */
     Background background;
+
+    /** Timer that triggers movement updates every 200ms. */
     Timer movementTimer;
+
+    /** Random object to generate directions. */
     Random random;
+
+    /** Reference to the JackBomber player, used for collision handling. */
     JackBomber jackBomber;
 
+    /**
+     * Constructs a new EnemyMush instance.
+     *
+     * @param bg   the game background
+     * @param jack the player character
+     */
     public EnemyMush(Background bg, JackBomber jack) {
+
         this.background = bg;
         this.random = new Random();
         this.jackBomber = jack;
@@ -37,6 +59,9 @@ public class EnemyMush extends Character {
         movementTimer.start();
     }
 
+    /**
+     * Sets the default position, speed, and direction of the enemy.
+     */
     public void setDefaultValues() {
         x = background.getScreenWidth() - 2 * background.getTileSize();
         y = background.getScreenHeight() - 2 * background.getTileSize();
@@ -44,6 +69,9 @@ public class EnemyMush extends Character {
         direction = "left";
     }
 
+    /**
+     * Loads sprite images for the enemy in each direction.
+     */
     public void getPlayerImage() {
         try {
             up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_up_1.png"));
@@ -66,6 +94,10 @@ public class EnemyMush extends Character {
         }
     }
 
+    /**
+     * Moves the enemy in the current direction unless there's a collision.
+     * If blocked, chooses a new random direction.
+     */
     public void moveRandomly() {
         collisionOn = false;
         background.getEslugCollision().checkCollision(this, jackBomber);
@@ -104,6 +136,10 @@ public class EnemyMush extends Character {
         }
     }
 
+
+    /**
+     * Updates the animation frame for sprite switching.
+     */
     public void update() {
         spriteCounter++;
         if (spriteCounter > 8) {
@@ -118,6 +154,11 @@ public class EnemyMush extends Character {
         }
     }
 
+    /**
+     * Renders the current sprite image based on direction and animation state.
+     *
+     * @param g the graphics context to draw on
+     */
     public void draw(Graphics g) {
         BufferedImage img = null;
         switch (direction) {
@@ -169,6 +210,11 @@ public class EnemyMush extends Character {
         g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
     }
 
+    /**
+     * If the enemy is within an explosion area, marks it as defeated.
+     *
+     * @param explosionArea the area affected by the explosion
+     */
     public void handleExplosion(Rectangle explosionArea) {
         Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
 

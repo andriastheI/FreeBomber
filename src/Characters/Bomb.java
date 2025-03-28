@@ -6,35 +6,68 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Represents a bomb object that can be placed by the player.
+ * <p>
+ * Bombs have a countdown timer and explode after a certain duration,
+ * affecting nearby enemies and destructible tiles.
+ * </p>
+ */
 public class Bomb extends Character {
 
-    private static final int COUNTDOWN = 180; // ~3 seconds if game runs at 60 FPS
-    private final int size = 32; // Assuming tile size
+    /** Countdown value in frames before bomb explodes (~3 seconds at 60 FPS). */
+    private static final int COUNTDOWN = 180;
+
+    /** Size of the bomb, typically matching the tile size. */
+    private final int size = 32;
+
+    /** Game background for managing tiles and enemies. */
     Background background;
+
+    /** Position of the bomb in pixels. */
     private int x, y;
+
+    /** Countdown timer that decreases every frame. */
     private int timer;
+
+    /** Whether the bomb has exploded. */
     private boolean exploded;
+
+    /** Whether the bomb has collided with something. */
     private boolean collision;
+
+    /** Individual frames (not directly used outside init) */
     private BufferedImage bomb1, bomb2, bomb3, bomb4, bomb5, bomb6, bomb7,
-            bomb8, bomb9, bomb10, bomb11, bomb12, bomb13, bomb14, bomb15, bomb16;
-    private BufferedImage[] bombFrames;
-    private BufferedImage expLeft1, expLeft2, expLeft3, expLeft4, expLeft5, expLeft6,
+            bomb8, bomb9, bomb10, bomb11, bomb12, bomb13, bomb14, bomb15, bomb16,
+            expLeft1, expLeft2, expLeft3, expLeft4, expLeft5, expLeft6,
             expLeft7, expLeft8, expLeft9, expRight1, expRight2, expRight3, expRight4,
             expRight5, expRight6, expRight7, expRight8, expRight9, expUp1, expUp2, expUp3,
             expUp4, expUp5, expUp6, expUp7, expUp8, expUp9, expDown1, expDown2, expDown3,
             expDown4, expDown5, expDown6, expDown7, expDown8, expDown9, expMid1, expMid2,
             expMid3, expMid4, expMid5, expMid6, expMid7, expMid8, expMid9;
+
+    /** Bomb animation frames */
+    private BufferedImage[] bombFrames;
+
+    /** Explosion animation frames (in each direction) */
     private BufferedImage[] explosionLeftFrames;
     private BufferedImage[] explosionRightFrames;
     private BufferedImage[] explosionUpFrames;
     private BufferedImage[] explosionDownFrames;
     private BufferedImage[] explosionMiddleFrames;
 
-
+    /**
+     * Minimal constructor used for placeholder instantiation.
+     */
     public Bomb(int x, int y) {}
 
-    private BombCollision bombCollision;
-
+    /**
+     * Full constructor used to create an active bomb.
+     *
+     * @param x  x position in pixels
+     * @param y  y position in pixels
+     * @param bg background reference
+     */
     public Bomb(int x, int y, Background bg) {
         this.x = x;
         this.y = y;
@@ -44,15 +77,28 @@ public class Bomb extends Character {
         getBombImage();
     }
 
+    /**
+     * Constructor used when bomb is initialized but not placed.
+     *
+     * @param bg background reference
+     */
     public Bomb(Background bg) {
         this.background = bg;
     }
 
+    /**
+     * Returns whether the bomb has exploded.
+     *
+     * @return true if exploded, false otherwise
+     */
     public boolean isExploded() {
         return exploded;
 
     }
 
+    /**
+     * Updates the bomb timer and triggers explosion when countdown ends.
+     */
     public void update() {
         if (!exploded) {
             if (timer > 0) {
@@ -67,6 +113,9 @@ public class Bomb extends Character {
         }
     }
 
+    /**
+     * Handles the explosion logic and checks for collisions with enemies and soft walls.
+     */
     private void triggerExplosion() {
         int explosionRadius = 28;
         Rectangle explosionArea = new Rectangle(this.getX() - explosionRadius, this.getY() - explosionRadius, 2 * explosionRadius, 2 * explosionRadius);
@@ -78,7 +127,9 @@ public class Bomb extends Character {
         exploded = true;
     }
 
-
+    /**
+     * Loads all bomb and explosion animation frames.
+     */
     public void getBombImage() {
         try {
             bomb1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/bombs/time_cropped_bomb_1.png"));
@@ -180,6 +231,11 @@ public class Bomb extends Character {
         }
     }
 
+    /**
+     * Draws the bomb or explosion animation depending on state.
+     *
+     * @param g the Graphics context to draw on
+     */
     public void draw(Graphics g) {
         BufferedImage img = null;
         if (!exploded) {
@@ -198,25 +254,56 @@ public class Bomb extends Character {
         }
         g.drawImage(img, x, y, null);
     }
+
+    /**
+     * Flags the bomb as exploded.
+     */
     private void explode() {
         exploded = true;
     }
+
+    /**
+     * Returns whether the bomb's explosion animation is finished.
+     *
+     * @return true if the animation is done, false otherwise
+     */
     public boolean isFinished() {
         return exploded && timer <= -30;
     }
 
+    /**
+     * Returns the bomb's visual size (usually 32x32).
+     *
+     * @return bomb size in pixels
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Returns the x position of the bomb.
+     *
+     * @return x in pixels
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Returns the y position of the bomb.
+     *
+     * @return y in pixels
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Checks and destroys any soft walls (boxes) adjacent to the bomb.
+     *
+     * @param tileX tile x-coordinate
+     * @param tileY tile y-coordinate
+     */
     private void destroyNearbyBoxes(int tileX, int tileY) {
         // Check nearby tiles (left, right, up, down) for boxes (assuming box is represented by a specific tile index)
         if (this.background.getTileManager().mapTileNum[tileX][tileY] == 2) { // Assume '1' is the tile representing a box
@@ -237,11 +324,20 @@ public class Bomb extends Character {
         }
     }
 
-
+    /**
+     * Returns whether a collision was detected.
+     *
+     * @return true if collided
+     */
     public boolean isCollision() {
         return collision;
     }
 
+    /**
+     * Sets the collision flag for the bomb.
+     *
+     * @param collision true if collision occurred
+     */
     public void setCollision(boolean collision) {
         this.collision = collision;
     }

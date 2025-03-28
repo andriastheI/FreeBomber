@@ -11,15 +11,37 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the main player character, JackBomber.
+ * <p>
+ * JackBomber handles movement, animation, bomb placement, and collision logic.
+ * It interacts with the game background and listens for keyboard input.
+ * </p>
+ */
 public class JackBomber extends Character {
+
+    /** List of active bombs placed by the player. */
     private final List<Bomb> bombs = new ArrayList<Bomb>();
+
+    /** Reference to the game background. */
     Background background;
+
+    /** Reference to the key handler for capturing input. */
     KeyHandler keyHandler;
+
+    /** The current bomb object being placed. */
     public Bomb bomb;
 
-
+    /** Flag indicating whether a bomb was just dropped. */
     private boolean bombJustDropped = false;
 
+    /**
+     * Constructs a new JackBomber with background and input handler.
+     *
+     * @param bg    the background environment
+     * @param kh    the key handler
+     * @param bomb the bomb reference
+     */
     public JackBomber(Background bg, KeyHandler kh, Bomb bomb) {
         this.background = bg;
         this.keyHandler = kh;
@@ -32,14 +54,23 @@ public class JackBomber extends Character {
         spriteBounds = new Rectangle(6, 18, 28, 25);
     }
 
+    /** Default constructor. */
     public JackBomber() {
     }
 
+    /**
+     * Main method for testing image cropping.
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         JackBomber test = new JackBomber();
         test.crop();
     }
 
+    /**
+     * Sets the initial default values for position, speed and direction.
+     */
     public void setDefaultValues() {
         x = 1;
         y = 1;
@@ -47,6 +78,9 @@ public class JackBomber extends Character {
         direction = "down";
     }
 
+    /**
+     * Loads the player's sprite images from resources for animation.
+     */
     public void getPlayerImage() {
         try {
             up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_up_1.png"));
@@ -71,6 +105,9 @@ public class JackBomber extends Character {
         }
     }
 
+    /**
+     * Updates the player's state each frame, including movement and animation.
+     */
     public void update() {
 
         if (keyHandler.isUpDirection() || keyHandler.isDownDirection() ||
@@ -163,6 +200,11 @@ public class JackBomber extends Character {
         }
     }
 
+    /**
+     * Renders the player sprite on the screen.
+     *
+     * @param g the graphics context to draw on
+     */
     public void draw(Graphics g) {
         BufferedImage img = null;
         switch (direction) {
@@ -233,9 +275,7 @@ public class JackBomber extends Character {
         try {
             File imageFile = new File("storage/bombs/explosion.png");
             BufferedImage img = ImageIO.read(imageFile);
-//            String[] naming = {"down", "up", "right", "left"};
             for (int i = 0; i < 9; i++) {
-//                for (int j = 0; j < 3; j++) {
                 int cropX = i * 32;
                 int cropY = 64;
                 int cropWidth = 32;
@@ -245,7 +285,6 @@ public class JackBomber extends Character {
                 File outputfile = new File("storage/bombs/explosion_cropped_extensionVertical" + (i + 1) + ".png");
                 ImageIO.write(croppedImage, "png", outputfile);
                 System.out.println("Done");
-//                }
             }
 
 

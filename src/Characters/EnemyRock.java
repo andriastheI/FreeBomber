@@ -11,12 +11,34 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * Represents a rock-type enemy character in the game.
+ * <p>
+ * EnemyRock moves in a random direction every few frames,
+ * interacts with the environment and the player,
+ * and can be defeated by explosions.
+ * </p>
+ */
 public class EnemyRock extends Character {
+
+    /** Reference to the game background for screen and tile information. */
     Background background;
+
+    /** Timer that triggers movement every 200 milliseconds. */
     Timer movementTimer;
+
+    /** Random object used for direction selection. */
     Random random;
+
+    /** Reference to the JackBomber player, used for collision checks. */
     JackBomber jackBomber;
 
+    /**
+     * Constructs a new EnemyRock with the specified background and player reference.
+     *
+     * @param bg   the game background
+     * @param jack the JackBomber player character
+     */
     public EnemyRock(Background bg, JackBomber jack) {
         this.background = bg;
         this.random = new Random();
@@ -37,6 +59,9 @@ public class EnemyRock extends Character {
         movementTimer.start();
     }
 
+    /**
+     * Initializes default position, speed, and direction values for the enemy.
+     */
     public void setDefaultValues() {
         x = background.getScreenWidth() - 2 * background.getTileSize();
         y = background.getScreenHeight() - 2 * background.getTileSize();
@@ -44,6 +69,9 @@ public class EnemyRock extends Character {
         direction = "left";
     }
 
+    /**
+     * Loads enemy sprite images for different directions from the resources.
+     */
     public void getPlayerImage() {
         try {
             up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_cropped_up_1.png"));
@@ -66,6 +94,10 @@ public class EnemyRock extends Character {
         }
     }
 
+    /**
+     * Moves the enemy in the current direction if there is no collision.
+     * If a collision occurs, picks a new random direction.
+     */
     public void moveRandomly() {
         collisionOn = false;
         background.getEslugCollision().checkCollision(this, jackBomber);
@@ -94,6 +126,7 @@ public class EnemyRock extends Character {
                     break;
             }
         } else {
+            // Change to a new direction
             String newDirection = direction;
             while (newDirection.equals(direction)) {
                 String[] directions = {"up", "down", "left", "right"};
@@ -103,6 +136,9 @@ public class EnemyRock extends Character {
         }
     }
 
+    /**
+     * Updates the animation frame counter for sprite switching.
+     */
     public void update() {
         spriteCounter++;
         if (spriteCounter > 8) {
@@ -117,6 +153,11 @@ public class EnemyRock extends Character {
         }
     }
 
+    /**
+     * Draws the enemy sprite to the screen based on direction and animation frame.
+     *
+     * @param g the Graphics object used to draw the enemy
+     */
     public void draw(Graphics g) {
         BufferedImage img = null;
         switch (direction) {
@@ -167,6 +208,12 @@ public class EnemyRock extends Character {
         }
         g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
     }
+
+    /**
+     * Checks if the enemy is within an explosion area and sets it as defeated if so.
+     *
+     * @param explosionArea the rectangular area affected by the bomb explosion
+     */
     public void handleExplosion(Rectangle explosionArea) {
         Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
 
