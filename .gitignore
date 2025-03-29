@@ -1,8 +1,7 @@
 bin/
 out/
 .idea/
-FreeBomber.iml
 src/FinalProject.iml
 .DS_Store
-FinalProject.iml
+*.iml
 src/.DS_Store

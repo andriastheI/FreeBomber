@@ -17,7 +17,7 @@
       <manifest>
         <attribute name="Main-Class" value="FreeBomber.FreeBomber"/>
       </manifest>
-      <fileset dir="." includes="storage/**"/>
+      <fileset dir="." includes="src/storage.**"/>
     </jar>
   </target>
 
