@@ -31,15 +31,14 @@ public class Background extends JPanel implements Runnable {
     private final EnemyCollision eslugCollision = new EnemyCollision(this);
     private final TileManager tileManager = new TileManager(this);
     private final KeyHandler keyHandler = new KeyHandler();
-    private final ArrayList<Character> characters = new ArrayList<>();
 
 
     // Player and enemies
-    private final JackBomber player = new JackBomber(this, keyHandler, new Bomb(this));
-    private final EnemyRock enemy2 = new EnemyRock(this, this.player);
-    private final EnemyMush enemy3 = new EnemyMush(this, this.player);
-    private final EnemySlug enemy1 = new EnemySlug(this, this.player);
-    private final EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
+    private JackBomber player = new JackBomber(this, keyHandler, new Bomb(this));
+    private EnemyRock enemy2 = new EnemyRock(this, this.player);
+    private EnemyMush enemy3 = new EnemyMush(this, this.player);
+    private EnemySlug enemy1 = new EnemySlug(this, this.player);
+    private EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
     // Indicates whether the game is over
     public boolean gameOver = false;
     private Thread gameThread;
@@ -54,11 +53,6 @@ public class Background extends JPanel implements Runnable {
         addKeyListener(keyHandler);
         setFocusable(true);
         setLayout(null);
-
-        characters.add(player);
-        characters.add(enemy1);
-        characters.add(enemy2);
-        characters.add(enemy4);
     }
 
     public EnemyRock getEnemy2() {
@@ -80,10 +74,6 @@ public class Background extends JPanel implements Runnable {
     /**
      * Switches the game map to the next in sequence.
      */
-    private void toggleMap() {
-        tileManager.loadMap((tileManager.currentMap % 5) + 1);
-        repaint();
-    }
 
     /**
      * Starts the game thread, which continuously updates and repaints the game screen.
@@ -199,22 +189,15 @@ public class Background extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+
+        if(player.isLevelUp()){
+            removeCharacters();
+            tileManager.loadMap(tileManager.getCurrentMap()+1);
+            initializeCharacters();
+            player.setLevelUp(false);
+        }
         tileManager.draw(g2);
-        if (player.isAlive()) {
-            player.draw(g2);
-        }
-        if (enemy1.isAlive()) {
-            enemy1.draw(g2);
-        }
-        if (enemy2.isAlive()) {
-            enemy2.draw(g2);
-        }
-        if (enemy3.isAlive()) {
-            enemy3.draw(g2);
-        }
-        if (enemy4.isAlive()) {
-            enemy4.draw(g2);
-        }
+        keepDrawing(g2);
 
 
         if (gameOver) {
@@ -223,6 +206,7 @@ public class Background extends JPanel implements Runnable {
             g2.setColor(Color.RED);
             g2.drawString(message, screenWidth / 4, screenHeight / 2);
         }
+
         g2.dispose();
     }
 
@@ -238,4 +222,42 @@ public class Background extends JPanel implements Runnable {
     public EnemyCollision getEslugCollision() {
         return eslugCollision;
     }
+    private void keepDrawing(Graphics2D g2){
+        if (player.isAlive()) {
+            player.draw(g2);
+        }
+        if (enemy1.isAlive()) {
+            enemy1.draw(g2);
+        }
+        if (enemy2.isAlive()) {
+            enemy2.draw(g2);
+        }
+        if (enemy3.isAlive()) {
+            enemy3.draw(g2);
+        }
+        if (enemy4.isAlive()) {
+            enemy4.draw(g2);
+        }
+    }
+    private void removeCharacters() {
+        player.setAlive(false);
+        enemy1.setAlive(false);
+        enemy2.setAlive(false);
+        enemy3.setAlive(false);
+        enemy4.setAlive(false);
+    }
+
+    /**
+     * Re-initializes characters for the new level.
+     */
+    private void initializeCharacters() {
+        player = new JackBomber(this, keyHandler, new Bomb(this));
+        enemy1 = new EnemySlug(this, player);
+        enemy2 = new EnemyRock(this, player);
+        enemy3 = new EnemyMush(this, player);
+        enemy4 = new EnemySlug2(this, player);
+    }
+
+
+
 }

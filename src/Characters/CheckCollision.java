@@ -38,6 +38,9 @@ public class CheckCollision {
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
                 }
+                if(tile1 == 3 || tile2 == 3) {
+                    character.setLevelUp(true);
+                }
                 break;
 
             case "down":
@@ -46,6 +49,9 @@ public class CheckCollision {
                 tile2 = tileManager.mapTileNum[rightTileIndex][bottomTileIndex];
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
+                }
+                if(tile1 == 3 || tile2 == 3) {
+                    character.setLevelUp(true);
                 }
                 break;
 
@@ -56,6 +62,9 @@ public class CheckCollision {
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
                 }
+                if(tile1 == 3 || tile2 == 3) {
+                    character.setLevelUp(true);
+                }
                 break;
 
             case "right":
@@ -64,6 +73,9 @@ public class CheckCollision {
                 tile2 = tileManager.mapTileNum[rightTileIndex][bottomTileIndex];
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
+                }
+                if(tile1 == 3 || tile2 == 3) {
+                    character.setLevelUp(true);
                 }
                 break;
         }

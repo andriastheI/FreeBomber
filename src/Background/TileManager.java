@@ -20,11 +20,11 @@ public class TileManager {
 
     public Tile[] tile;
     public int[][] mapTileNum;
-    public int currentMap = 1;  // Track which map is currently loaded
+    private int currentMap = 1;  // Track which map is currently loaded
     Background gp;
-    private Random theWizard = new Random();
+    private final Random theWizard = new Random();
     private int[] theDoor;
-    private List<int[]> doorLocations = new ArrayList<>();
+    private final List<int[]> doorLocations = new ArrayList<>();
 
     /**
      * Constructor for the TileManager class.
@@ -37,13 +37,8 @@ public class TileManager {
         tile = new Tile[10];
         mapTileNum = new int[gp.getScreenCols()][gp.getScreenRows()];
         getTileImg();
-        loadMap(1);  // Load map 1 by default
+        loadMap(currentMap);  // Load map 1 by default
     }
-
-    public int[] getTheDoor() {
-        return theDoor;
-    }
-
 
     /**
      * Loads tile images and their properties (like collision) from the specified resources.
@@ -61,12 +56,11 @@ public class TileManager {
 
             tile[2] = new Tile();
             tile[2].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("storage/tiles/softWall.png")));
-
             tile[2].collision = true;
 
             tile[3] = new Tile();
             tile[3].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("storage/tiles/thedoor.png")));
-            tile[3].setLevelUp(false);
+            tile[3].collision = true;
 
 
         } catch (IOException e) {
@@ -83,6 +77,7 @@ public class TileManager {
     public void loadMap(int mapNumber) {
         try {
             currentMap = mapNumber;  // Set the current map number
+            doorLocations.clear();
 
             InputStream iS = getClass().getClassLoader().getResourceAsStream("storage/maps/level" + mapNumber + ".txt");
             assert iS != null;
@@ -170,5 +165,13 @@ public class TileManager {
                 y += gp.getTileSize();
             }
         }
+    }
+
+    public int getCurrentMap() {
+        return currentMap;
+    }
+
+    public void setCurrentMap(int currentMap) {
+        this.currentMap = currentMap;
     }
 }

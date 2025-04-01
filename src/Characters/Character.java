@@ -14,6 +14,7 @@ public class Character {
     public int spriteNum = 1;
     public Rectangle spriteBounds;
     public boolean collisionOn = false;
+    private boolean levelUp = false;
 
     private boolean alive = true;
 
@@ -23,5 +24,13 @@ public class Character {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    public boolean isLevelUp() {
+        return levelUp;
+    }
+
+    public void setLevelUp(boolean levelUp) {
+        this.levelUp = levelUp;
     }
 }
