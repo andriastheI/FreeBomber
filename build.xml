@@ -12,12 +12,20 @@
     <javac includeantruntime="false" srcdir="${src}" destdir="${out}/classes" debug="true"/>
   </target>
 
-  <target name="jar" depends="init,compile">
+  <target name="copy-resources" depends="compile">
+    <copy todir="${out}/classes">
+      <fileset dir="${src}">
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="jar" depends="init,compile,copy-resources">
     <jar destfile="${out}/${ant.project.name}.jar" basedir="${out}/classes">
       <manifest>
         <attribute name="Main-Class" value="FreeBomber.FreeBomber"/>
       </manifest>
-      <fileset dir="." includes="src/storage.**"/>
+      <fileset dir="." includes="src/storage/**"/>
     </jar>
   </target>
 
