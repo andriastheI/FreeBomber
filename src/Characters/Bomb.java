@@ -147,6 +147,9 @@ public class Bomb extends Character {
         background.getEnemy3().handleExplosion(explosionArea);
         background.getEnemy4().handleExplosion(explosionArea);
         exploded = true;
+        if (background.getPlayer().getSpriteBounds().intersects(explosionArea)) {
+            background.getPlayer().takeDamage();
+        }
     }
 
     /**

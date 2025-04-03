@@ -19,6 +19,7 @@ import java.util.List;
  * </p>
  */
 public class JackBomber extends Character {
+//    private final EnemyCollision enemyCollision = new EnemyCollision(this.background);
 
     /**
      * List of active bombs placed by the player.
@@ -40,6 +41,8 @@ public class JackBomber extends Character {
      * Flag indicating whether a bomb was just dropped.
      */
     private boolean bombJustDropped = false;
+
+    private int playerHealth = 3;
 
     /**
      * Constructs a new JackBomber with background and input handler.
@@ -299,5 +302,22 @@ public class JackBomber extends Character {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void takeDamage() {
+        playerHealth--;
+        System.out.println("Player hit! Remaining health: " + playerHealth);
+        if (getPlayerHealth() <= 0) {
+             // Oyunu bitir
+            background.gameOver = true;
+        }
+    }
+
+    public Rectangle getSpriteBounds() {
+        return new Rectangle(x + spriteBounds.x, y + spriteBounds.y, spriteBounds.width, spriteBounds.height);
+    }
+
+    public int getPlayerHealth() {
+        return playerHealth;
     }
 }
