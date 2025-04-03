@@ -189,4 +189,5 @@ public class EnemySlug extends Character {
         }
         g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
     }
+
 }

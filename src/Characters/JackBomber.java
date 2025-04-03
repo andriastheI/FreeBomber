@@ -44,6 +44,13 @@ public class JackBomber extends Character {
 
     private int playerHealth = 3;
 
+    private boolean invincible = false;
+
+    private long lastDamageTime = 0;
+
+    private final int INVINCIBILITY_DURATION = 3000;
+
+
     /**
      * Constructs a new JackBomber with background and input handler.
      *
@@ -195,10 +202,10 @@ public class JackBomber extends Character {
                     bombs.add(new Bomb(bombX, bombY, this.background));
                 }
 
-                bombJustDropped = true; // bir kez bastı
+                bombJustDropped = true;
             }
         } else {
-            bombJustDropped = false; // tuş bırakıldı
+            bombJustDropped = false;
         }
 
         for (int i = 0; i < bombs.size(); i++) {
@@ -305,12 +312,24 @@ public class JackBomber extends Character {
     }
 
     public void takeDamage() {
+        long currentTime = System.currentTimeMillis();
+
+        if (invincible) {
+            if (currentTime - lastDamageTime < INVINCIBILITY_DURATION) {
+                return;
+            } else {
+                invincible = false;
+            }
+        }
+
         playerHealth--;
         System.out.println("Player hit! Remaining health: " + playerHealth);
         if (getPlayerHealth() <= 0) {
-             // Oyunu bitir
             background.gameOver = true;
         }
+
+        invincible = true;
+        lastDamageTime = System.currentTimeMillis();
     }
 
     public Rectangle getSpriteBounds() {
@@ -319,5 +338,9 @@ public class JackBomber extends Character {
 
     public int getPlayerHealth() {
         return playerHealth;
+    }
+
+    public void setPlayerHealth(int playerHealth) {
+        this.playerHealth = playerHealth;
     }
 }
