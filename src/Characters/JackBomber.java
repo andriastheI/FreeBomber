@@ -50,7 +50,9 @@ public class JackBomber extends Character {
 
     private final int INVINCIBILITY_DURATION = 1000;
 
-    private final int TIME_LIMIT = 30000;
+    private final int TIME_LIMIT = 60000;
+
+    private long lastPrintTime = 0;
 
 
     /**
@@ -229,11 +231,11 @@ public class JackBomber extends Character {
             setLevelStartTime(currentTime);
         }
 
-//        if (currentTime - lastPrintTime >= 1000) { // sadece her 1 saniyede bir yaz
-//            System.out.println("Kalan süre: " + (remaining / 1000) + " saniye");
-//            System.out.println("Kapı bulundu mu? " + isDoorFound());
-//            lastPrintTime = currentTime;
-//        }
+        if (currentTime - lastPrintTime >= 1000) {
+            System.out.println("Kalan süre: " + (remaining / 1000) + " saniye");
+            System.out.println("Kapı bulundu mu? " + isDoorFound());
+            lastPrintTime = currentTime;
+        }
     }
 
     /**
