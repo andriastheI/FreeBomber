@@ -29,8 +29,8 @@ public class MenuPanel extends JPanel implements ActionListener {
         // New Game Button
         newGameButton = new JButton("New Game");
         newGameButton.setBounds(314, 220, 200, 50);
-        newGameButton.setBackground(Color.BLUE);
-        newGameButton.setForeground(Color.WHITE);
+        newGameButton.setBackground(Color.GREEN);
+        newGameButton.setForeground(Color.BLACK);
         newGameButton.setFont(new Font("Arial", Font.BOLD, 20));
         newGameButton.setFocusable(false);
         newGameButton.addActionListener(this);
