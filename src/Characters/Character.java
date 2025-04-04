@@ -15,12 +15,31 @@ public class Character {
     public Rectangle spriteBounds;
     public boolean collisionOn = false;
     private boolean levelUp = false;
-
+    private boolean doorFound = false;
     private boolean alive = true;
+    private long levelStartTime = System.currentTimeMillis();
+
+    public long getLevelStartTime() {
+        return levelStartTime;
+    }
+
+    public void setLevelStartTime(long levelStartTime) {
+        this.levelStartTime = levelStartTime;
+    }
 
     public boolean isAlive() {
         return alive;
     }
+
+    public boolean isDoorFound() {
+        return doorFound;
+    }
+
+    public void setDoorFound(boolean doorFound) {
+        this.doorFound = doorFound;
+    }
+
+
 
     public void setAlive(boolean alive) {
         this.alive = alive;

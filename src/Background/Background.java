@@ -4,8 +4,11 @@ package Background;
 import Characters.Character;
 import Characters.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -42,6 +45,7 @@ public class Background extends JPanel implements Runnable {
     // Indicates whether the game is over
     public boolean gameOver = false;
     private Thread gameThread;
+    private BufferedImage heartImage;
 
     /**
      * Constructs the Background panel, initializing its size, background color, and key listeners.
@@ -53,6 +57,11 @@ public class Background extends JPanel implements Runnable {
         addKeyListener(keyHandler);
         setFocusable(true);
         setLayout(null);
+        try {
+            heartImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/heart.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public EnemyRock getEnemy2() {
@@ -199,12 +208,21 @@ public class Background extends JPanel implements Runnable {
         tileManager.draw(g2);
         keepDrawing(g2);
 
+        int heartTileSize = tileSize;
+        int heartStartX = screenWidth - (player.getPlayerHealth() * heartTileSize) - 10;
+        int heartY = 10;
+
+        for (int i = 0; i < player.getPlayerHealth(); i++) {
+            int x = heartStartX + i * heartTileSize;
+            g2.drawImage(heartImage, x, heartY, heartTileSize, heartTileSize, null);
+        }
 
         if (gameOver) {
             String message = "GAME OVER";
             g2.setFont(new Font("Arial", Font.BOLD, 60));
             g2.setColor(Color.RED);
             g2.drawString(message, screenWidth / 4, screenHeight / 2);
+            return;
         }
 
         g2.dispose();

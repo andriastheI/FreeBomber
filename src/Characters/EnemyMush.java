@@ -1,7 +1,6 @@
 package Characters;
 
 import Background.Background;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -47,7 +46,6 @@ public class EnemyMush extends Character {
      * @param jack the player character
      */
     public EnemyMush(Background bg, JackBomber jack) {
-
         this.background = bg;
         this.random = new Random();
         this.jackBomber = jack;
@@ -109,7 +107,6 @@ public class EnemyMush extends Character {
     public void moveRandomly() {
         collisionOn = false;
         background.getEslugCollision().checkCollision(this, jackBomber);
-
         if (!collisionOn) {
             switch (direction) {
                 case "up":
@@ -143,7 +140,6 @@ public class EnemyMush extends Character {
             direction = newDirection;
         }
     }
-
 
     /**
      * Updates the animation frame for sprite switching.

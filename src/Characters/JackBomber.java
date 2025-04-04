@@ -48,7 +48,9 @@ public class JackBomber extends Character {
 
     private long lastDamageTime = 0;
 
-    private final int INVINCIBILITY_DURATION = 3000;
+    private final int INVINCIBILITY_DURATION = 1000;
+
+    private final int TIME_LIMIT = 30000;
 
 
     /**
@@ -94,6 +96,7 @@ public class JackBomber extends Character {
         y = 1;
         speed = 2;
         direction = "down";
+        setLevelStartTime(System.currentTimeMillis());
     }
 
     /**
@@ -127,6 +130,7 @@ public class JackBomber extends Character {
      * Updates the player's state each frame, including movement and animation.
      */
     public void update() {
+
 
         if (keyHandler.isUpDirection() || keyHandler.isDownDirection() ||
                 keyHandler.isLeftDirection() || keyHandler.isRightDirection()) {
@@ -166,7 +170,6 @@ public class JackBomber extends Character {
                     }
                 }
             }
-
 
             spriteCounter++;
             if (spriteCounter > 8) {
@@ -216,6 +219,21 @@ public class JackBomber extends Character {
                 i--;
             }
         }
+        // player takes a damage if player cant find the door
+        long currentTime = System.currentTimeMillis();
+        long remaining = TIME_LIMIT - (System.currentTimeMillis() - getLevelStartTime());
+        if (!isDoorFound() && currentTime - getLevelStartTime() > TIME_LIMIT) {
+//            System.out.println("Level Over");
+            invincible = false;
+            takeDamage();
+            setLevelStartTime(currentTime);
+        }
+
+//        if (currentTime - lastPrintTime >= 1000) { // sadece her 1 saniyede bir yaz
+//            System.out.println("Kalan süre: " + (remaining / 1000) + " saniye");
+//            System.out.println("Kapı bulundu mu? " + isDoorFound());
+//            lastPrintTime = currentTime;
+//        }
     }
 
     /**
@@ -291,21 +309,19 @@ public class JackBomber extends Character {
 
     private void crop() {
         try {
-            File imageFile = new File("storage/bombs/explosion.png");
+            File imageFile = new File("src/storage/player/heart1.png");
             BufferedImage img = ImageIO.read(imageFile);
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < 2; i++) {
                 int cropX = i * 32;
-                int cropY = 64;
+                int cropY = 32;
                 int cropWidth = 32;
                 int cropHeight = 32;
                 BufferedImage croppedImage = img.getSubimage(cropX, cropY, cropWidth, cropHeight);
                 System.out.println("cropX = " + cropX + " cropY = " + cropY + " cropWidth = " + cropWidth + " cropHeight = " + cropHeight + "");
-                File outputfile = new File("storage/bombs/explosion_cropped_extensionVertical" + (i + 1) + ".png");
+                File outputfile = new File("src/storage/player/heartc" + (i + 1) + ".png");
                 ImageIO.write(croppedImage, "png", outputfile);
                 System.out.println("Done");
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -323,7 +339,6 @@ public class JackBomber extends Character {
         }
 
         playerHealth--;
-        System.out.println("Player hit! Remaining health: " + playerHealth);
         if (getPlayerHealth() <= 0) {
             background.gameOver = true;
         }
@@ -338,9 +353,5 @@ public class JackBomber extends Character {
 
     public int getPlayerHealth() {
         return playerHealth;
-    }
-
-    public void setPlayerHealth(int playerHealth) {
-        this.playerHealth = playerHealth;
     }
 }
