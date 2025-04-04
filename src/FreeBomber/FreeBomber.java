@@ -11,6 +11,8 @@ import javax.swing.*;
  */
 public class FreeBomber extends JFrame {
 
+    private Background gamePanel;
+
     /**
      * Constructor for the FreeBomber class.
      * Sets up the JFrame and shows the menu panel first.
@@ -22,10 +24,8 @@ public class FreeBomber extends JFrame {
 
         // Show menu panel first
         setContentPane(new MenuPanel(this));
-
         pack();
         setLocationRelativeTo(null);
-        setFocusable(false);
         setVisible(true);
     }
 
@@ -33,10 +33,16 @@ public class FreeBomber extends JFrame {
      * Switches from the menu panel to the actual game panel and starts the game thread.
      */
     public void startGame() {
-        Background gamePanel = new Background();
+        gamePanel = new Background();
         setContentPane(gamePanel);
         revalidate();  // Re-layout the frame with the new content
         repaint();
+
+        // Ensure key input works
+        SwingUtilities.invokeLater(() -> {
+            gamePanel.requestFocusInWindow();
+        });
+
         gamePanel.startGameThread();
     }
 

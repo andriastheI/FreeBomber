@@ -27,7 +27,6 @@ public class Background extends JPanel implements Runnable {
     private final int screenRows = 14;
     private final int screenWidth = screenCols * tileSize;
     private final int screenHeight = screenRows * tileSize;
-    private JButton startButton; // Button to start the game
 
 
     // Game management objects
@@ -199,6 +198,7 @@ public class Background extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+
         if(player.isLevelUp()){
             removeCharacters();
             tileManager.loadMap(tileManager.getCurrentMap()+1);
@@ -225,18 +225,7 @@ public class Background extends JPanel implements Runnable {
             return;
         }
 
-
         g2.dispose();
-    }
-
-    private void drawMenu(Graphics2D g2) {
-        g2.setColor(Color.BLACK);
-        g2.fillRect(0, 0, screenWidth, screenHeight);
-
-        // Draw the title
-        g2.setFont(new Font("Arial", Font.BOLD, 50));
-        g2.setColor(Color.WHITE);
-        g2.drawString("BOMBER GAME", screenWidth / 4, screenHeight / 4);
     }
 
 
