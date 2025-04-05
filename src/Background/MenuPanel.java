@@ -25,7 +25,7 @@ public class MenuPanel extends JPanel implements ActionListener {
     public MenuPanel(FreeBomber frame) {
         setPreferredSize(new Dimension(bg.getScreenWidth(), bg.getScreenHeight()));
         setLayout(null);
-
+        frame.setIconImage(new ImageIcon("src/storage/logo/logo.png").getImage());
         ImageIcon menuBg = new ImageIcon("src/storage/logo/menuBomber.jpg");
         JLabel bg = new JLabel(menuBg);
         bg.setBounds(0, 0, menuBg.getIconWidth()-150, menuBg.getIconHeight()-50);
