@@ -54,6 +54,17 @@ public class Background extends JPanel implements Runnable {
      */
     public Background(FreeBomber frame) {
         this.frame = frame;
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setBackground(Color.BLACK);
+        setDoubleBuffered(true);
+        addKeyListener(keyHandler);
+        setFocusable(true);
+        setLayout(null);
+        try {
+            heartImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/heart.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public Background() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
