@@ -12,6 +12,7 @@ public class FreeBomber extends JFrame {
 
     private Background gamePanel;
 
+
     /**
      * Constructor for the FreeBomber class.
      * Sets up the JFrame and shows the menu panel first.
@@ -22,8 +23,8 @@ public class FreeBomber extends JFrame {
         setTitle("FreeBomber");
 
         // Show menu panel first
-        //setContentPane(new MenuPanel(this));
-        setContentPane(new GameOverPanel(this));
+        setContentPane(new MenuPanel(this));
+        //setContentPane(new GameOverPanel(this));
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -33,7 +34,7 @@ public class FreeBomber extends JFrame {
      * Switches from the menu panel to the actual game panel and starts the game thread.
      */
     public void startGame() {
-        gamePanel = new Background();
+        gamePanel = new Background(this);
         setContentPane(gamePanel);
         revalidate();  // Re-layout the frame with the new content
         repaint();
@@ -45,6 +46,12 @@ public class FreeBomber extends JFrame {
 
         gamePanel.startGameThread();
     }
+    public void showGameOver() {
+        setContentPane(new GameOverPanel(this));
+        revalidate();
+        repaint();
+    }
+
 
     /**
      * Main method to launch the FreeBomber game.

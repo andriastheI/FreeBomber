@@ -88,8 +88,6 @@ public class MenuPanel extends JPanel implements ActionListener {
         highScoreButton.setOpaque(false);
         add(highScoreButton);
         add(bg);
-        // Add action listeners
-        newGameButton.addActionListener(e -> frame.startGame());
 
         highScoreButton.addActionListener(e -> JOptionPane.showMessageDialog(
                 frame,

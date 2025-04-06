@@ -3,6 +3,7 @@ package Background;
 
 import Characters.Character;
 import Characters.*;
+import FreeBomber.FreeBomber;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -46,10 +47,14 @@ public class Background extends JPanel implements Runnable {
     public boolean gameOver = false;
     private Thread gameThread;
     private BufferedImage heartImage;
+    private FreeBomber frame;
 
     /**
      * Constructs the Background panel, initializing its size, background color, and key listeners.
      */
+    public Background(FreeBomber frame) {
+        this.frame = frame;
+    }
     public Background() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.BLACK);
@@ -218,11 +223,7 @@ public class Background extends JPanel implements Runnable {
         }
 
         if (gameOver) {
-            String message = "GAME OVER";
-            g2.setFont(new Font("Arial", Font.BOLD, 60));
-            g2.setColor(Color.RED);
-            g2.drawString(message, screenWidth / 4, screenHeight / 2);
-            return;
+            endGame();
         }
 
         g2.dispose();
@@ -275,7 +276,11 @@ public class Background extends JPanel implements Runnable {
         enemy3 = new EnemyMush(this, player);
         enemy4 = new EnemySlug2(this, player);
     }
-
-
+    private void endGame() {
+        gameThread = null; // stop the game loop
+        SwingUtilities.invokeLater(() -> {
+            frame.showGameOver(); // switch to GameOverPanel
+        });
+    }
 
 }

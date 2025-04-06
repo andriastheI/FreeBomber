@@ -16,6 +16,10 @@ public class GameOverPanel extends JPanel implements ActionListener {
     private JButton exitButton;
     private Background backg = new Background();
 
+    public GameOverPanel() {
+
+    }
+
     public GameOverPanel(FreeBomber frame){
         setPreferredSize(new Dimension(backg.getScreenWidth(), backg.getScreenHeight()));
         setLayout(null);
@@ -78,9 +82,6 @@ public class GameOverPanel extends JPanel implements ActionListener {
         newGameButton.setBorderPainted(false);      // remove border
         newGameButton.setFocusPainted(false);       // no outline on focus
         newGameButton.setOpaque(false);             // transparency
-        newGameButton.addActionListener((ActionEvent e) -> {
-            frame.startGame(); // Start the game from FreeBomber
-        });
         newGameButton.addActionListener(e -> frame.startGame());
 
         // New Game Button
@@ -107,11 +108,10 @@ public class GameOverPanel extends JPanel implements ActionListener {
         exitButton.setContentAreaFilled(false);  // prevent default painting
         exitButton.setBorderPainted(false);      // remove border
         exitButton.setFocusPainted(false);       // no outline on focus
-        exitButton.setOpaque(false);             // transparency
+        exitButton.setOpaque(false);
         exitButton.addActionListener((ActionEvent e) -> {
-            frame.startGame(); // Start the game from FreeBomber
+            System.exit(0);
         });
-        exitButton.addActionListener(e -> frame.startGame());
 
         add(restartGameButton);
         add(newGameButton);
@@ -123,4 +123,5 @@ public class GameOverPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
     }
+
 }
