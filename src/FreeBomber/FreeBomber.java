@@ -1,7 +1,6 @@
 package FreeBomber;
 
-import Background.Background;
-import Background.MenuPanel;
+import Background.*;
 
 import javax.swing.*;
 
@@ -23,7 +22,8 @@ public class FreeBomber extends JFrame {
         setTitle("FreeBomber");
 
         // Show menu panel first
-        setContentPane(new MenuPanel(this));
+        //setContentPane(new MenuPanel(this));
+        setContentPane(new GameOverPanel(this));
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
