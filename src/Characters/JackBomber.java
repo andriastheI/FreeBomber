@@ -53,7 +53,14 @@ public class JackBomber extends Character {
 
     private long remainingTime = 0;
 
+    //TODO
     //private long lastPrintTime = 0;
+
+    private final List<Long> recentBombTimestamps = new ArrayList<>();
+
+    private final int BOMB_LIMIT = 3;
+
+    private final long TIME_WINDOW_MS = 5000; // 5 seconds
 
 
     /**
@@ -189,12 +196,41 @@ public class JackBomber extends Character {
             }
         }
 
+//        if (keyHandler.isBombDrop()) {
+//            if (!bombJustDropped) {
+//
+//                int bombX = x + background.getTileSize() / 4;
+//                int bombY = y + background.getTileSize() / 2;
+//
+//
+//                boolean alreadyPlaced = false;
+//                for (Bomb b : bombs) {
+//                    if (b.getX() == bombX && b.getY() == bombY && !b.isFinished()) {
+//                        alreadyPlaced = true;
+//                        break;
+//                    }
+//                }
+//
+//                if (!alreadyPlaced) {
+//                    bombs.add(new Bomb(bombX, bombY, this.background));
+//                }
+//
+//                bombJustDropped = true;
+//            }
+//        } else {
+//            bombJustDropped = false;
+//        }
+
+        long now = System.currentTimeMillis();
+
+// Remove timestamps older than 5 seconds
+        recentBombTimestamps.removeIf(t -> now - t > TIME_WINDOW_MS);
+
         if (keyHandler.isBombDrop()) {
-            if (!bombJustDropped) {
+            if (!bombJustDropped && recentBombTimestamps.size() < BOMB_LIMIT) {
 
                 int bombX = x + background.getTileSize() / 4;
                 int bombY = y + background.getTileSize() / 2;
-
 
                 boolean alreadyPlaced = false;
                 for (Bomb b : bombs) {
@@ -206,6 +242,7 @@ public class JackBomber extends Character {
 
                 if (!alreadyPlaced) {
                     bombs.add(new Bomb(bombX, bombY, this.background));
+                    recentBombTimestamps.add(now); // <== ADD timestamp here!
                 }
 
                 bombJustDropped = true;
