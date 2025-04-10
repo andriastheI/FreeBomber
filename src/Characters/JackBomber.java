@@ -49,7 +49,7 @@ public class JackBomber extends Character {
 
     private final int INVINCIBILITY_DURATION = 1000;
 
-    private final int TIME_LIMIT = 20000;
+    private final int TIME_LIMIT = 60000;
 
     private long remainingTime = 0;
 
