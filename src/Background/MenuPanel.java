@@ -6,6 +6,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import FreeBomber.*;
@@ -19,6 +25,7 @@ public class MenuPanel extends JPanel implements ActionListener {
     private JButton newGameButton;
     private JButton highScoreButton;
     private Background bg = new Background();
+    private Map<String, Integer> scoreBoardUpload = new HashMap<>();
 
 
 
@@ -92,6 +99,31 @@ public class MenuPanel extends JPanel implements ActionListener {
         highScoreButton.addActionListener((ActionEvent e) -> {
             frame.showScoreBoard(); // Start the game from FreeBomber
         });
+    }
+
+    public void readAndStore(String filename) {
+        String store = "src/storage/scores/scoreboard.txt";
+        File scoreFile = new File(store);
+
+        if (scoreFile.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(scoreFile))) {
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    String[] words = line.split(",");
+                    User theUser = new User();
+
+                    theUser.setName(words[0]);
+                    theUser.setScore(Integer.parseInt(words[1]));
+                }
+
+            } catch (IOException e) {
+                System.out.println("There is a problem loading the file!");
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("There is a problem finding the file!");
+        }
     }
 
     @Override
