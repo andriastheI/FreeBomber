@@ -11,6 +11,7 @@ import javax.swing.*;
 public class FreeBomber extends JFrame {
 
     private Background gamePanel;
+    private HighscorePanel scoreBoard;
 
 
     /**
@@ -46,8 +47,25 @@ public class FreeBomber extends JFrame {
 
         gamePanel.startGameThread();
     }
+    public void showScoreBoard(){
+        scoreBoard = new HighscorePanel(this);
+        setContentPane(scoreBoard);
+        revalidate();
+        repaint();
+
+        // Ensure key input works
+        SwingUtilities.invokeLater(() -> {
+            scoreBoard.requestFocusInWindow();
+        });
+
+    }
     public void showGameOver() {
         setContentPane(new GameOverPanel(this));
+        revalidate();
+        repaint();
+    }
+    public void getBackToMenu(){
+        setContentPane(new MenuPanel(this));
         revalidate();
         repaint();
     }

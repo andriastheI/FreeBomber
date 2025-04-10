@@ -89,12 +89,9 @@ public class MenuPanel extends JPanel implements ActionListener {
         add(highScoreButton);
         add(bg);
 
-        highScoreButton.addActionListener(e -> JOptionPane.showMessageDialog(
-                frame,
-                "High scores coming soon!",
-                "High Scores",
-                JOptionPane.INFORMATION_MESSAGE
-        ));
+        highScoreButton.addActionListener((ActionEvent e) -> {
+            frame.showScoreBoard(); // Start the game from FreeBomber
+        });
     }
 
     @Override
