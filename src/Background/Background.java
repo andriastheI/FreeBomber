@@ -226,12 +226,24 @@ public class Background extends JPanel implements Runnable {
 
         int heartTileSize = tileSize;
         int heartStartX = screenWidth - (player.getPlayerHealth() * heartTileSize) - 10;
-        int heartY = 10;
+        int heartY = 1;
 
         for (int i = 0; i < player.getPlayerHealth(); i++) {
             int x = heartStartX + i * heartTileSize;
             g2.drawImage(heartImage, x, heartY, heartTileSize, heartTileSize, null);
         }
+
+        // time left in a current level
+        long gameTime = player.getRemainingTime() / 1000;
+        g2.setFont(new Font("Courier New", Font.BOLD, 20));
+        g2.setColor(Color.BLACK);
+        g2.drawString("Timer: " + gameTime, heartStartX - 119, heartY + 31);
+        if (gameTime > 10) {
+            g2.setColor(Color.WHITE);
+        } else {
+            g2.setColor(Color.RED);
+        }
+        g2.drawString("Timer: " + gameTime, heartStartX - 120, heartY + 30);
 
         if (gameOver) {
             endGame();

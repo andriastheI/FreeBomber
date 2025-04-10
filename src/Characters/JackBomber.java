@@ -37,9 +37,8 @@ public class JackBomber extends Character {
      * Reference to the key handler for capturing input.
      */
     KeyHandler keyHandler;
-    /**
-     * Flag indicating whether a bomb was just dropped.
-     */
+
+    /** Flag indicating whether a bomb was just dropped.*/
     private boolean bombJustDropped = false;
 
     private int playerHealth = 3;
@@ -50,7 +49,9 @@ public class JackBomber extends Character {
 
     private final int INVINCIBILITY_DURATION = 1000;
 
-    private final int TIME_LIMIT = 60000;
+    private final int TIME_LIMIT = 20000;
+
+    private long remainingTime = 0;
 
     //private long lastPrintTime = 0;
 
@@ -223,13 +224,14 @@ public class JackBomber extends Character {
         }
         // player takes a damage if player cant find the door
         long currentTime = System.currentTimeMillis();
-        long remaining = TIME_LIMIT - (System.currentTimeMillis() - getLevelStartTime());
         if (!isDoorFound() && currentTime - getLevelStartTime() > TIME_LIMIT) {
 //            System.out.println("Level Over");
             invincible = false;
             takeDamage();
             setLevelStartTime(currentTime);
         }
+        long remaining = TIME_LIMIT - (System.currentTimeMillis() - getLevelStartTime());
+        setRemainingTime(remaining);
 
 /*        if (currentTime - lastPrintTime >= 1000) {
             System.out.println("Kalan süre: " + (remaining / 1000) + " saniye");
@@ -356,4 +358,13 @@ public class JackBomber extends Character {
     public int getPlayerHealth() {
         return playerHealth;
     }
+
+    public long getRemainingTime() {
+        return remainingTime;
+    }
+
+    public void setRemainingTime(long remainingTime) {
+        this.remainingTime = remainingTime;
+    }
+
 }
