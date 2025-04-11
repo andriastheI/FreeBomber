@@ -19,7 +19,6 @@ import java.util.List;
  * </p>
  */
 public class JackBomber extends Character {
-//    private final EnemyCollision enemyCollision = new EnemyCollision(this.background);
 
     // List of active bombs placed by the player.
     private final List<Bomb> bombs = new ArrayList<Bomb>();
