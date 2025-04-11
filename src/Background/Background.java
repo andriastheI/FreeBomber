@@ -10,7 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -48,6 +49,7 @@ public class Background extends JPanel implements Runnable {
     private Thread gameThread;
     private BufferedImage heartImage;
     private FreeBomber frame;
+    private Map<String, Integer> scoreBoardStore = new HashMap<>();
 
     /**
      * Constructs the Background panel, initializing its size, background color, and key listeners.
@@ -306,4 +308,11 @@ public class Background extends JPanel implements Runnable {
         });
     }
 
+    public Map<String, Integer> getScoreBoardStore() {
+        return scoreBoardStore;
+    }
+
+    public void setScoreBoardStore(Map<String, Integer> scoreBoardStore) {
+        this.scoreBoardStore = scoreBoardStore;
+    }
 }
