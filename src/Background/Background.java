@@ -1,6 +1,5 @@
 package Background;
 
-
 import Characters.Character;
 import Characters.*;
 import FreeBomber.FreeBomber;
@@ -13,43 +12,34 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * The Background class represents the game panel where the game logic and rendering occur.
  * It handles game updates, rendering, and switching between maps.
  */
 public class Background extends JPanel implements Runnable {
 
-    // Frames per second for the game loop
     private static final int FPS = 60;
 
-    // Tile and screen dimensions
     private final int tileSize = 46;
     private final int screenCols = 18;
     private final int screenRows = 14;
     private final int screenWidth = screenCols * tileSize;
     private final int screenHeight = screenRows * tileSize;
 
-
-    // Game management objects
     private final CheckCollision checkCollision = new CheckCollision(this);
     private final EnemyCollision eslugCollision = new EnemyCollision(this);
     private final TileManager tileManager = new TileManager(this);
     private final KeyHandler keyHandler = new KeyHandler();
 
-
-    // Player and enemies
     private JackBomber player = new JackBomber(this, keyHandler, new Bomb(this));
     private EnemyRock enemy2 = new EnemyRock(this, this.player);
     private EnemyMush enemy3 = new EnemyMush(this, this.player);
     private EnemySlug enemy1 = new EnemySlug(this, this.player);
     private EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
-    // Indicates whether the game is over
     public boolean gameOver = false;
     private Thread gameThread;
     private BufferedImage heartImage;
     private FreeBomber frame;
-    private Map<String, Integer> scoreBoardStore = new HashMap<>();
 
     /**
      * Constructs the Background panel, initializing its size, background color, and key listeners.
@@ -68,6 +58,10 @@ public class Background extends JPanel implements Runnable {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Constructs the Background panel without any frame, initializing its size and other properties.
+     */
     public Background() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.BLACK);
@@ -82,25 +76,41 @@ public class Background extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Returns the enemy character of type EnemyRock.
+     *
+     * @return the enemy2 (EnemyRock).
+     */
     public EnemyRock getEnemy2() {
         return enemy2;
     }
 
+    /**
+     * Returns the enemy character of type EnemyMush.
+     *
+     * @return the enemy3 (EnemyMush).
+     */
     public EnemyMush getEnemy3() {
         return enemy3;
     }
 
+    /**
+     * Returns the enemy character of type EnemySlug.
+     *
+     * @return the enemy1 (EnemySlug).
+     */
     public EnemySlug getEnemy1() {
         return enemy1;
     }
 
+    /**
+     * Returns the enemy character of type EnemySlug2.
+     *
+     * @return the enemy4 (EnemySlug2).
+     */
     public EnemySlug2 getEnemy4() {
         return enemy4;
     }
-
-    /**
-     * Switches the game map to the next in sequence.
-     */
 
     /**
      * Starts the game thread, which continuously updates and repaints the game screen.
@@ -153,54 +163,54 @@ public class Background extends JPanel implements Runnable {
     }
 
     /**
-     * Gets the tile size.
+     * Returns the tile size for the game.
      *
-     * @return tile size in pixels.
+     * @return the tile size in pixels.
      */
     public int getTileSize() {
         return tileSize;
     }
 
     /**
-     * Gets the tile manager.
+     * Returns the tile manager that handles the map and tile rendering.
      *
-     * @return tile manager of the background.
+     * @return the tile manager.
      */
     public TileManager getTileManager() {
         return tileManager;
     }
 
     /**
-     * Gets the screen width.
+     * Returns the screen width for the game.
      *
-     * @return screen width in pixels.
+     * @return the screen width in pixels.
      */
     public int getScreenWidth() {
         return screenWidth;
     }
 
     /**
-     * Gets the screen height.
+     * Returns the screen height for the game.
      *
-     * @return screen height in pixels.
+     * @return the screen height in pixels.
      */
     public int getScreenHeight() {
         return screenHeight;
     }
 
     /**
-     * Gets the number of screen rows.
+     * Returns the number of rows on the game screen.
      *
-     * @return screen row count.
+     * @return the number of screen rows.
      */
     public int getScreenRows() {
         return screenRows;
     }
 
     /**
-     * Gets the number of screen columns.
+     * Returns the number of columns on the game screen.
      *
-     * @return screen column count.
+     * @return the number of screen columns.
      */
     public int getScreenCols() {
         return screenCols;
@@ -216,10 +226,9 @@ public class Background extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-
-        if(player.isLevelUp()){
+        if (player.isLevelUp()) {
             removeCharacters();
-            tileManager.loadMap(tileManager.getCurrentMap()+1);
+            tileManager.loadMap(tileManager.getCurrentMap() + 1);
             initializeCharacters();
             player.setLevelUp(false);
         }
@@ -235,7 +244,6 @@ public class Background extends JPanel implements Runnable {
             g2.drawImage(heartImage, x, heartY, heartTileSize, heartTileSize, null);
         }
 
-        // time left in a current level
         long gameTime = player.getRemainingTime() / 1000;
         g2.setFont(new Font("Courier New", Font.BOLD, 20));
         g2.setColor(Color.BLACK);
@@ -254,19 +262,34 @@ public class Background extends JPanel implements Runnable {
         g2.dispose();
     }
 
-
+    /**
+     * Returns the player character for the game.
+     *
+     * @return the player character.
+     */
     public JackBomber getPlayer() {
         return player;
     }
 
+    /**
+     * Returns the check collision object for detecting collisions in the game.
+     *
+     * @return the check collision object.
+     */
     public CheckCollision getCheckCollision() {
         return checkCollision;
     }
 
+    /**
+     * Returns the enemy collision object for detecting enemy collisions.
+     *
+     * @return the enemy collision object.
+     */
     public EnemyCollision getEslugCollision() {
         return eslugCollision;
     }
-    private void keepDrawing(Graphics2D g2){
+
+    private void keepDrawing(Graphics2D g2) {
         if (player.isAlive()) {
             player.draw(g2);
         }
@@ -283,6 +306,7 @@ public class Background extends JPanel implements Runnable {
             enemy4.draw(g2);
         }
     }
+
     private void removeCharacters() {
         player.setAlive(false);
         enemy1.setAlive(false);
@@ -301,18 +325,14 @@ public class Background extends JPanel implements Runnable {
         enemy3 = new EnemyMush(this, player);
         enemy4 = new EnemySlug2(this, player);
     }
+
+    /**
+     * Ends the game and switches to the Game Over screen.
+     */
     private void endGame() {
-        gameThread = null; // stop the game loop
+        gameThread = null;
         SwingUtilities.invokeLater(() -> {
-            frame.showGameOver(); // switch to GameOverPanel
+            frame.showGameOver();
         });
-    }
-
-    public Map<String, Integer> getScoreBoardStore() {
-        return scoreBoardStore;
-    }
-
-    public void setScoreBoardStore(Map<String, Integer> scoreBoardStore) {
-        this.scoreBoardStore = scoreBoardStore;
     }
 }
