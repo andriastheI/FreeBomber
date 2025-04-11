@@ -43,7 +43,7 @@ public class JackBomber extends Character {
     // Current health of the player, measured in number of hearts
     private int playerHealth = 3;
 
-// TODO: Debugging timer for printing status info to the console.
+    // TODO: Debugging timer for printing status info to the console.
 // private long lastPrintTime = 0;
     // Indicates whether the player is currently invincible (e.g., after taking damage)
     private boolean invincible = false;
