@@ -1,6 +1,7 @@
 package Characters;
 
 import Background.Background;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

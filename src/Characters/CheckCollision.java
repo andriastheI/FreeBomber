@@ -38,7 +38,7 @@ public class CheckCollision {
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
                 }
-                if(tile1 == 3 || tile2 == 3) {
+                if (tile1 == 3 || tile2 == 3) {
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -52,7 +52,7 @@ public class CheckCollision {
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
                 }
-                if(tile1 == 3 || tile2 == 3) {
+                if (tile1 == 3 || tile2 == 3) {
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -66,7 +66,7 @@ public class CheckCollision {
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
                 }
-                if(tile1 == 3 || tile2 == 3) {
+                if (tile1 == 3 || tile2 == 3) {
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -80,7 +80,7 @@ public class CheckCollision {
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
                 }
-                if(tile1 == 3 || tile2 == 3) {
+                if (tile1 == 3 || tile2 == 3) {
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());

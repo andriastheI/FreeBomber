@@ -21,46 +21,37 @@ import java.util.List;
 public class JackBomber extends Character {
 //    private final EnemyCollision enemyCollision = new EnemyCollision(this.background);
 
-    /**
-     * List of active bombs placed by the player.
-     */
+    // List of active bombs placed by the player.
     private final List<Bomb> bombs = new ArrayList<Bomb>();
-    /**
-     * The current bomb object being placed.
-     */
+    // Duration (in milliseconds) for which the player remains invincible after taking damage.
+    private final int INVINCIBILITY_DURATION = 1000;
+    // Total time (in milliseconds) allowed to complete a level.
+    private final int TIME_LIMIT = 60000;
+    // Stores the timestamps of recently dropped bombs to limit bomb placement frequency.
+    private final List<Long> recentBombTimestamps = new ArrayList<>();
+    // Maximum number of bombs the player can place within a given time window
+    private final int BOMB_LIMIT = 3;
+    // Time window (in milliseconds) in which the bomb limit is enforced.
+    private final long TIME_WINDOW_MS = 5000; // 5 seconds
+    // The current bomb object being placed.
     public Bomb bomb;
-    /**
-     * Reference to the game background.
-     */
+    // Reference to the game background.
     Background background;
-    /**
-     * Reference to the key handler for capturing input.
-     */
+    //Reference to the key handler for capturing input.
     KeyHandler keyHandler;
-
-    /** Flag indicating whether a bomb was just dropped.*/
+    // Flag indicating whether a bomb was just dropped.
     private boolean bombJustDropped = false;
-
+    // Current health of the player, measured in number of hearts
     private int playerHealth = 3;
 
+// TODO: Debugging timer for printing status info to the console.
+// private long lastPrintTime = 0;
+    // Indicates whether the player is currently invincible (e.g., after taking damage)
     private boolean invincible = false;
-
+    // Timestamp of the last time the player took damage, used to manage invincibility frames
     private long lastDamageTime = 0;
-
-    private final int INVINCIBILITY_DURATION = 1000;
-
-    private final int TIME_LIMIT = 60000;
-
+    // Remaining time for the current level, in milliseconds
     private long remainingTime = 0;
-
-    //TODO
-    //private long lastPrintTime = 0;
-
-    private final List<Long> recentBombTimestamps = new ArrayList<>();
-
-    private final int BOMB_LIMIT = 3;
-
-    private final long TIME_WINDOW_MS = 5000; // 5 seconds
 
 
     /**
@@ -82,11 +73,11 @@ public class JackBomber extends Character {
         spriteBounds = new Rectangle(6, 18, 28, 25);
     }
 
-    /**
-     * Default constructor.
-     */
+    // TODO: constructor for creating images
     public JackBomber() {
     }
+
+    // TODO: driver for creating images
 
     /**
      * Main method for testing image cropping.
@@ -195,6 +186,7 @@ public class JackBomber extends Character {
                 spriteCounter = 0;
             }
         }
+// TODO: old code but might be needed in the future
 
 //        if (keyHandler.isBombDrop()) {
 //            if (!bombJustDropped) {
@@ -223,7 +215,7 @@ public class JackBomber extends Character {
 
         long now = System.currentTimeMillis();
 
-// Remove timestamps older than 5 seconds
+        // Remove timestamps older than 5 seconds
         recentBombTimestamps.removeIf(t -> now - t > TIME_WINDOW_MS);
 
         if (keyHandler.isBombDrop()) {
@@ -242,7 +234,7 @@ public class JackBomber extends Character {
 
                 if (!alreadyPlaced) {
                     bombs.add(new Bomb(bombX, bombY, this.background));
-                    recentBombTimestamps.add(now); // <== ADD timestamp here!
+                    recentBombTimestamps.add(now);
                 }
 
                 bombJustDropped = true;
@@ -269,12 +261,6 @@ public class JackBomber extends Character {
         }
         long remaining = TIME_LIMIT - (System.currentTimeMillis() - getLevelStartTime());
         setRemainingTime(remaining);
-
-/*        if (currentTime - lastPrintTime >= 1000) {
-            System.out.println("Kalan süre: " + (remaining / 1000) + " saniye");
-            System.out.println("Kapı bulundu mu? " + isDoorFound());
-            lastPrintTime = currentTime;
-        }*/
     }
 
     /**
@@ -348,6 +334,12 @@ public class JackBomber extends Character {
         }
     }
 
+    //TODO
+
+    /**
+     * Crops heart images from a sprite sheet and saves them as individual frames.
+     * Useful for heart animation effects.
+     */
     private void crop() {
         try {
             File imageFile = new File("src/storage/player/heart1.png");
@@ -368,6 +360,10 @@ public class JackBomber extends Character {
         }
     }
 
+    /**
+     * Applies damage to the player, reducing health if not currently invincible.
+     * Triggers game over if health reaches zero.
+     */
     public void takeDamage() {
         long currentTime = System.currentTimeMillis();
 
@@ -388,18 +384,39 @@ public class JackBomber extends Character {
         lastDamageTime = System.currentTimeMillis();
     }
 
+    /**
+     * Returns the actual bounds of the character sprite used for collision detection.
+     *
+     * @return the sprite bounds rectangle adjusted to the current position
+     */
     public Rectangle getSpriteBounds() {
         return new Rectangle(x + spriteBounds.x, y + spriteBounds.y, spriteBounds.width, spriteBounds.height);
     }
 
+    /**
+     * Gets the current health of the player.
+     *
+     * @return number of remaining hearts
+     */
     public int getPlayerHealth() {
         return playerHealth;
     }
 
+    /**
+     * Gets the remaining time for the current level.
+     *
+     * @return remaining time in milliseconds
+     */
     public long getRemainingTime() {
         return remainingTime;
     }
 
+    /**
+     * Sets the remaining time for the current level.
+     * This is used to update the level countdown timer shown to the player.
+     *
+     * @param remainingTime the remaining time in milliseconds
+     */
     public void setRemainingTime(long remainingTime) {
         this.remainingTime = remainingTime;
     }

@@ -1,6 +1,5 @@
 package Background;
 
-import Characters.Character;
 import Characters.*;
 import FreeBomber.FreeBomber;
 
@@ -9,8 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The Background class represents the game panel where the game logic and rendering occur.
@@ -18,27 +15,54 @@ import java.util.Map;
  */
 public class Background extends JPanel implements Runnable {
 
+    // Target frames per second for the game loop.
     private static final int FPS = 60;
 
+    // Size of a single tile in pixels.
     private final int tileSize = 46;
+
+    // Number of horizontal tiles on the screen.
     private final int screenCols = 18;
+
+    // Number of vertical tiles on the screen.
     private final int screenRows = 14;
+
+    // Total screen width in pixels, calculated from tile size and columns.
     private final int screenWidth = screenCols * tileSize;
+
+    // Total screen height in pixels, calculated from tile size and rows.
     private final int screenHeight = screenRows * tileSize;
 
+    // Handles collision detection for walls and objects.
     private final CheckCollision checkCollision = new CheckCollision(this);
-    private final EnemyCollision eslugCollision = new EnemyCollision(this);
-    private final TileManager tileManager = new TileManager(this);
-    private final KeyHandler keyHandler = new KeyHandler();
 
-    private JackBomber player = new JackBomber(this, keyHandler, new Bomb(this));
-    private EnemyRock enemy2 = new EnemyRock(this, this.player);
-    private EnemyMush enemy3 = new EnemyMush(this, this.player);
-    private EnemySlug enemy1 = new EnemySlug(this, this.player);
-    private EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
+    // Handles collision detection specifically for enemies.
+    private final EnemyCollision eslugCollision = new EnemyCollision(this);
+
+    // Manages and renders tile maps.
+    private final TileManager tileManager = new TileManager(this);
+
+    // Captures and processes keyboard input.
+    private final KeyHandler keyHandler = new KeyHandler();
+    // Flag indicating whether the game is over.
     public boolean gameOver = false;
+    // The player character (JackBomber).
+    private JackBomber player = new JackBomber(this, keyHandler, new Bomb(this));
+    // An enemy of type EnemyRock.
+    private EnemyRock enemy2 = new EnemyRock(this, this.player);
+    // An enemy of type EnemyMush.
+    private EnemyMush enemy3 = new EnemyMush(this, this.player);
+    // An enemy of type EnemySlug.
+    private EnemySlug enemy1 = new EnemySlug(this, this.player);
+    // An enemy of type EnemySlug2.
+    private EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
+    // Thread used to run the main game loop.
     private Thread gameThread;
+
+    // Image used to display player's health (hearts).
     private BufferedImage heartImage;
+
+    // Reference to the main frame that contains this panel.
     private FreeBomber frame;
 
     /**
@@ -289,6 +313,12 @@ public class Background extends JPanel implements Runnable {
         return eslugCollision;
     }
 
+    /**
+     * Renders all active (alive) characters onto the screen.
+     * This includes the player and all enemy types.
+     *
+     * @param g2 the Graphics2D context used for drawing the characters
+     */
     private void keepDrawing(Graphics2D g2) {
         if (player.isAlive()) {
             player.draw(g2);
@@ -307,6 +337,10 @@ public class Background extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Temporarily disables all characters by setting their alive status to false.
+     * This is typically used when transitioning between levels or restarting the game state.
+     */
     private void removeCharacters() {
         player.setAlive(false);
         enemy1.setAlive(false);

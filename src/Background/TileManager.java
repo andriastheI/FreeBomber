@@ -17,13 +17,13 @@ import java.util.Random;
  */
 public class TileManager {
 
+    private final Random theWizard = new Random();
+    private final List<int[]> doorLocations = new ArrayList<>();
     public Tile[] tile;
     public int[][] mapTileNum;
-    private int currentMap = 1;  // Track which map is currently loaded
     Background gp;
-    private final Random theWizard = new Random();
+    private int currentMap = 1;  // Track which map is currently loaded
     private int[] theDoor;
-    private final List<int[]> doorLocations = new ArrayList<>();
 
     /**
      * Constructor for the TileManager class.

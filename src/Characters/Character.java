@@ -31,18 +31,16 @@ public class Character {
         return alive;
     }
 
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
     public boolean isDoorFound() {
         return doorFound;
     }
 
     public void setDoorFound(boolean doorFound) {
         this.doorFound = doorFound;
-    }
-
-
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
     }
 
     public boolean isLevelUp() {

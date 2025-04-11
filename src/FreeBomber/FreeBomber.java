@@ -1,6 +1,9 @@
 package FreeBomber;
 
-import Background.*;
+import Background.Background;
+import Background.GameOverPanel;
+import Background.HighscorePanel;
+import Background.MenuPanel;
 
 import javax.swing.*;
 
@@ -28,6 +31,16 @@ public class FreeBomber extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    /**
+     * Main method to launch the FreeBomber game.
+     * This method starts the FreeBomber application by initializing the game window.
+     *
+     * @param args Command line arguments (not used).
+     */
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(FreeBomber::new);
     }
 
     /**
@@ -82,15 +95,5 @@ public class FreeBomber extends JFrame {
         setContentPane(new MenuPanel(this));
         revalidate();
         repaint();
-    }
-
-    /**
-     * Main method to launch the FreeBomber game.
-     * This method starts the FreeBomber application by initializing the game window.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(FreeBomber::new);
     }
 }
