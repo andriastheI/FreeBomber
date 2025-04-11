@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * The Background class represents the game panel where the game logic and rendering occur.
- * It handles game updates, rendering, and switching between maps.
+ * It handles game updates, and switching between maps.
  */
 public class Background extends JPanel implements Runnable {
 
@@ -275,6 +275,7 @@ public class Background extends JPanel implements Runnable {
         g2.dispose();
     }
 
+    //TODO: add actual methods before getters and setters
     /**
      * Returns the player character for the game.
      *

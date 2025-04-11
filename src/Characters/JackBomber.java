@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class JackBomber extends Character {
 
-    // List of active bombs placed by the player.
+    /** List of active bombs placed by the player. */
     private final List<Bomb> bombs = new ArrayList<Bomb>();
     // Duration (in milliseconds) for which the player remains invincible after taking damage.
     private final int INVINCIBILITY_DURATION = 1000;
@@ -42,7 +42,6 @@ public class JackBomber extends Character {
     private boolean bombJustDropped = false;
     // Current health of the player, measured in number of hearts
     private int playerHealth = 3;
-
     // TODO: Debugging timer for printing status info to the console.
 // private long lastPrintTime = 0;
     // Indicates whether the player is currently invincible (e.g., after taking damage)
@@ -77,7 +76,6 @@ public class JackBomber extends Character {
     }
 
     // TODO: driver for creating images
-
     /**
      * Main method for testing image cropping.
      *
@@ -130,7 +128,6 @@ public class JackBomber extends Character {
      * Updates the player's state each frame, including movement and animation.
      */
     public void update() {
-
 
         if (keyHandler.isUpDirection() || keyHandler.isDownDirection() ||
                 keyHandler.isLeftDirection() || keyHandler.isRightDirection()) {
