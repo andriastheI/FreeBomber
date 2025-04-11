@@ -253,7 +253,6 @@ public class JackBomber extends Character {
         // player takes a damage if player cant find the door
         long currentTime = System.currentTimeMillis();
         if (!isDoorFound() && currentTime - getLevelStartTime() > TIME_LIMIT) {
-//            System.out.println("Level Over");
             invincible = false;
             takeDamage();
             setLevelStartTime(currentTime);
