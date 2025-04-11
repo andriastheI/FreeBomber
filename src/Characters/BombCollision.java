@@ -3,13 +3,33 @@ package Characters;
 import Background.Background;
 import Background.TileManager;
 
+/**
+ * The BombCollision class handles the collision detection for bombs in the game.
+ * It checks if a bomb collides with any tiles in the game world and updates the bomb's collision status accordingly.
+ */
 public class BombCollision {
+
+    /**
+     * The background object, which contains the game environment and tile data.
+     */
     private final Background background;
 
+    /**
+     * Constructor for the BombCollision class.
+     * Initializes the background object used for collision detection.
+     *
+     * @param background The background object that holds game properties and the tile manager.
+     */
     public BombCollision(Background background) {
         this.background = background;
     }
 
+    /**
+     * Checks for collision between the bomb and surrounding tiles.
+     * If the bomb collides with a tile, it sets the bomb's collision status to true.
+     *
+     * @param bomb The bomb object to check for collisions.
+     */
     public void checkBombCollision(Bomb bomb) {
         int bombLeftX = bomb.getX();
         int bombRightX = bomb.getX() + bomb.getSize();

@@ -5,8 +5,10 @@ import java.awt.event.KeyListener;
 
 /**
  * Handles keyboard input for movement using the KeyListener interface.
+ * The class tracks the directions of movement (up, down, left, right) and whether the bomb is dropped.
  */
 public class KeyHandler implements KeyListener {
+
     // Movement direction flags
     private boolean upDirection;
     private boolean downDirection;
@@ -14,26 +16,49 @@ public class KeyHandler implements KeyListener {
     private boolean rightDirection;
     private boolean bombDrop;
 
+    /**
+     * Returns whether the bomb drop action is triggered.
+     *
+     * @return true if the bomb drop is active, false otherwise.
+     */
     public boolean isBombDrop() {
         return bombDrop;
     }
 
+    /**
+     * Sets the state of the bomb drop action.
+     *
+     * @param bombDrop true to activate the bomb drop, false to deactivate it.
+     */
     public void setBombDrop(boolean bombDrop) {
         this.bombDrop = bombDrop;
     }
 
+    /**
+     * Not used but required for implementation of the KeyListener interface.
+     * This method is called when a key is typed, but it's not needed in this case.
+     *
+     * @param e the KeyEvent triggered by typing a key.
+     */
     @Override
     public void keyTyped(KeyEvent e) {
         // Not used but required for implementation.
     }
 
+    /**
+     * Handles key press events. It updates the movement direction flags and triggers bomb drop action.
+     *
+     * @param e the KeyEvent triggered by pressing a key.
+     */
     @Override
     public void keyPressed(KeyEvent e) {
 
+        // Toggle the movement direction flag for the pressed key
         toggleDirection(e.getKeyCode(), true);
 
         int value = e.getKeyCode();
 
+        // Set specific direction flags based on the key pressed
         if (value == KeyEvent.VK_W) {
             upDirection = true;
         }
@@ -49,23 +74,29 @@ public class KeyHandler implements KeyListener {
         if (value == KeyEvent.VK_SPACE) {
             bombDrop = true;
         }
-
     }
 
+    /**
+     * Handles key release events. It resets the bomb drop action and movement direction flags.
+     *
+     * @param e the KeyEvent triggered by releasing a key.
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         int value = e.getKeyCode();
+
+        // Reset bomb drop when space key is released
         if (value == KeyEvent.VK_SPACE) {
             bombDrop = false;
         }
-        toggleDirection(e.getKeyCode(), false
 
-
-        );
+        // Toggle the movement direction flag for the released key
+        toggleDirection(e.getKeyCode(), false);
     }
 
     /**
      * Toggles the movement direction based on the key event.
+     * This method is called to enable or disable specific movement directions.
      *
      * @param keyCode   The key code of the pressed/released key.
      * @param isPressed True if the key is pressed, false if released.
@@ -79,34 +110,74 @@ public class KeyHandler implements KeyListener {
         }
     }
 
+    /**
+     * Returns whether the up direction movement is active.
+     *
+     * @return true if the up direction is active, false otherwise.
+     */
     public boolean isUpDirection() {
         return upDirection;
     }
 
+    /**
+     * Sets the state of the up direction movement.
+     *
+     * @param upDirection true to activate the up direction, false to deactivate it.
+     */
     public void setUpDirection(boolean upDirection) {
         this.upDirection = upDirection;
     }
 
+    /**
+     * Returns whether the down direction movement is active.
+     *
+     * @return true if the down direction is active, false otherwise.
+     */
     public boolean isDownDirection() {
         return downDirection;
     }
 
+    /**
+     * Sets the state of the down direction movement.
+     *
+     * @param downDirection true to activate the down direction, false to deactivate it.
+     */
     public void setDownDirection(boolean downDirection) {
         this.downDirection = downDirection;
     }
 
+    /**
+     * Returns whether the left direction movement is active.
+     *
+     * @return true if the left direction is active, false otherwise.
+     */
     public boolean isLeftDirection() {
         return leftDirection;
     }
 
+    /**
+     * Sets the state of the left direction movement.
+     *
+     * @param leftDirection true to activate the left direction, false to deactivate it.
+     */
     public void setLeftDirection(boolean leftDirection) {
         this.leftDirection = leftDirection;
     }
 
+    /**
+     * Returns whether the right direction movement is active.
+     *
+     * @return true if the right direction is active, false otherwise.
+     */
     public boolean isRightDirection() {
         return rightDirection;
     }
 
+    /**
+     * Sets the state of the right direction movement.
+     *
+     * @param rightDirection true to activate the right direction, false to deactivate it.
+     */
     public void setRightDirection(boolean rightDirection) {
         this.rightDirection = rightDirection;
     }

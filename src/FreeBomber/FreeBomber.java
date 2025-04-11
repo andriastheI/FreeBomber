@@ -13,7 +13,6 @@ public class FreeBomber extends JFrame {
     private Background gamePanel;
     private HighscorePanel scoreBoard;
 
-
     /**
      * Constructor for the FreeBomber class.
      * Sets up the JFrame and shows the menu panel first.
@@ -25,7 +24,7 @@ public class FreeBomber extends JFrame {
 
         // Show menu panel first
         setContentPane(new MenuPanel(this));
-        //setContentPane(new GameOverPanel(this));
+        //setContentPane(new GameOverPanel(this)); // Uncomment this if you want to show GameOverPanel initially
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -33,6 +32,7 @@ public class FreeBomber extends JFrame {
 
     /**
      * Switches from the menu panel to the actual game panel and starts the game thread.
+     * This method changes the content pane of the JFrame to the game panel and initializes the game.
      */
     public void startGame() {
         gamePanel = new Background(this);
@@ -47,7 +47,12 @@ public class FreeBomber extends JFrame {
 
         gamePanel.startGameThread();
     }
-    public void showScoreBoard(){
+
+    /**
+     * Displays the high score board panel.
+     * This method switches the content pane to the high score panel and allows users to view the high scores.
+     */
+    public void showScoreBoard() {
         scoreBoard = new HighscorePanel(this);
         setContentPane(scoreBoard);
         revalidate();
@@ -57,22 +62,31 @@ public class FreeBomber extends JFrame {
         SwingUtilities.invokeLater(() -> {
             scoreBoard.requestFocusInWindow();
         });
-
     }
+
+    /**
+     * Displays the game over panel.
+     * This method switches the content pane to the game over panel to show the game results.
+     */
     public void showGameOver() {
         setContentPane(new GameOverPanel(this));
         revalidate();
         repaint();
     }
-    public void getBackToMenu(){
+
+    /**
+     * Switches the content pane back to the main menu.
+     * This method takes the user back to the menu screen, where they can choose to restart or exit the game.
+     */
+    public void getBackToMenu() {
         setContentPane(new MenuPanel(this));
         revalidate();
         repaint();
     }
 
-
     /**
      * Main method to launch the FreeBomber game.
+     * This method starts the FreeBomber application by initializing the game window.
      *
      * @param args Command line arguments (not used).
      */

@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-
 /**
  * The TileManager class is responsible for managing the tiles used in the game.
  * It handles loading tile images, reading map data, and drawing tiles on the screen.
@@ -61,7 +60,6 @@ public class TileManager {
             tile[3] = new Tile();
             tile[3].img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("storage/tiles/thedoor.png")));
             tile[3].collision = true;
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -117,6 +115,7 @@ public class TileManager {
 
     /**
      * Handles the explosion logic and replaces soft walls with grass after a bomb explosion.
+     * This method updates the map by replacing soft walls (tile[2]) with grass (tile[0]) within the explosion area.
      *
      * @param explosionArea The area affected by the explosion.
      */
@@ -133,7 +132,7 @@ public class TileManager {
                         // Replace soft wall with grass after explosion
                         mapTileNum[col][row] = 3; // Change tile to grass (tile[0])
                     } else if (explosionArea.intersects(tileRect)) {
-                        mapTileNum[col][row] = 0;
+                        mapTileNum[col][row] = 0; // Change tile to grass (tile[0])
                     }
                 }
             }
@@ -167,10 +166,20 @@ public class TileManager {
         }
     }
 
+    /**
+     * Gets the current map number.
+     *
+     * @return The number of the current map.
+     */
     public int getCurrentMap() {
         return currentMap;
     }
 
+    /**
+     * Sets the current map number.
+     *
+     * @param currentMap The map number to set as the current map.
+     */
     public void setCurrentMap(int currentMap) {
         this.currentMap = currentMap;
     }
