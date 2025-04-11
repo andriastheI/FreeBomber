@@ -12,103 +12,146 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import FreeBomber.*;
 
 /**
- * The MenuPanel class is the game's starting menu.
- * It provides buttons to start the game or view high scores.
+ * The MenuPanel class represents the main menu screen of the game.
+ * It provides options to start a new game or view high scores.
  */
 public class MenuPanel extends JPanel implements ActionListener {
 
+    /** Button to start a new game */
     private JButton newGameButton;
+
+    /** Button to view high scores */
     private JButton highScoreButton;
+
+    /** Background object for screen dimension info */
     private Background bg = new Background();
+
+    /** Temporary scoreboard map (not used in display in current version) */
     private Map<String, Integer> scoreBoardUpload = new HashMap<>();
 
-
-
+    /**
+     * Constructs the menu panel UI with background and buttons.
+     *
+     * @param frame Reference to the FreeBomber frame for event callbacks
+     */
     public MenuPanel(FreeBomber frame) {
+        // Set panel size to match screen dimensions
         setPreferredSize(new Dimension(bg.getScreenWidth(), bg.getScreenHeight()));
+
+        // Use absolute positioning
         setLayout(null);
+
+        // Set game icon
         frame.setIconImage(new ImageIcon("src/storage/logo/logo.png").getImage());
+
+        // Load and set background image
         ImageIcon menuBg = new ImageIcon("src/storage/logo/menuBomber.jpg");
         JLabel bg = new JLabel(menuBg);
-        bg.setBounds(0, 0, menuBg.getIconWidth()-150, menuBg.getIconHeight()-50);
+        bg.setBounds(0, 0, menuBg.getIconWidth() - 150, menuBg.getIconHeight() - 50);
 
-
-        // New Game Button
+        // ============================
+        // Setup "New Game" button
+        // ============================
         newGameButton = new JButton("New Game") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-                // Background color change on press
+                // Change color on press
                 Color base = getModel().isArmed() ? new Color(30, 30, 30) : new Color(50, 50, 200);
                 g2.setColor(base);
 
-                // Rounded background
+                // Draw rounded background
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
                 g2.dispose();
 
+                // Default painting
                 super.paintComponent(g);
             }
         };
-        newGameButton.setBounds(314, 300, 150, 50); // more width for text
+
+        // Style and position the button
+        newGameButton.setBounds(314, 300, 150, 50);
         newGameButton.setForeground(Color.WHITE);
         newGameButton.setFont(new Font("Arial", Font.BOLD, 18));
-        newGameButton.setContentAreaFilled(false);  // prevent default painting
-        newGameButton.setBorderPainted(false);      // remove border
-        newGameButton.setFocusPainted(false);       // no outline on focus
-        newGameButton.setOpaque(false);             // transparency
+        newGameButton.setContentAreaFilled(false);
+        newGameButton.setBorderPainted(false);
+        newGameButton.setFocusPainted(false);
+        newGameButton.setOpaque(false);
+
+        // Add event handler to start the game
         newGameButton.addActionListener((ActionEvent e) -> {
-            frame.startGame(); // Start the game from FreeBomber
+            frame.startGame();
         });
 
+        // Add button to panel
         add(newGameButton);
-        // High Score Button
-        highScoreButton = new JButton("High Scores"){
+
+        // ============================
+        // Setup "High Scores" button
+        // ============================
+        highScoreButton = new JButton("High Scores") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-                // Background color change on press
+                // Change color on press
                 Color base = getModel().isArmed() ? new Color(30, 30, 30) : new Color(50, 50, 200);
                 g2.setColor(base);
 
-                // Rounded background
+                // Draw rounded background
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
                 g2.dispose();
 
+                // Default painting
                 super.paintComponent(g);
             }
         };
-        highScoreButton.setBounds(290, 360, 200, 50); // more width for text
+
+        // Style and position the button
+        highScoreButton.setBounds(290, 360, 200, 50);
         highScoreButton.setForeground(Color.WHITE);
         highScoreButton.setFont(new Font("Arial", Font.BOLD, 18));
-        highScoreButton.setContentAreaFilled(false);  // prevent default painting
-        highScoreButton.setBorderPainted(false);      // remove border
-        highScoreButton.setFocusPainted(false);       // no outline on focus
+        highScoreButton.setContentAreaFilled(false);
+        highScoreButton.setBorderPainted(false);
+        highScoreButton.setFocusPainted(false);
         highScoreButton.setOpaque(false);
+
+        // Add button to panel
         add(highScoreButton);
+
+        // Add background image at the end to appear behind other components
         add(bg);
 
+        // Add event handler to show scoreboard
         highScoreButton.addActionListener((ActionEvent e) -> {
-            frame.showScoreBoard(); // Start the game from FreeBomber
+            frame.showScoreBoard();
         });
     }
 
+    /**
+     * Reads user scores from the provided file and stores them.
+     * Currently unused by the GUI, but intended for backend data loading.
+     *
+     * @param filename the file to read (currently hardcoded inside method)
+     */
     public void readAndStore(String filename) {
+        // Path to the scoreboard file
         String store = "src/storage/scores/scoreboard.txt";
         File scoreFile = new File(store);
 
+        // Check if file exists
         if (scoreFile.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(scoreFile))) {
                 String line;
 
+                // Read each line and parse user and score
                 while ((line = reader.readLine()) != null) {
                     String[] words = line.split(",");
                     User theUser = new User();
@@ -126,8 +169,14 @@ public class MenuPanel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Unused ActionListener method.
+     * Placeholder for future action support if needed.
+     *
+     * @param e The triggered ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // No logic implemented
     }
 }
