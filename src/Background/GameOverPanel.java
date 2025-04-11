@@ -13,9 +13,13 @@ import java.awt.event.ActionListener;
  */
 public class GameOverPanel extends JPanel implements ActionListener {
 
+    // Restart button that resumes the game from current state
     private JButton restartGameButton;
+    // Starts a completely new game session
     private JButton newGameButton;
+    // Closes the game/application entirely
     private JButton exitButton;
+    // Reference background used to fetch screen dimensions
     private Background backg = new Background();
 
     /**

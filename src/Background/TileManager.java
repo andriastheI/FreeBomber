@@ -17,12 +17,19 @@ import java.util.Random;
  */
 public class TileManager {
 
+    // Used to randomly pick one of the door locations
     private final Random theWizard = new Random();
+    // All possible door tile locations for the current map
     private final List<int[]> doorLocations = new ArrayList<>();
+    // Array to hold different tile types (grass, wall, etc.)
     public Tile[] tile;
+    // Stores tile layout of the current map using tile indices
     public int[][] mapTileNum;
+    // Reference to the game panel (Background class)
     Background gp;
-    private int currentMap = 1;  // Track which map is currently loaded
+    // Track which map is currently loaded
+    private int currentMap = 1;
+    // Coordinates of the actual active door tile
     private int[] theDoor;
 
     /**

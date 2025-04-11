@@ -8,15 +8,8 @@ import java.awt.image.BufferedImage;
  */
 public class Tile {
 
-    /**
-     * Indicates whether the tile has collision (e.g., if a character can walk through it).
-     * Default value is false, meaning no collision.
-     */
+    // Indicates whether the tile has collision (e.g., if a character can walk through it).Default value is false, meaning no collision.
     public boolean collision = false;
-
-    /**
-     * The image representing the tile.
-     * It is used to visually render the tile in the game world.
-     */
+    // The image representing the tile. It is used to visually render the tile in the game world.
     protected BufferedImage img;
 }

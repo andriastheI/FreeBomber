@@ -17,31 +17,22 @@ public class Background extends JPanel implements Runnable {
 
     // Target frames per second for the game loop.
     private static final int FPS = 60;
-
     // Size of a single tile in pixels.
     private final int tileSize = 46;
-
     // Number of horizontal tiles on the screen.
     private final int screenCols = 18;
-
     // Number of vertical tiles on the screen.
     private final int screenRows = 14;
-
     // Total screen width in pixels, calculated from tile size and columns.
     private final int screenWidth = screenCols * tileSize;
-
     // Total screen height in pixels, calculated from tile size and rows.
     private final int screenHeight = screenRows * tileSize;
-
     // Handles collision detection for walls and objects.
     private final CheckCollision checkCollision = new CheckCollision(this);
-
     // Handles collision detection specifically for enemies.
     private final EnemyCollision eslugCollision = new EnemyCollision(this);
-
     // Manages and renders tile maps.
     private final TileManager tileManager = new TileManager(this);
-
     // Captures and processes keyboard input.
     private final KeyHandler keyHandler = new KeyHandler();
     // Flag indicating whether the game is over.
@@ -58,10 +49,8 @@ public class Background extends JPanel implements Runnable {
     private EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
     // Thread used to run the main game loop.
     private Thread gameThread;
-
     // Image used to display player's health (hearts).
     private BufferedImage heartImage;
-
     // Reference to the main frame that contains this panel.
     private FreeBomber frame;
 

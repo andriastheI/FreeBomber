@@ -9,9 +9,7 @@ import Background.TileManager;
  */
 public class BombCollision {
 
-    /**
-     * The background object, which contains the game environment and tile data.
-     */
+    // The background object, which contains the game environment and tile data.
     private final Background background;
 
     /**

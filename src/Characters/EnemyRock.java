@@ -21,24 +21,13 @@ import java.util.Random;
  */
 public class EnemyRock extends Character {
 
-    /**
-     * Reference to the game background for screen and tile information.
-     */
+    // Reference to the game background for screen and tile information.
     Background background;
-
-    /**
-     * Timer that triggers movement every 200 milliseconds.
-     */
+    // Timer that triggers movement every 200 milliseconds.
     Timer movementTimer;
-
-    /**
-     * Random object used for direction selection.
-     */
+    // Random object used for direction selection.
     Random random;
-
-    /**
-     * Reference to the JackBomber player, used for collision checks.
-     */
+    // Reference to the JackBomber player, used for collision checks.
     JackBomber jackBomber;
 
     /**

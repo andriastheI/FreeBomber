@@ -13,7 +13,8 @@ import java.io.IOException;
  */
 public class EnemySlug extends Character {
     Background background;
-    JackBomber jackBomber; // Reference to the JackBomber character
+    // Reference to the JackBomber character
+    JackBomber jackBomber;
 
     /**
      * Constructor for the EnemySlug class.

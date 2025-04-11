@@ -9,11 +9,15 @@ import java.awt.event.KeyListener;
  */
 public class KeyHandler implements KeyListener {
 
-    // Movement direction flags
+    // True if 'W' key is pressed to move up
     private boolean upDirection;
+    // True if 'S' key is pressed to move down
     private boolean downDirection;
+    // True if 'A' key is pressed to move left
     private boolean leftDirection;
+    // True if 'D' key is pressed to move right
     private boolean rightDirection;
+    // True if spacebar is pressed to drop a bomb
     private boolean bombDrop;
 
     /**
