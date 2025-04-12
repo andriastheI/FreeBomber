@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
  */
 public class Character {
 
-    /** X-coordinate of the character on the screen.*/
+    /** X-coordinate of the character on the screen. */
     public int x;
 
     /** Y-coordinate of the character on the screen. */

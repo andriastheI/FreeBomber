@@ -287,6 +287,7 @@ public class Background extends JPanel implements Runnable {
     }
 
     //TODO: add actual methods before getters and setters
+
     /**
      * Returns the player character for the game.
      *

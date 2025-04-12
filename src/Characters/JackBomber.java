@@ -24,33 +24,33 @@ public class JackBomber extends Character {
     public static int score = 0;
     /** List of active bombs placed by the player. */
     private final List<Bomb> bombs = new ArrayList<Bomb>();
-    /** Duration (in milliseconds) for which the player remains invincible after taking damage.*/
+    /** Duration (in milliseconds) for which the player remains invincible after taking damage. */
     private final int INVINCIBILITY_DURATION = 1000;
-    /** Total time (in milliseconds) allowed to complete a level.*/
+    /** Total time (in milliseconds) allowed to complete a level. */
     private final int TIME_LIMIT = 60000;
-    /** Stores the timestamps of recently dropped bombs to limit bomb placement frequency.*/
+    /** Stores the timestamps of recently dropped bombs to limit bomb placement frequency. */
     private final List<Long> recentBombTimestamps = new ArrayList<>();
-    /** Maximum number of bombs the player can place within a given time window*/
+    /** Maximum number of bombs the player can place within a given time window */
     private final int BOMB_LIMIT = 3;
-    /** Time window (in milliseconds) in which the bomb limit is enforced.*/
+    /** Time window (in milliseconds) in which the bomb limit is enforced. */
     private final long TIME_WINDOW_MS = 5000; // 5 seconds
-    /** The current bomb object being placed.*/
+    /** The current bomb object being placed. */
     public Bomb bomb;
-    /** Reference to the game background.*/
+    /** Reference to the game background. */
     Background background;
-    /** Reference to the key handler for capturing input.*/
+    /** Reference to the key handler for capturing input. */
     KeyHandler keyHandler;
-    /** Flag indicating whether a bomb was just dropped.*/
+    /** Flag indicating whether a bomb was just dropped. */
     private boolean bombJustDropped = false;
-    /** Current health of the player, measured in number of hearts*/
+    /** Current health of the player, measured in number of hearts */
     private int playerHealth = 3;
     /** TODO: Debugging timer for printing status info to the console.*/
 // private long lastPrintTime = 0;
-    /** Indicates whether the player is currently invincible (e.g., after taking damage)*/
+    /** Indicates whether the player is currently invincible (e.g., after taking damage) */
     private boolean invincible = false;
-    /** Timestamp of the last time the player took damage, used to manage invincibility frames*/
+    /** Timestamp of the last time the player took damage, used to manage invincibility frames */
     private long lastDamageTime = 0;
-    /** Remaining time for the current level, in milliseconds*/
+    /** Remaining time for the current level, in milliseconds */
     private long remainingTime = 0;
 
 
@@ -78,6 +78,7 @@ public class JackBomber extends Character {
     }
 
     // TODO: driver for creating images
+
     /**
      * Main method for testing image cropping.
      *
@@ -86,6 +87,33 @@ public class JackBomber extends Character {
     public static void main(String[] args) {
         JackBomber test = new JackBomber();
         test.crop();
+    }
+
+    /**
+     * Increases the player's score by the specified amount.
+     *
+     * @param amount the number of points to add to the current score
+     */
+    public static void increaseScore(int amount) {
+        score += amount;
+    }
+
+    /**
+     * Decreases the player's score by the specified amount.
+     *
+     * @param amount the number of points to subtract from the current score
+     */
+    public static void decreaseScore(int amount) {
+        score -= amount;
+    }
+
+    /**
+     * Returns the current score of the player.
+     *
+     * @return the current score as an integer
+     */
+    public static int getScore() {
+        return score;
     }
 
     /**
@@ -98,6 +126,8 @@ public class JackBomber extends Character {
         direction = "down";
         setLevelStartTime(System.currentTimeMillis());
     }
+
+    //TODO
 
     /**
      * Loads the player's sprite images from resources for animation.
@@ -331,8 +361,6 @@ public class JackBomber extends Character {
         }
     }
 
-    //TODO
-
     /**
      * Crops heart images from a sprite sheet and saves them as individual frames.
      * Useful for heart animation effects.
@@ -417,33 +445,6 @@ public class JackBomber extends Character {
      */
     public void setRemainingTime(long remainingTime) {
         this.remainingTime = remainingTime;
-    }
-
-    /**
-     * Increases the player's score by the specified amount.
-     *
-     * @param amount the number of points to add to the current score
-     */
-    public static void increaseScore(int amount) {
-        score += amount;
-    }
-
-    /**
-     * Decreases the player's score by the specified amount.
-     *
-     * @param amount the number of points to subtract from the current score
-     */
-    public static void decreaseScore(int amount) {
-        score -= amount;
-    }
-
-    /**
-     * Returns the current score of the player.
-     *
-     * @return the current score as an integer
-     */
-    public static int getScore() {
-        return score;
     }
 
 }
