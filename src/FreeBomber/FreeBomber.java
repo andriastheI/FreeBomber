@@ -13,9 +13,9 @@ import javax.swing.*;
  */
 public class FreeBomber extends JFrame {
 
-    // game background class
+    /** game background class */
     private Background gamePanel;
-    // score board instance for game
+    /** score board instance for game */
     private HighscorePanel scoreBoard;
 
     /**

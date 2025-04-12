@@ -6,9 +6,9 @@ package Background;
  */
 public class User {
 
-    // The name of the user/player.
+    /** The name of the user/player. */
     private String name;
-    // The score achieved by the user.
+    /** The score achieved by the user. */
     private Integer score;
 
     /**

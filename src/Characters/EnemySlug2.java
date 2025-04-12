@@ -11,6 +11,7 @@ import java.io.IOException;
  * This class overrides methods to customize the images and movement behavior for the second enemy type.
  */
 public class EnemySlug2 extends EnemySlug {
+    /** Reference to the Background */
     private final Background background;
 
     /**

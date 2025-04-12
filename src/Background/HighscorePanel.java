@@ -18,13 +18,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class HighscorePanel extends JPanel implements ActionListener {
 
-    // Stores screen background and dimension utilities
+    /** Stores screen background and dimension utilities */
     private Background backg = new Background();
 
-    // Back button to return to the main menu
+    /** Back button to return to the main menu */
     private JButton backButton;
 
-    // A map to store the scoreboard entries with player names and their scores
+    /** A map to store the scoreboard entries with player names and their scores */
     private Map<String, Integer> scoreboardData = new HashMap<>();
 
     /**

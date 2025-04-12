@@ -12,8 +12,9 @@ import java.io.IOException;
  * It handles movement, image rendering, and collision detection for the enemy slug.
  */
 public class EnemySlug extends Character {
+    /** Reference to the Background */
     Background background;
-    // Reference to the JackBomber character
+    /** Reference to the JackBomber character */
     JackBomber jackBomber;
 
     /**

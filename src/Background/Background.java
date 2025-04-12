@@ -268,6 +268,17 @@ public class Background extends JPanel implements Runnable {
         }
         g2.drawString("Timer: " + gameTime, heartStartX - 120, heartY + 30);
 
+        g2.setFont(new Font("Courier New", Font.BOLD, 20));
+        g.setColor(Color.WHITE);
+        String scoreText = "Score: " + JackBomber.getScore();
+        FontMetrics fm = g.getFontMetrics();
+        int textWidth = fm.stringWidth(scoreText);
+
+        int x = (getWidth() - textWidth) / 2;
+        int y = 30;
+
+        g.drawString(scoreText, x, y);
+
         if (gameOver) {
             endGame();
         }

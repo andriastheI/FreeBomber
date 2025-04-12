@@ -4,8 +4,8 @@ import Background.Background;
 import Background.TileManager;
 
 public class CheckCollision {
+    /** background instance */
     private final Background background;
-//    private JackBomber jackBomber;
 
     public CheckCollision(Background background) {
         this.background = background;

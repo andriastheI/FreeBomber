@@ -10,38 +10,38 @@ import java.awt.image.BufferedImage;
  */
 public class Character {
 
-    // X-coordinate of the character on the screen.
+    /** X-coordinate of the character on the screen.*/
     public int x;
 
-    // Y-coordinate of the character on the screen.
+    /** Y-coordinate of the character on the screen. */
     public int y;
 
-    // Movement speed of the character.
+    /** Movement speed of the character. */
     public int speed;
 
-    // Sprite frames for animations in all four directions.
+    /** Sprite frames for animations in all four directions. */
     public BufferedImage up1, up2, up3, up4,
             down1, down2, down3, down4,
             left1, left2, left3, left4,
             right1, right2, right3, right4;
 
-    // The current direction the character is facing ("up", "down", "left", "right").
+    /** The current direction the character is facing ("up", "down", "left", "right"). */
     public String direction;
-    // Controls the frame update rate for sprite animations.
+    /** Controls the frame update rate for sprite animations. */
     public int spriteCounter = 0;
-    // Indicates which sprite frame is currently active (1-4).
+    /** Indicates which sprite frame is currently active (1-4). */
     public int spriteNum = 1;
-    // Rectangle used for collision detection (typically smaller than the sprite itself).
+    /** Rectangle used for collision detection (typically smaller than the sprite itself). */
     public Rectangle spriteBounds;
-    // Flag indicating whether the character is currently colliding with something.
+    /** Flag indicating whether the character is currently colliding with something. */
     public boolean collisionOn = false;
-    // Flag indicating whether the character has triggered a level-up.
+    /** Flag indicating whether the character has triggered a level-up. */
     private boolean levelUp = false;
-    // Flag indicating whether the character has found the level's exit door.
+    /** Flag indicating whether the character has found the level's exit door. */
     private boolean doorFound = false;
-    // Flag indicating whether the character is alive.
+    /** Flag indicating whether the character is alive. */
     private boolean alive = true;
-    // Timestamp when the current level started, used for time-based logic.
+    /** Timestamp when the current level started, used for time-based logic. */
     private long levelStartTime = System.currentTimeMillis();
 
     /**

@@ -19,13 +19,13 @@ import java.util.Map;
  */
 public class MenuPanel extends JPanel implements ActionListener {
 
-    // Button to start a new game
+    /** Button to start a new game */
     private JButton newGameButton;
-    // Button to view high scores
+    /** Button to view high scores */
     private JButton highScoreButton;
-    // Background object for screen dimension info
+    /** Background object for screen dimension info */
     private Background bg = new Background();
-    // Temporary scoreboard map (not used in display in current version)
+    /** Temporary scoreboard map (not used in display in current version) */
     private Map<String, Integer> scoreBoardUpload = new HashMap<>();
 
     /**

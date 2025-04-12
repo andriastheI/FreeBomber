@@ -9,7 +9,10 @@ import Background.TileManager;
  * as well as managing the collision detection with the environment (tiles).
  */
 public class EnemyCollision {
+
+    /** An array representing the allowed movement directions for the enemy character. */
     final boolean[] collisionDirection = {false, false, false, false}; // up, down, left, right
+    /** Background instance */
     private final Background background;
 
     /**

@@ -373,6 +373,7 @@ public class JackBomber extends Character {
         }
 
         playerHealth--;
+        JackBomber.decreaseScore(300);
         if (getPlayerHealth() <= 0) {
             background.gameOver = true;
         }
@@ -418,11 +419,29 @@ public class JackBomber extends Character {
         this.remainingTime = remainingTime;
     }
 
+    /**
+     * Increases the player's score by the specified amount.
+     *
+     * @param amount the number of points to add to the current score
+     */
     public static void increaseScore(int amount) {
         score += amount;
-        System.out.println("Score: " + score);
     }
 
+    /**
+     * Decreases the player's score by the specified amount.
+     *
+     * @param amount the number of points to subtract from the current score
+     */
+    public static void decreaseScore(int amount) {
+        score -= amount;
+    }
+
+    /**
+     * Returns the current score of the player.
+     *
+     * @return the current score as an integer
+     */
     public static int getScore() {
         return score;
     }
