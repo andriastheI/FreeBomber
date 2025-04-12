@@ -85,6 +85,8 @@ public class EnemySlug2 extends EnemySlug {
         if (explosionArea.intersects(enemyRect)) {
             // Enemy is hit by the explosion, remove or mark as defeated
             this.setAlive(false);
+            //increase the score when character is dead
+            JackBomber.increaseScore(150);
         }
     }
 

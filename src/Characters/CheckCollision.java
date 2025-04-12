@@ -5,6 +5,7 @@ import Background.TileManager;
 
 public class CheckCollision {
     private final Background background;
+//    private JackBomber jackBomber;
 
     public CheckCollision(Background background) {
         this.background = background;
@@ -39,6 +40,7 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
+                    JackBomber.increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -53,6 +55,7 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
+                    JackBomber.increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -67,6 +70,7 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
+                    JackBomber.increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -81,6 +85,7 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
+                    JackBomber.increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
