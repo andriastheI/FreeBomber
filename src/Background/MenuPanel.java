@@ -27,6 +27,8 @@ public class MenuPanel extends JPanel implements ActionListener {
     private Background bg = new Background();
     /** Temporary scoreboard map (not used in display in current version) */
     private Map<String, Integer> scoreBoardUpload = new HashMap<>();
+    /** used for exracting the username for the player*/
+    private String currentUsername = "";
 
     /**
      * Constructs the menu panel UI with background and buttons.
@@ -81,7 +83,14 @@ public class MenuPanel extends JPanel implements ActionListener {
 
         // Add event handler to start the game
         newGameButton.addActionListener((ActionEvent e) -> {
-            frame.startGame();
+            currentUsername = JOptionPane.showInputDialog(this, "Enter your username:", "Username", JOptionPane.PLAIN_MESSAGE);
+
+            if (currentUsername != null && !currentUsername.trim().isEmpty()) {
+                frame.setPlayerName(currentUsername.trim());  // assuming you have this method in FreeBomber
+                frame.startGame();
+            } else {
+                JOptionPane.showMessageDialog(this, "Username is required to start the game.");
+            }
         });
 
         // Add button to panel

@@ -16,7 +16,7 @@ public class GameOverPanel extends JPanel implements ActionListener {
     /** Restart button that resumes the game from current state */
     private JButton restartGameButton;
     /** Starts a completely new game session */
-    private JButton newGameButton;
+    private JButton menuGameButton;
     /** Closes the game/application entirely */
     private JButton exitButton;
     /** Reference background used to fetch screen dimensions */
@@ -66,7 +66,7 @@ public class GameOverPanel extends JPanel implements ActionListener {
         });
 
         // Initialize the "New Game" button
-        newGameButton = new JButton("New Game") {
+        menuGameButton = new JButton("Menu") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
@@ -83,14 +83,14 @@ public class GameOverPanel extends JPanel implements ActionListener {
                 super.paintComponent(g);
             }
         };
-        newGameButton.setBounds(340, 440, 150, 50); // Set button size
-        newGameButton.setForeground(Color.WHITE);
-        newGameButton.setFont(new Font("Arial", Font.BOLD, 18));
-        newGameButton.setContentAreaFilled(false);  // Prevent default painting
-        newGameButton.setBorderPainted(false);      // Remove border
-        newGameButton.setFocusPainted(false);       // No outline on focus
-        newGameButton.setOpaque(false);             // Transparency
-        newGameButton.addActionListener(e -> frame.startGame());
+        menuGameButton.setBounds(340, 440, 150, 50); // Set button size
+        menuGameButton.setForeground(Color.WHITE);
+        menuGameButton.setFont(new Font("Arial", Font.BOLD, 18));
+        menuGameButton.setContentAreaFilled(false);  // Prevent default painting
+        menuGameButton.setBorderPainted(false);      // Remove border
+        menuGameButton.setFocusPainted(false);       // No outline on focus
+        menuGameButton.setOpaque(false);             // Transparency
+        menuGameButton.addActionListener(e -> frame.getBackToMenu());
 
         // Initialize the "Exit" button
         exitButton = new JButton("Exit") {
@@ -123,7 +123,7 @@ public class GameOverPanel extends JPanel implements ActionListener {
 
         // Add components to panel
         add(restartGameButton);
-        add(newGameButton);
+        add(menuGameButton);
         add(exitButton);
         add(bg);
     }

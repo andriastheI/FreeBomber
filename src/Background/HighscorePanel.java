@@ -10,7 +10,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  * HighscorePanel is a JPanel that displays a list of high scores from a file
@@ -24,11 +26,17 @@ public class HighscorePanel extends JPanel implements ActionListener {
     /** Back button to return to the main menu */
     private JButton backButton;
 
+    /** Table to display the score board */
+    private JTable scoreTable;
+
+    /** Table to list the score board */
+    private DefaultTableModel tableModel;
+
     /** A map to store the scoreboard entries with player names and their scores */
     private Map<String, Integer> scoreboardData = new HashMap<>();
 
     /**
-     * Constructs the HighscorePanel.
+     * Constructs the High score Panel.
      * Sets up layout, background, back button, and loads scoreboard data.
      *
      * @param frame The main FreeBomber game frame
@@ -85,40 +93,56 @@ public class HighscorePanel extends JPanel implements ActionListener {
 
         // Load high score data from file
         readAndStore();
+
+        // Create table with columns: "Player" and "Score"
+        tableModel = new DefaultTableModel(new Object[]{"Player", "Score"}, 0);
+        scoreTable = new JTable(tableModel);
+
+        // Populate the table with top 10 scores
+        scoreboardData.entrySet().stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
+                .limit(10)
+                .forEach(entry -> tableModel.addRow(new Object[]{entry.getKey(), entry.getValue()}));
+
+        // Table formatting
+        scoreTable.setFont(new Font("Arial", Font.PLAIN, 20));
+        scoreTable.setRowHeight(30);
+        scoreTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 22));
+
+        // Wrap the table in a scroll pane
+        JScrollPane scrollPane = new JScrollPane(scoreTable);
+        scrollPane.setBounds(100, 120, 400, 350);
+        add(scrollPane);
+
     }
 
     /**
-     * Reads scoreboard data from a file and stores it in the scoreboardData map.
-     * Handles parsing and file access errors safely.
+     * Reads scoreboard data from a comma-separated file.
+     * Username is everything before the last comma, score is after.
      */
     public void readAndStore() {
-        // Temporary map to load values before storing
         Map<String, Integer> tempDictionary = new HashMap<>();
 
-        try {
-            // Load the file using classloader for compatibility inside JARs
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(getClass().getClassLoader().getResourceAsStream("storage/scores/scoreboard.txt"))
-            );
-
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("storage/scores/scoreboard.txt")))
+        ) {
             String line;
-
-            // Read each line and parse name, score
             while ((line = reader.readLine()) != null) {
-                String[] words = line.split(",");
-                if (words.length == 2) {
+                int lastCommaIndex = line.lastIndexOf(',');
+
+                if (lastCommaIndex != -1 && lastCommaIndex < line.length() - 1) {
+                    String username = line.substring(0, lastCommaIndex).trim();
+                    String scoreStr = line.substring(lastCommaIndex + 1).trim();
+
                     try {
-                        tempDictionary.put(words[0].trim(), Integer.parseInt(words[1].trim()));
+                        int score = Integer.parseInt(scoreStr);
+                        tempDictionary.put(username, score);
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid number format in line: " + line);
+                        System.out.println("Invalid score format in line: " + line);
                     }
                 }
             }
 
-            // Close the reader after reading
-            reader.close();
-
-            // Update the main scoreboard map
             this.scoreboardData = tempDictionary;
 
         } catch (Exception e) {
@@ -127,6 +151,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
         }
     }
 
+
     /**
      * Paints the high score panel, including the title and top 10 scores.
      *
@@ -134,33 +159,37 @@ public class HighscorePanel extends JPanel implements ActionListener {
      */
     @Override
     protected void paintComponent(Graphics g) {
-        // Always call super first for proper Swing painting
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-
-        // Enable antialiasing for smoother text
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Draw the title
+        // Title
         g2.setColor(Color.BLACK);
         g2.setFont(new Font("Arial", Font.BOLD, 32));
-        g2.drawString("HIGH SCORES", 100, 100);
-
-        // Set font for scores
-        g2.setFont(new Font("Arial", Font.PLAIN, 24));
-
-        // Vertical position tracker
-        AtomicInteger y = new AtomicInteger(150);
-
-        // Display top 10 scores in descending order
-        scoreboardData.entrySet().stream()
-                .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
-                .limit(10)
-                .forEach(entry -> {
-                    g2.drawString(entry.getKey() + " - " + entry.getValue(), 120, y.get());
-                    y.addAndGet(35);
-                });
+        g2.drawString("HIGH SCORES", 100, 80);
     }
+
+    /**
+     * Stores the top 10 high scores into the scoreboard file as comma-separated values.
+     */
+    public void storeTop10Scores() {
+        try {
+            java.io.File file = new java.io.File("src/main/resources/storage/scores/scoreboard.txt");
+            java.io.PrintWriter writer = new java.io.PrintWriter(file);
+
+            scoreboardData.entrySet().stream()
+                    .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
+                    .limit(10)
+                    .forEach(entry -> writer.println(entry.getKey() + "," + entry.getValue()));
+
+            writer.close();
+
+        } catch (Exception e) {
+            System.out.println("Failed to write top 10 scores: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Unused ActionListener method.

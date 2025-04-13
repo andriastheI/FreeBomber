@@ -17,12 +17,16 @@ public class FreeBomber extends JFrame {
     private Background gamePanel;
     /** score board instance for game */
     private HighscorePanel scoreBoard;
+    /** players name instance */
+    private String playerName;
+
 
     /**
      * Constructor for the FreeBomber class.
      * Sets up the JFrame and shows the menu panel first.
      */
     public FreeBomber() {
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle("FreeBomber");
@@ -97,5 +101,14 @@ public class FreeBomber extends JFrame {
         setContentPane(new MenuPanel(this));
         revalidate();
         repaint();
+    }
+
+
+    public void setPlayerName(String name) {
+        this.playerName = name;
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 }
