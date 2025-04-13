@@ -138,40 +138,6 @@ public class MenuPanel extends JPanel implements ActionListener {
             frame.showScoreBoard();
         });
     }
-
-    /**
-     * Reads user scores from the provided file and stores them.
-     * Currently unused by the GUI, but intended for backend data loading.
-     *
-     * @param filename the file to read (currently hardcoded inside method)
-     */
-    public void readAndStore(String filename) {
-        // Path to the scoreboard file
-        String store = "src/storage/scores/scoreboard.txt";
-        File scoreFile = new File(store);
-
-        // Check if file exists
-        if (scoreFile.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(scoreFile))) {
-                String line;
-
-                // Read each line and parse user and score
-                while ((line = reader.readLine()) != null) {
-                    String[] words = line.split(",");
-                    User theUser = new User();
-                    theUser.setName(words[0]);
-                    theUser.setScore(Integer.parseInt(words[1]));
-                }
-
-            } catch (IOException e) {
-                System.out.println("There is a problem loading the file!");
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("There is a problem finding the file!");
-        }
-    }
-
     /**
      * Unused ActionListener method.
      * Placeholder for future action support if needed.

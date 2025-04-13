@@ -1,1 +1,6 @@
-hehe, 234
+wsads,250
+aaa,150
+test,-600
+and,-600
+ddd,-650
+dasd,-750

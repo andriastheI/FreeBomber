@@ -7,7 +7,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Background class represents the game panel where the game logic and rendering occur.
@@ -53,6 +57,7 @@ public class Background extends JPanel implements Runnable {
     private BufferedImage heartImage;
     // Reference to the main frame that contains this panel.
     private FreeBomber frame;
+    private Map<String, Integer> currentboardData = new HashMap<>();
 
     /**
      * Constructs the Background panel, initializing its size, background color, and key listeners.
@@ -76,6 +81,7 @@ public class Background extends JPanel implements Runnable {
      * Constructs the Background panel without any frame, initializing its size and other properties.
      */
     public Background() {
+        currentboardData = readAndStore();
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
@@ -366,9 +372,78 @@ public class Background extends JPanel implements Runnable {
      * Ends the game and switches to the Game Over screen.
      */
     private void endGame() {
+        String playerName = frame.getPlayerName();
+        int score = JackBomber.getScore();
+
+        storeTop10Scores(playerName, score);
+
         gameThread = null;
-        SwingUtilities.invokeLater(() -> {
-            frame.showGameOver();
-        });
+        SwingUtilities.invokeLater(() -> frame.showGameOver());
+    }
+
+    /**
+     * Reads scoreboard data from a comma-separated file.
+     * Username is everything before the last comma, score is after.
+     */
+    public Map<String, Integer> readAndStore() {
+        Map<String, Integer> tempDictionary = new HashMap<>();
+
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("storage/scores/scoreboard.txt")))
+        ) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                int lastCommaIndex = line.lastIndexOf(',');
+
+                if (lastCommaIndex != -1 && lastCommaIndex < line.length() - 1) {
+                    String username = line.substring(0, lastCommaIndex).trim();
+                    String scoreStr = line.substring(lastCommaIndex + 1).trim();
+
+                    try {
+                        int score = Integer.parseInt(scoreStr);
+                        tempDictionary.put(username, score);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid score format in line: " + line);
+                    }
+                }
+            }
+            reader.close();
+
+        } catch (Exception e) {
+            System.out.println("Failed to load scoreboard: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return tempDictionary;
+    }
+    /**
+     * Stores the top 10 high scores into the scoreboard file as comma-separated values.
+     * If the player already exists, only updates the score if it's higher.
+     */
+    public void storeTop10Scores(String username, int newScore) {
+        Map<String, Integer> updateboardData = readAndStore();
+
+        // Update score only if it's higher than existing, or add if new player
+        updateboardData.merge(username, newScore, Math::max);
+
+        try {
+            java.io.File file = new java.io.File("src/storage/scores/scoreboard.txt");
+            java.io.PrintWriter writer = new java.io.PrintWriter(file);
+
+            updateboardData.entrySet().stream()
+                    .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
+                    .limit(10)
+                    .forEach(entry -> writer.println(entry.getKey() + "," + entry.getValue()));
+
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("Failed to write top 10 scores: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+    public Map<String, Integer> getCurrentboardData() {
+        return currentboardData;
     }
 }
+

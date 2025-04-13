@@ -73,6 +73,7 @@ public class FreeBomber extends JFrame {
      */
     public void showScoreBoard() {
         scoreBoard = new HighscorePanel(this);
+        scoreBoard.refreshScoreboard();
         setContentPane(scoreBoard);
         revalidate();
         repaint();
