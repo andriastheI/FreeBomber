@@ -92,8 +92,13 @@ public class HighscorePanel extends JPanel implements ActionListener {
         // Make the panel visible
         setVisible(true);
 
-        // Create table with columns: "Player" and "Score"
-        tableModel = new DefaultTableModel(new Object[]{"Player", "Score"}, 0);
+        // Create a table model with non-editable cells
+        tableModel = new DefaultTableModel(new Object[]{"Player", "Score"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // All cells are non-editable
+            }
+        };
         scoreTable = new JTable(tableModel);
         // Table formatting
         scoreTable.setFont(new Font("Arial", Font.PLAIN, 20));

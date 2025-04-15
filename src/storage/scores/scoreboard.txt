@@ -2,6 +2,7 @@ Gux,1250
 wsads,250
 aaa,150
 hsdfas,-200
+kkkk,-300
 test,-600
 and,-600
 ddd,-650
