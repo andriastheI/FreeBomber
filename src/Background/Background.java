@@ -58,6 +58,8 @@ public class Background extends JPanel implements Runnable {
     // Reference to the main frame that contains this panel.
     private FreeBomber frame;
     private Map<String, Integer> currentboardData = new HashMap<>();
+    /** game score */
+    private int gameScore = 0;
 
     /**
      * Constructs the Background panel, initializing its size, background color, and key listeners.
@@ -277,6 +279,7 @@ public class Background extends JPanel implements Runnable {
         g2.setFont(new Font("Courier New", Font.BOLD, 20));
         g.setColor(Color.WHITE);
         String scoreText = "Score: " + JackBomber.getScore();
+        gameScore = JackBomber.getScore();
         FontMetrics fm = g.getFontMetrics();
         int textWidth = fm.stringWidth(scoreText);
 
@@ -444,6 +447,10 @@ public class Background extends JPanel implements Runnable {
 
     public Map<String, Integer> getCurrentboardData() {
         return currentboardData;
+    }
+
+    public int getGameScore() {
+        return gameScore;
     }
 }
 
