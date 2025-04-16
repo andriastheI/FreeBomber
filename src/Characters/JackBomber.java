@@ -214,32 +214,6 @@ public class JackBomber extends Character {
                 spriteCounter = 0;
             }
         }
-// TODO: old code but might be needed in the future
-
-//        if (keyHandler.isBombDrop()) {
-//            if (!bombJustDropped) {
-//
-//                int bombX = x + background.getTileSize() / 4;
-//                int bombY = y + background.getTileSize() / 2;
-//
-//
-//                boolean alreadyPlaced = false;
-//                for (Bomb b : bombs) {
-//                    if (b.getX() == bombX && b.getY() == bombY && !b.isFinished()) {
-//                        alreadyPlaced = true;
-//                        break;
-//                    }
-//                }
-//
-//                if (!alreadyPlaced) {
-//                    bombs.add(new Bomb(bombX, bombY, this.background));
-//                }
-//
-//                bombJustDropped = true;
-//            }
-//        } else {
-//            bombJustDropped = false;
-//        }
 
         long now = System.currentTimeMillis();
 
