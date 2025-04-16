@@ -6,7 +6,7 @@ import Background.TileManager;
 public class CheckCollision {
     /** background instance */
     private final Background background;
-
+    /** constructor  for this class */
     public CheckCollision(Background background) {
         this.background = background;
     }
