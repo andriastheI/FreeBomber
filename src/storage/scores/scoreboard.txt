@@ -1,10 +1,2 @@
-Gux,1250
-Diddy,700
-wsads,250
-aaa,150
-hsdfas,-200
-kkkk,-300
-DD,-450
-test,-600
-and,-600
-AAron,-650
+andrias,12000
+Guz,-600

@@ -19,46 +19,66 @@ import java.util.Map;
  */
 public class Background extends JPanel implements Runnable {
 
-    // Target frames per second for the game loop.
+    /** Target frames per second for the game loop. */
     private static final int FPS = 60;
-    // Size of a single tile in pixels.
+
+    /** Size of a single tile in pixels. */
     private final int tileSize = 46;
-    // Number of horizontal tiles on the screen.
+
+    /** Number of horizontal tiles on the screen. */
     private final int screenCols = 18;
-    // Number of vertical tiles on the screen.
+
+    /** Number of vertical tiles on the screen. */
     private final int screenRows = 14;
-    // Total screen width in pixels, calculated from tile size and columns.
+
+    /** Total screen width in pixels, calculated from tile size and columns. */
     private final int screenWidth = screenCols * tileSize;
-    // Total screen height in pixels, calculated from tile size and rows.
+
+    /** Total screen height in pixels, calculated from tile size and rows. */
     private final int screenHeight = screenRows * tileSize;
-    // Handles collision detection for walls and objects.
+
+    /** Handles collision detection for walls and objects. */
     private final CheckCollision checkCollision = new CheckCollision(this);
-    // Handles collision detection specifically for enemies.
+
+    /** Handles collision detection specifically for enemies. */
     private final EnemyCollision eslugCollision = new EnemyCollision(this);
-    // Manages and renders tile maps.
+
+    /** Manages and renders tile maps. */
     private final TileManager tileManager = new TileManager(this);
-    // Captures and processes keyboard input.
+
+    /** Captures and processes keyboard input. */
     private final KeyHandler keyHandler = new KeyHandler();
-    // Flag indicating whether the game is over.
+
+    /** Flag indicating whether the game is over. */
     public boolean gameOver = false;
-    // The player character (JackBomber).
+
+    /** The player character (JackBomber). */
     private JackBomber player = new JackBomber(this, keyHandler, new Bomb(this));
-    // An enemy of type EnemyRock.
+
+    /** An enemy of type EnemyRock. */
     private EnemyRock enemy2 = new EnemyRock(this, this.player);
-    // An enemy of type EnemyMush.
+
+    /** An enemy of type EnemyMush. */
     private EnemyMush enemy3 = new EnemyMush(this, this.player);
-    // An enemy of type EnemySlug.
+
+    /** An enemy of type EnemySlug. */
     private EnemySlug enemy1 = new EnemySlug(this, this.player);
-    // An enemy of type EnemySlug2.
+
+    /** An enemy of type EnemySlug2. */
     private EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
-    // Thread used to run the main game loop.
+
+    /** Thread used to run the main game loop. */
     private Thread gameThread;
-    // Image used to display player's health (hearts).
+
+    /** Image used to display player's health (hearts). */
     private BufferedImage heartImage;
-    // Reference to the main frame that contains this panel.
+
+    /** Reference to the main frame that contains this panel. */
     private FreeBomber frame;
-    /** game score */
+
+    /** Game score. */
     private int gameScore = 0;
+
 
     /**
      * Constructs the Background panel, initializing its size, background color, and key listeners.
@@ -372,49 +392,14 @@ public class Background extends JPanel implements Runnable {
 
     /**
      * Ends the game and switches to the Game Over screen.
+     * <p>
+     * This method stops the game loop by nullifying the game thread and
+     * then asynchronously invokes the Game Over screen using the Swing event dispatch thread.
      */
     private void endGame() {
         gameThread = null;
         SwingUtilities.invokeLater(() -> frame.showGameOver());
     }
 
-    /**
-     * Reads scoreboard data from a comma-separated file.
-     * Username is everything before the last comma, score is after.
-     */
-    public Map<String, Integer> readAndStore() {
-        Map<String, Integer> tempDictionary = new HashMap<>();
-
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("storage/scores/scoreboard.txt")))
-        ) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                int lastCommaIndex = line.lastIndexOf(',');
-
-                if (lastCommaIndex != -1 && lastCommaIndex < line.length() - 1) {
-                    String username = line.substring(0, lastCommaIndex).trim();
-                    String scoreStr = line.substring(lastCommaIndex + 1).trim();
-
-                    try {
-                        int score = Integer.parseInt(scoreStr);
-                        tempDictionary.put(username, score);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid score format in line: " + line);
-                    }
-                }
-            }
-            reader.close();
-
-        } catch (Exception e) {
-            System.out.println("Failed to load scoreboard: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return tempDictionary;
-    }
-
-    public int getGameScore() {
-        return gameScore;
-    }
 }
 

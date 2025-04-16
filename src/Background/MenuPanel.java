@@ -23,6 +23,8 @@ public class MenuPanel extends JPanel implements ActionListener {
     private JButton newGameButton;
     /** Button to view high scores */
     private JButton highScoreButton;
+    /** Button to exit the game */
+    private JButton exitButton;
     /** Background object for screen dimension info */
     private Background bg = new Background();
     /** Temporary scoreboard map (not used in display in current version) */
@@ -130,6 +132,36 @@ public class MenuPanel extends JPanel implements ActionListener {
         // Add button to panel
         add(highScoreButton);
 
+
+        // Initialize the "Exit" button
+        exitButton = new JButton("Exit") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Change background color on press
+                Color base = getModel().isArmed() ? new Color(150, 150, 150) : new Color(255, 0, 0);
+                g2.setColor(base);
+
+                // Draw rounded background
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
+                g2.dispose();
+
+                super.paintComponent(g);
+            }
+        };
+        exitButton.setBounds(314, 420, 150, 50); // Set button size
+        exitButton.setForeground(Color.WHITE);
+        exitButton.setFont(new Font("Arial", Font.BOLD, 18));
+        exitButton.setContentAreaFilled(false);  // Prevent default painting
+        exitButton.setBorderPainted(false);      // Remove border
+        exitButton.setFocusPainted(false);       // No outline on focus
+        exitButton.setOpaque(false);
+        exitButton.addActionListener((ActionEvent e) -> {
+            System.exit(0); // Exit the game
+        });
+        add(exitButton);
         // Add background image at the end to appear behind other components
         add(bg);
 

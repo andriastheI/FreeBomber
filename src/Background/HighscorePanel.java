@@ -31,7 +31,6 @@ public class HighscorePanel extends JPanel implements ActionListener {
     /** Table to list the score board */
     private DefaultTableModel tableModel;
 
-
     /** A map to store the scoreboard entries with player names and their scores */
     private Map<String, Integer> scoreboardData = new HashMap<>();
 
@@ -135,7 +134,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
         Map<String, Integer> tempDictionary = new HashMap<>();
 
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("storage/scores/scoreboard.txt")))
+                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("src/storage/scores/scoreboard.txt")))
         ) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -160,20 +159,30 @@ public class HighscorePanel extends JPanel implements ActionListener {
         }
         return tempDictionary;
     }
+    /**
+     * Refreshes the scoreboard with a new score for the given player.
+     * <p>
+     * If the player already exists in the scoreboard, updates their score only if the new score is higher.
+     * The scoreboard is then trimmed to the top 10 scores, stored in a file, and displayed in the table model.
+     *
+     * @param playerName The name of the player whose score is being updated.
+     * @param score The new score to consider for the player.
+     */
     public void refreshScoreboard(String playerName, int score) {
-        scoreboardData = readAndStore();
         // Update currentboardData and keep top 10
-        scoreboardData.merge(playerName, score, Math::max);
-        scoreboardData  = scoreboardData .entrySet().stream()
-                .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
-                .limit(10)
-                .collect(java.util.stream.Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (e1, e2) -> e1,
-                        java.util.LinkedHashMap::new
-                ));
-        storeTop10Scores(scoreboardData);
+        if (playerName != null) {
+            scoreboardData.merge(playerName, score, Math::max);
+            scoreboardData  = scoreboardData .entrySet().stream()
+                    .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
+                    .limit(10)
+                    .collect(java.util.stream.Collectors.toMap(
+                            Map.Entry::getKey,
+                            Map.Entry::getValue,
+                            (e1, e2) -> e1,
+                            java.util.LinkedHashMap::new
+                    ));
+            storeTop10Scores(scoreboardData);
+        }
         tableModel.setRowCount(0); // Clear existing rows
          // Re-load from file
 
@@ -182,12 +191,18 @@ public class HighscorePanel extends JPanel implements ActionListener {
                 .limit(10)
                 .forEach(entry -> tableModel.addRow(new Object[]{entry.getKey(), entry.getValue()}));
     }
-    public void storeTop10Scores(Map<String, Integer> newboardData) {
+    /**
+     * Stores the top 10 high scores from the provided map into the scoreboard file as comma-separated values.
+     * The file is overwritten with the top 10 entries based on highest scores.
+     *
+     * @param newScores a map of usernames and their scores to be saved.
+     */
+    public void storeTop10Scores(Map<String, Integer> newScores) {
         try {
             java.io.File file = new java.io.File("src/storage/scores/scoreboard.txt");
             java.io.PrintWriter writer = new java.io.PrintWriter(file);
 
-            newboardData.entrySet().stream()
+            newScores.entrySet().stream()
                     .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
                     .limit(10)
                     .forEach(entry -> writer.println(entry.getKey() + "," + entry.getValue()));
@@ -198,6 +213,18 @@ public class HighscorePanel extends JPanel implements ActionListener {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * Sets the scoreboard data with the provided map of player names and scores.
+     *
+     * @param scoreboardData a map containing player names as keys and their corresponding scores as values
+     */
+    public void setScoreboardData(Map<String, Integer> scoreboardData) {
+        this.scoreboardData = scoreboardData;
+    }
+
+
     /**
      * Unused ActionListener method.
      * Placeholder for potential future event handling.

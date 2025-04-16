@@ -27,6 +27,7 @@ public class FreeBomber extends JFrame {
     private final MenuPanel menuPanel = new MenuPanel(this);
     /** game background class */
     private final Background background = new Background(this);
+    /** players score instance */
     private int playerScore;
 
 
@@ -78,16 +79,14 @@ public class FreeBomber extends JFrame {
      * This method switches the content pane to the high score panel and allows users to view the high scores.
      */
     public void showScoreBoard() {
-        scoreBoard = new HighscorePanel(this);
-        scoreBoard.refreshScoreboard(this.playerName, this.playerScore);
-        setContentPane(scoreBoard);
+        highscorePanel.setScoreboardData(highscorePanel.readAndStore());
+        highscorePanel.refreshScoreboard(this.playerName, this.playerScore);
+        setContentPane(highscorePanel);
         revalidate();
         repaint();
 
         // Ensure key input works
-        SwingUtilities.invokeLater(() -> {
-            scoreBoard.requestFocusInWindow();
-        });
+        SwingUtilities.invokeLater(highscorePanel::requestFocusInWindow);
     }
 
     /**
@@ -113,17 +112,31 @@ public class FreeBomber extends JFrame {
         // Ensure key input works
         SwingUtilities.invokeLater(menuPanel::requestFocusInWindow);
     }
-
-
+    /**
+     * Sets the player's name.
+     *
+     * @param name The name to assign to the player.
+     */
     public void setPlayerName(String name) {
         this.playerName = name;
     }
 
+    /**
+     * Retrieves the player's name.
+     *
+     * @return The current name of the player.
+     */
     public String getPlayerName() {
         return playerName;
     }
 
+    /**
+     * Sets the player's score.
+     *
+     * @param playerScore The score to assign to the player.
+     */
     public void setPlayerScore(int playerScore) {
         this.playerScore = playerScore;
     }
+
 }
