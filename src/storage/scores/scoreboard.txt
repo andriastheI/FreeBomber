@@ -1,2 +1,3 @@
 andrias,12000
+guz,1600
 Guz,-600
