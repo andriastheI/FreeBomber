@@ -2,7 +2,6 @@ package Characters;
 
 import Background.Background;
 import Background.KeyHandler;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,9 +27,7 @@ public class JackBomber extends Character {
     private final int INVINCIBILITY_DURATION = 1000;
     /** Total time (in milliseconds) allowed to complete a level. */
     private final int TIME_LIMIT = 60000;
-    /** Stores the timestamps of recently dropped bombs to limit bomb placement frequency. */
-    private final List<Long> recentBombTimestamps = new ArrayList<>();
-    /** Maximum number of bombs the player can place within a given time window */
+    /** Maximum number of active bombs the player can have on the screen */
     private final int BOMB_LIMIT = 3;
     /** Time window (in milliseconds) in which the bomb limit is enforced. */
     private final long TIME_WINDOW_MS = 5000; // 5 seconds
@@ -44,8 +41,6 @@ public class JackBomber extends Character {
     private boolean bombJustDropped = false;
     /** Current health of the player, measured in number of hearts */
     private int playerHealth = 3;
-    /** TODO: Debugging timer for printing status info to the console.*/
-// private long lastPrintTime = 0;
     /** Indicates whether the player is currently invincible (e.g., after taking damage) */
     private boolean invincible = false;
     /** Timestamp of the last time the player took damage, used to manage invincibility frames */
@@ -126,8 +121,6 @@ public class JackBomber extends Character {
         direction = "down";
         setLevelStartTime(System.currentTimeMillis());
     }
-
-    //TODO
 
     /**
      * Loads the player's sprite images from resources for animation.
@@ -215,36 +208,39 @@ public class JackBomber extends Character {
             }
         }
 
-        long now = System.currentTimeMillis();
-
-        // Remove timestamps older than 5 seconds
-        recentBombTimestamps.removeIf(t -> now - t > TIME_WINDOW_MS);
-
+        // checks if space bar is used
         if (keyHandler.isBombDrop()) {
-            if (!bombJustDropped && recentBombTimestamps.size() < BOMB_LIMIT) {
+            // prevents holding the space bar and repeated bom drops
+            if (!bombJustDropped && bombs.size() < BOMB_LIMIT) {
 
+                // bomb position relative to player
                 int bombX = x + background.getTileSize() / 4;
-                int bombY = y + background.getTileSize() / 2;
+                int bombY = y + background.getTileSize() / 4;
 
                 boolean alreadyPlaced = false;
+                // loops trough all the active bombs
                 for (Bomb b : bombs) {
+                    //check if bomb is on the game and hasn't exploded yet
                     if (b.getX() == bombX && b.getY() == bombY && !b.isFinished()) {
+                        // prevent duplication
                         alreadyPlaced = true;
                         break;
                     }
                 }
 
+                // if no bombs are active adds bombs
                 if (!alreadyPlaced) {
                     bombs.add(new Bomb(bombX, bombY, this.background));
-                    recentBombTimestamps.add(now);
                 }
 
+                // prevents bombs to drop multiple times again
                 bombJustDropped = true;
             }
         } else {
             bombJustDropped = false;
         }
 
+        // this loop updates the bombs' animation and removes the bombs when animation over
         for (int i = 0; i < bombs.size(); i++) {
             Bomb b = bombs.get(i);
             b.update();
@@ -253,6 +249,7 @@ public class JackBomber extends Character {
                 i--;
             }
         }
+
         // player takes a damage if player cant find the door
         long currentTime = System.currentTimeMillis();
         if (!isDoorFound() && currentTime - getLevelStartTime() > TIME_LIMIT) {
