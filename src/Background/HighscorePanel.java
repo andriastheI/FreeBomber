@@ -160,14 +160,43 @@ public class HighscorePanel extends JPanel implements ActionListener {
         }
         return tempDictionary;
     }
-    public void refreshScoreboard() {
+    public void refreshScoreboard(String playerName, int score) {
+        scoreboardData = readAndStore();
+        // Update currentboardData and keep top 10
+        scoreboardData.merge(playerName, score, Math::max);
+        scoreboardData  = scoreboardData .entrySet().stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
+                .limit(10)
+                .collect(java.util.stream.Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        java.util.LinkedHashMap::new
+                ));
+        storeTop10Scores(scoreboardData);
         tableModel.setRowCount(0); // Clear existing rows
-        scoreboardData = readAndStore(); // Re-load from file
+         // Re-load from file
 
         scoreboardData.entrySet().stream()
                 .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
                 .limit(10)
                 .forEach(entry -> tableModel.addRow(new Object[]{entry.getKey(), entry.getValue()}));
+    }
+    public void storeTop10Scores(Map<String, Integer> newboardData) {
+        try {
+            java.io.File file = new java.io.File("src/storage/scores/scoreboard.txt");
+            java.io.PrintWriter writer = new java.io.PrintWriter(file);
+
+            newboardData.entrySet().stream()
+                    .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
+                    .limit(10)
+                    .forEach(entry -> writer.println(entry.getKey() + "," + entry.getValue()));
+
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("Failed to write top 10 scores: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     /**
      * Unused ActionListener method.

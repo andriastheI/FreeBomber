@@ -19,6 +19,15 @@ public class FreeBomber extends JFrame {
     private HighscorePanel scoreBoard;
     /** players name instance */
     private String playerName;
+    /** game over panel class */
+    private final GameOverPanel gameOverPanel = new GameOverPanel(this);
+    /** high score panel class */
+    private final HighscorePanel highscorePanel = new HighscorePanel(this);
+    /** menu panel class */
+    private final MenuPanel menuPanel = new MenuPanel(this);
+    /** game background class */
+    private final Background background = new Background(this);
+    private int playerScore;
 
 
     /**
@@ -30,10 +39,10 @@ public class FreeBomber extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle("FreeBomber");
+        setPlayerName(menuPanel.getName());
 
         // Show menu panel first
-        setContentPane(new MenuPanel(this));
-        //setContentPane(new GameOverPanel(this)); // Uncomment this if you want to show GameOverPanel initially
+        setContentPane(menuPanel);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -54,17 +63,14 @@ public class FreeBomber extends JFrame {
      * This method changes the content pane of the JFrame to the game panel and initializes the game.
      */
     public void startGame() {
-        gamePanel = new Background(this);
-        setContentPane(gamePanel);
+        setContentPane(background);
         revalidate();  // Re-layout the frame with the new content
         repaint();
 
         // Ensure key input works
-        SwingUtilities.invokeLater(() -> {
-            gamePanel.requestFocusInWindow();
-        });
+        SwingUtilities.invokeLater(background::requestFocusInWindow);
 
-        gamePanel.startGameThread();
+        background.startGameThread();
     }
 
     /**
@@ -73,7 +79,7 @@ public class FreeBomber extends JFrame {
      */
     public void showScoreBoard() {
         scoreBoard = new HighscorePanel(this);
-        scoreBoard.refreshScoreboard();
+        scoreBoard.refreshScoreboard(this.playerName, this.playerScore);
         setContentPane(scoreBoard);
         revalidate();
         repaint();
@@ -89,9 +95,11 @@ public class FreeBomber extends JFrame {
      * This method switches the content pane to the game over panel to show the game results.
      */
     public void showGameOver() {
-        setContentPane(new GameOverPanel(this));
+        setContentPane(gameOverPanel);
         revalidate();
         repaint();
+        // Ensure key input works
+        SwingUtilities.invokeLater(gameOverPanel::requestFocusInWindow);
     }
 
     /**
@@ -99,9 +107,11 @@ public class FreeBomber extends JFrame {
      * This method takes the user back to the menu screen, where they can choose to restart or exit the game.
      */
     public void getBackToMenu() {
-        setContentPane(new MenuPanel(this));
+        setContentPane(menuPanel);
         revalidate();
         repaint();
+        // Ensure key input works
+        SwingUtilities.invokeLater(menuPanel::requestFocusInWindow);
     }
 
 
@@ -111,5 +121,9 @@ public class FreeBomber extends JFrame {
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public void setPlayerScore(int playerScore) {
+        this.playerScore = playerScore;
     }
 }

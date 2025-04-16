@@ -57,7 +57,6 @@ public class Background extends JPanel implements Runnable {
     private BufferedImage heartImage;
     // Reference to the main frame that contains this panel.
     private FreeBomber frame;
-    private Map<String, Integer> currentboardData = new HashMap<>();
     /** game score */
     private int gameScore = 0;
 
@@ -83,7 +82,6 @@ public class Background extends JPanel implements Runnable {
      * Constructs the Background panel without any frame, initializing its size and other properties.
      */
     public Background() {
-        currentboardData = readAndStore();
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
@@ -289,6 +287,7 @@ public class Background extends JPanel implements Runnable {
         g.drawString(scoreText, x, y);
 
         if (gameOver) {
+            frame.setPlayerScore(JackBomber.getScore());
             endGame();
         }
 
@@ -375,11 +374,6 @@ public class Background extends JPanel implements Runnable {
      * Ends the game and switches to the Game Over screen.
      */
     private void endGame() {
-        String playerName = frame.getPlayerName();
-        int score = JackBomber.getScore();
-
-        storeTop10Scores(playerName, score);
-
         gameThread = null;
         SwingUtilities.invokeLater(() -> frame.showGameOver());
     }
@@ -417,36 +411,6 @@ public class Background extends JPanel implements Runnable {
             e.printStackTrace();
         }
         return tempDictionary;
-    }
-    /**
-     * Stores the top 10 high scores into the scoreboard file as comma-separated values.
-     * If the player already exists, only updates the score if it's higher.
-     */
-    public void storeTop10Scores(String username, int newScore) {
-        Map<String, Integer> updateboardData = readAndStore();
-
-        // Update score only if it's higher than existing, or add if new player
-        updateboardData.merge(username, newScore, Math::max);
-
-        try {
-            java.io.File file = new java.io.File("src/storage/scores/scoreboard.txt");
-            java.io.PrintWriter writer = new java.io.PrintWriter(file);
-
-            updateboardData.entrySet().stream()
-                    .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
-                    .limit(10)
-                    .forEach(entry -> writer.println(entry.getKey() + "," + entry.getValue()));
-
-            writer.close();
-        } catch (Exception e) {
-            System.out.println("Failed to write top 10 scores: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-
-    public Map<String, Integer> getCurrentboardData() {
-        return currentboardData;
     }
 
     public int getGameScore() {

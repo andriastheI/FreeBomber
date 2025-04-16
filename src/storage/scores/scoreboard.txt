@@ -1,9 +1,10 @@
 Gux,1250
+Diddy,700
 wsads,250
 aaa,150
 hsdfas,-200
 kkkk,-300
+DD,-450
 test,-600
 and,-600
-ddd,-650
-dasd,-750
+AAron,-650
