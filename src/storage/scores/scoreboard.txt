@@ -1,3 +1,4 @@
 andrias,12000
 guz,1600
+JJ,150
 Guz,-600
