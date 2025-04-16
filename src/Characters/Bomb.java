@@ -113,20 +113,38 @@ public class Bomb extends Character {
     }
 
     /**
-     * Handles the explosion logic and checks for collisions with enemies and soft walls.
+     * Triggers the bomb explosion by creating explosion hitboxes in all four directions
+     * (up, down, left, right) as well as the center tile. These hitboxes are aligned
+     * with the explosion animation and used to handle collisions with enemies, the player,
+     * and destructible tiles.
+     *
+     * Each explosion tile is 32x32 pixels and the total area forms a cross-shaped explosion.
+     * If the player's hitbox intersects with any explosion area, damage is applied.
      */
     private void triggerExplosion() {
-        int explosionRadius = 28;
-        Rectangle explosionArea = new Rectangle(this.getX() - explosionRadius, this.getY() - explosionRadius, 2 * explosionRadius, 2 * explosionRadius);
-        background.getTileManager().handleExplosion(explosionArea);// Handle explosion and replace soft walls
-        background.getEnemy1().handleExplosion(explosionArea);
-        background.getEnemy2().handleExplosion(explosionArea);
-        background.getEnemy3().handleExplosion(explosionArea);
-        background.getEnemy4().handleExplosion(explosionArea);
-        exploded = true;
-        if (background.getPlayer().getSpriteBounds().intersects(explosionArea)) {
-            background.getPlayer().takeDamage();
+        int tileSize = 32;
+
+        Rectangle center = new Rectangle(x, y, tileSize, tileSize);
+        Rectangle left = new Rectangle(x - tileSize, y, tileSize, tileSize);
+        Rectangle right = new Rectangle(x + tileSize, y, tileSize, tileSize);
+        Rectangle up = new Rectangle(x, y - tileSize, tileSize, tileSize);
+        Rectangle down = new Rectangle(x, y + tileSize, tileSize, tileSize);
+
+        Rectangle[] explosionAreas = new Rectangle[] { center, left, right, up, down };
+
+        for (Rectangle explosionArea : explosionAreas) {
+            background.getTileManager().handleExplosion(explosionArea);
+            background.getEnemy1().handleExplosion(explosionArea);
+            background.getEnemy2().handleExplosion(explosionArea);
+            background.getEnemy3().handleExplosion(explosionArea);
+            background.getEnemy4().handleExplosion(explosionArea);
+
+            if (background.getPlayer().getSpriteBounds().intersects(explosionArea)) {
+                background.getPlayer().takeDamage();
+            }
         }
+
+        exploded = true;
     }
 
     /**
