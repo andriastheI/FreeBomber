@@ -2,14 +2,18 @@
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
   <property name="out" location="out"/>
-
+  <path id="project.classpath">
+    <fileset dir="lib">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
   <target name="init">
     <mkdir dir="${out}"/>
     <mkdir dir="${out}/classes"/>
   </target>
 
   <target name="compile" depends="init">
-    <javac includeantruntime="false" srcdir="${src}" destdir="${out}/classes" debug="true"/>
+    <javac includeantruntime="false" srcdir="${src}" destdir="${out}/classes" debug="true" classpathref="project.classpath"/>
   </target>
 
   <target name="copy-resources" depends="compile">
@@ -30,7 +34,11 @@
   </target>
 
   <target name="run" depends="jar">
-    <java jar="${out}/${ant.project.name}.jar" fork="true"/>
+    <java fork="true" classname="FreeBomber.FreeBomber" classpathref="project.classpath">
+      <classpath>
+        <pathelement path="${out}/${ant.project.name}.jar"/>
+      </classpath>
+    </java>
   </target>
 
   <target name="clean">

@@ -7,11 +7,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import Background.ScoreManager;
 
 /**
  * HighscorePanel is a JPanel that displays a list of high scores from a file
@@ -91,6 +96,8 @@ public class HighscorePanel extends JPanel implements ActionListener {
         // Make the panel visible
         setVisible(true);
 
+
+
         // Create a table model with non-editable cells
         tableModel = new DefaultTableModel(new Object[]{"Player", "Score"}, 0) {
             @Override
@@ -108,6 +115,8 @@ public class HighscorePanel extends JPanel implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(scoreTable);
         scrollPane.setBounds(100, 120, 400, 350);
         add(scrollPane);
+        this.scoreboardData = ScoreManager.getTopScores(10);
+        refreshScoreboard(null, 0);
 
     }
     /**
@@ -131,87 +140,44 @@ public class HighscorePanel extends JPanel implements ActionListener {
      * Username is everything before the last comma, score is after.
      */
     public Map<String, Integer> readAndStore() {
-        Map<String, Integer> tempDictionary = new HashMap<>();
+        Map<String, Integer> temp = new HashMap<>();
+        try {
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/freebomber", "root", "your_password_here"
+            );
+            String query = "SELECT username, MAX(score) AS score FROM scores GROUP BY username ORDER BY score DESC LIMIT 10";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
 
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("src/storage/scores/scoreboard.txt")))
-        ) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                int lastCommaIndex = line.lastIndexOf(',');
-
-                if (lastCommaIndex != -1 && lastCommaIndex < line.length() - 1) {
-                    String username = line.substring(0, lastCommaIndex).trim();
-                    String scoreStr = line.substring(lastCommaIndex + 1).trim();
-
-                    try {
-                        int score = Integer.parseInt(scoreStr);
-                        tempDictionary.put(username, score);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid score format in line: " + line);
-                    }
-                }
+            while (rs.next()) {
+                temp.put(rs.getString("username"), rs.getInt("score"));
             }
 
+            conn.close();
         } catch (Exception e) {
-            System.out.println("Failed to load scoreboard: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("DB read error: " + e.getMessage());
         }
-        return tempDictionary;
+        return temp;
     }
     /**
      * Refreshes the scoreboard with a new score for the given player.
-     * <p>
-     * If the player already exists in the scoreboard, updates their score only if the new score is higher.
-     * The scoreboard is then trimmed to the top 10 scores, stored in a file, and displayed in the table model.
+     * Saves the score to the database, then retrieves the top 10 from the database
+     * and displays them in the table.
      *
      * @param playerName The name of the player whose score is being updated.
-     * @param score The new score to consider for the player.
+     * @param score      The new score to consider for the player.
      */
     public void refreshScoreboard(String playerName, int score) {
-        // Update currentboardData and keep top 10
         if (playerName != null) {
-            scoreboardData.merge(playerName, score, Math::max);
-            scoreboardData  = scoreboardData .entrySet().stream()
-                    .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
-                    .limit(10)
-                    .collect(java.util.stream.Collectors.toMap(
-                            Map.Entry::getKey,
-                            Map.Entry::getValue,
-                            (e1, e2) -> e1,
-                            java.util.LinkedHashMap::new
-                    ));
-            storeTop10Scores(scoreboardData);
+            ScoreManager.saveScore(playerName, score);
         }
-        tableModel.setRowCount(0); // Clear existing rows
-         // Re-load from file
 
-        scoreboardData.entrySet().stream()
-                .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
-                .limit(10)
-                .forEach(entry -> tableModel.addRow(new Object[]{entry.getKey(), entry.getValue()}));
-    }
-    /**
-     * Stores the top 10 high scores from the provided map into the scoreboard file as comma-separated values.
-     * The file is overwritten with the top 10 entries based on highest scores.
-     *
-     * @param newScores a map of usernames and their scores to be saved.
-     */
-    public void storeTop10Scores(Map<String, Integer> newScores) {
-        try {
-            java.io.File file = new java.io.File("src/storage/scores/scoreboard.txt");
-            java.io.PrintWriter writer = new java.io.PrintWriter(file);
+        // Load the top 10 from database
+        scoreboardData = ScoreManager.getTopScores(10);
 
-            newScores.entrySet().stream()
-                    .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
-                    .limit(10)
-                    .forEach(entry -> writer.println(entry.getKey() + "," + entry.getValue()));
-
-            writer.close();
-        } catch (Exception e) {
-            System.out.println("Failed to write top 10 scores: " + e.getMessage());
-            e.printStackTrace();
-        }
+        // Update the table
+        tableModel.setRowCount(0); // Clear previous entries
+        scoreboardData.forEach((name, val) -> tableModel.addRow(new Object[]{name, val}));
     }
 
 
