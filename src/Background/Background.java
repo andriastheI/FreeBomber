@@ -287,11 +287,7 @@ public class Background extends JPanel implements Runnable {
         g2.setFont(new Font("Courier New", Font.BOLD, 20));
         g2.setColor(Color.BLACK);
         g2.drawString("Timer: " + gameTime, heartStartX - 119, heartY + 31);
-        if (gameTime > 10) {
-            g2.setColor(Color.WHITE);
-        } else {
-            g2.setColor(Color.RED);
-        }
+        g2.setColor(Color.WHITE);
         g2.drawString("Timer: " + gameTime, heartStartX - 120, heartY + 30);
 
         g2.setFont(new Font("Courier New", Font.BOLD, 20));
