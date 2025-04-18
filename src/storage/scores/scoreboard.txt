@@ -1,5 +1,3 @@
 andrias,12000
+Jack,3200
 guz,1600
-JJ,150
-Guz,-600
-Nate,-650

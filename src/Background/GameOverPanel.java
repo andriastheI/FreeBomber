@@ -19,8 +19,6 @@ public class GameOverPanel extends JPanel implements ActionListener {
     private JButton restartGameButton;
     /** Starts a completely new game session */
     private JButton menuGameButton;
-    /** Closes the game/application entirely */
-    private JButton exitButton;
     /** Reference background used to fetch screen dimensions */
     private Background backg = new Background();
 
@@ -94,39 +92,9 @@ public class GameOverPanel extends JPanel implements ActionListener {
         menuGameButton.setOpaque(false);             // Transparency
         menuGameButton.addActionListener(e -> frame.getBackToMenu());
 
-        // Initialize the "Exit" button
-        exitButton = new JButton("Exit") {
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-                // Change background color on press
-                Color base = getModel().isArmed() ? new Color(150, 150, 150) : new Color(255, 0, 0);
-                g2.setColor(base);
-
-                // Draw rounded background
-                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
-                g2.dispose();
-
-                super.paintComponent(g);
-            }
-        };
-        exitButton.setBounds(355, 500, 120, 50); // Set button size
-        exitButton.setForeground(Color.WHITE);
-        exitButton.setFont(new Font("Arial", Font.BOLD, 18));
-        exitButton.setContentAreaFilled(false);  // Prevent default painting
-        exitButton.setBorderPainted(false);      // Remove border
-        exitButton.setFocusPainted(false);       // No outline on focus
-        exitButton.setOpaque(false);
-        exitButton.addActionListener((ActionEvent e) -> {
-            System.exit(0); // Exit the game
-        });
-
         // Add components to panel
         add(restartGameButton);
         add(menuGameButton);
-        add(exitButton);
         add(bg);
     }
 

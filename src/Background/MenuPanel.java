@@ -55,7 +55,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         // ============================
         // Setup "New Game" button
         // ============================
-        newGameButton = new JButton("New Game") {
+        newGameButton = new JButton("Start Game") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
@@ -84,16 +84,25 @@ public class MenuPanel extends JPanel implements ActionListener {
         newGameButton.setOpaque(false);
 
         // Add event handler to start the game
+        // Add event handler to start the game
         newGameButton.addActionListener((ActionEvent e) -> {
-            currentUsername = JOptionPane.showInputDialog(this, "Enter your username:", "Username", JOptionPane.PLAIN_MESSAGE);
+            String promptMessage = "Enter a username (3–15 characters, letters and numbers only):";
+            currentUsername = JOptionPane.showInputDialog(this, promptMessage, "Username", JOptionPane.PLAIN_MESSAGE);
 
-            if (currentUsername != null && !currentUsername.trim().isEmpty()) {
-                frame.setPlayerName(currentUsername.trim());  // assuming you have this method in FreeBomber
-                frame.startGame();
+            if (currentUsername != null) {
+                if (currentUsername.matches("[a-zA-Z0-9]{3,15}")) {
+                    frame.setPlayerName(currentUsername);  // assuming you have this method in FreeBomber
+                    frame.startGame();
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Invalid username.\nUsername must be 3–15 characters and contain only letters and numbers.",
+                            "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Username is required to start the game.");
             }
         });
+
 
         // Add button to panel
         add(newGameButton);

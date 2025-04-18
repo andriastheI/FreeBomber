@@ -6,27 +6,23 @@ import Background.HighscorePanel;
 import Background.MenuPanel;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * The FreeBomber class represents the main window for the FreeBomber game.
  * It initializes the JFrame, displays the menu panel, and handles switching to the game.
  */
 public class FreeBomber extends JFrame {
-
-    /** game background class */
-    private Background gamePanel;
-    /** score board instance for game */
-    private HighscorePanel scoreBoard;
     /** players name instance */
     private String playerName;
     /** game over panel class */
-    private final GameOverPanel gameOverPanel = new GameOverPanel(this);
+    private GameOverPanel gameOverPanel;
     /** high score panel class */
-    private final HighscorePanel highscorePanel = new HighscorePanel(this);
+    private HighscorePanel highscorePanel;
     /** menu panel class */
-    private final MenuPanel menuPanel = new MenuPanel(this);
+    private MenuPanel menuPanel;
     /** game background class */
-    private final Background background = new Background(this);
+    private Background background;
     /** players score instance */
     private int playerScore;
 
@@ -36,7 +32,7 @@ public class FreeBomber extends JFrame {
      * Sets up the JFrame and shows the menu panel first.
      */
     public FreeBomber() {
-
+        menuPanel = new MenuPanel(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle("FreeBomber");
@@ -64,21 +60,45 @@ public class FreeBomber extends JFrame {
      * This method changes the content pane of the JFrame to the game panel and initializes the game.
      */
     public void startGame() {
-        setContentPane(background);
-        revalidate();  // Re-layout the frame with the new content
+        background = new Background(this);
+
+        // Create a layered pane to hold both game and button
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(background.getScreenWidth(), background.getScreenHeight())); // match your screen size
+
+        // Set bounds for the game panel
+        background.setBounds(0, 0,background.getScreenWidth(), background.getScreenHeight());
+        layeredPane.add(background, Integer.valueOf(0)); // Game layer
+
+        // Create button overlay panel
+        JPanel overlay = new JPanel(null); // null layout for manual positioning
+        overlay.setOpaque(false); // transparent
+        overlay.setBounds(0, 0,background.getScreenWidth(), background.getScreenHeight());
+
+        JButton exitButton = new JButton("Exit");
+        exitButton.setForeground(Color.RED);
+        exitButton.setFont(new Font("Georgia", Font.BOLD, 15));
+        exitButton.setBounds(720, 605, 80, 30); // top right corner
+        exitButton.addActionListener(e -> getBackToMenu());
+
+        overlay.add(exitButton);
+        layeredPane.add(overlay, Integer.valueOf(1)); // UI layer
+
+        setContentPane(layeredPane);
+        revalidate();
         repaint();
 
-        // Ensure key input works
         SwingUtilities.invokeLater(background::requestFocusInWindow);
-
         background.startGameThread();
     }
+
 
     /**
      * Displays the high score board panel.
      * This method switches the content pane to the high score panel and allows users to view the high scores.
      */
     public void showScoreBoard() {
+        highscorePanel = new HighscorePanel(this);
         highscorePanel.setScoreboardData(highscorePanel.readAndStore());
         highscorePanel.refreshScoreboard(this.playerName, this.playerScore);
         setContentPane(highscorePanel);
@@ -94,6 +114,7 @@ public class FreeBomber extends JFrame {
      * This method switches the content pane to the game over panel to show the game results.
      */
     public void showGameOver() {
+        gameOverPanel = new GameOverPanel(this);
         setContentPane(gameOverPanel);
         revalidate();
         repaint();

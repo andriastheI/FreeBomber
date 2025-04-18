@@ -91,6 +91,20 @@ public class Background extends JPanel implements Runnable {
         addKeyListener(keyHandler);
         setFocusable(true);
         setLayout(null);
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(620, 650, 80, 30); // x, y, width, height
+        exitButton.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to exit?",
+                    "Exit Game",
+                    JOptionPane.YES_NO_OPTION
+            );
+            if (confirm == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+        });
+        add(exitButton);
         try {
             heartImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/heart.png"));
         } catch (IOException e) {

@@ -49,7 +49,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
         setLayout(null);
 
         // Set panel background color
-        setBackground(Color.DARK_GRAY);
+        setBackground(Color.LIGHT_GRAY);
 
         // Create and customize back button
         backButton = new JButton("Back") {
@@ -72,7 +72,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
         };
 
         // Position and style the back button
-        backButton.setBounds(500, 500, 100, 50);
+        backButton.setBounds(680, 570, 100, 50);
         backButton.setForeground(Color.WHITE);
         backButton.setFont(new Font("Arial", Font.BOLD, 18));
         backButton.setContentAreaFilled(false);
@@ -93,9 +93,10 @@ public class HighscorePanel extends JPanel implements ActionListener {
 
         // Create a table model with non-editable cells
         tableModel = new DefaultTableModel(new Object[]{"Player", "Score"}, 0) {
+            // All cells are non-editable
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // All cells are non-editable
+                return false;
             }
         };
         scoreTable = new JTable(tableModel);
@@ -106,7 +107,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
 
         // Wrap the table in a scroll pane
         JScrollPane scrollPane = new JScrollPane(scoreTable);
-        scrollPane.setBounds(100, 120, 400, 350);
+        scrollPane.setBounds(230, 120, 400, 350);
         add(scrollPane);
 
     }
@@ -122,9 +123,9 @@ public class HighscorePanel extends JPanel implements ActionListener {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Title
-        g2.setColor(Color.BLACK);
-        g2.setFont(new Font("Arial", Font.BOLD, 32));
-        g2.drawString("HIGH SCORES", 100, 80);
+        g2.setColor(new Color(0, 0, 139));
+        g2.setFont(new Font("Georgia", Font.PLAIN, 60));
+        g2.drawString("High Scores", 90, 80);
     }
     /**
      * Reads scoreboard data from a comma-separated file.
@@ -169,10 +170,13 @@ public class HighscorePanel extends JPanel implements ActionListener {
      * @param score The new score to consider for the player.
      */
     public void refreshScoreboard(String playerName, int score) {
-        // Update currentboardData and keep top 10
-        if (playerName != null) {
+        // Only proceed if valid playerName and score > 0
+        if (playerName != null && score > 0) {
+            // Merge only if score is positive and better than existing
             scoreboardData.merge(playerName, score, Math::max);
-            scoreboardData  = scoreboardData .entrySet().stream()
+
+            // Sort and retain top 10
+            scoreboardData = scoreboardData.entrySet().stream()
                     .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
                     .limit(10)
                     .collect(java.util.stream.Collectors.toMap(
@@ -181,16 +185,18 @@ public class HighscorePanel extends JPanel implements ActionListener {
                             (e1, e2) -> e1,
                             java.util.LinkedHashMap::new
                     ));
-            storeTop10Scores(scoreboardData);
-        }
-        tableModel.setRowCount(0); // Clear existing rows
-         // Re-load from file
 
+            storeTop10Scores(scoreboardData);  // Save updated scores
+        }
+
+        // Clear table and re-populate with updated top 10
+        tableModel.setRowCount(0);
         scoreboardData.entrySet().stream()
                 .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
                 .limit(10)
                 .forEach(entry -> tableModel.addRow(new Object[]{entry.getKey(), entry.getValue()}));
     }
+
     /**
      * Stores the top 10 high scores from the provided map into the scoreboard file as comma-separated values.
      * The file is overwritten with the top 10 entries based on highest scores.
