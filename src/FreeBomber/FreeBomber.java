@@ -1,9 +1,6 @@
 package FreeBomber;
 
-import Background.Background;
-import Background.GameOverPanel;
-import Background.HighscorePanel;
-import Background.MenuPanel;
+import Background.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +20,8 @@ public class FreeBomber extends JFrame {
     private MenuPanel menuPanel;
     /** game background class */
     private Background background;
+    /** victory panel class */
+    private YouWonPanel victory;
     /** players score instance */
     private int playerScore;
 
@@ -132,6 +131,19 @@ public class FreeBomber extends JFrame {
         repaint();
         // Ensure key input works
         SwingUtilities.invokeLater(menuPanel::requestFocusInWindow);
+    }
+
+    /**
+     * Displays the YouWon panel.
+     * This method switches the background panel to the YouWon panel to show that the player finished the game.
+     */
+    public void showVictory(){
+        victory = new YouWonPanel(this);
+        setContentPane(victory);
+        revalidate();
+        repaint();
+
+        SwingUtilities.invokeLater(victory::requestFocusInWindow);
     }
     /**
      * Sets the player's name.

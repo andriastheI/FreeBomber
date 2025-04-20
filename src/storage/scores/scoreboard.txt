@@ -2,3 +2,5 @@ andrias,12000
 murat,5250
 Jack,3200
 guz,1600
+Jin,1100
+sds,900

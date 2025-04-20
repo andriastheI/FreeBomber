@@ -70,6 +70,9 @@ public class Background extends JPanel implements Runnable {
     /** Thread used to run the main game loop. */
     private Thread gameThread;
 
+    /** a Boolean that is used to stop the game and display victory */
+    private boolean finished = false;
+
     /** Image used to display player's health (hearts). */
     private BufferedImage heartImage;
 
@@ -279,11 +282,16 @@ public class Background extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        if (player.isLevelUp()) {
+        if (player.isLevelUp() && tileManager.getCurrentMap() <= 5) {
             removeCharacters();
             tileManager.loadMap(tileManager.getCurrentMap() + 1);
             initializeCharacters();
             player.setLevelUp(false);
+        } else if (tileManager.getCurrentMap() > 5 && !finished) {
+            finished = true; // Mark game as finished
+            frame.setPlayerScore(JackBomber.getScore());
+            finishedGame();
+            return; // Skip further drawing to avoid issues
         }
         tileManager.draw(g2);
         keepDrawing(g2);
@@ -409,6 +417,16 @@ public class Background extends JPanel implements Runnable {
     private void endGame() {
         gameThread = null;
         SwingUtilities.invokeLater(() -> frame.showGameOver());
+    }
+    /**
+     * Ends the game and switches to the Victory Screen.
+     * <p>
+     * This method stops the game loop by nullifying the game thread and
+     * then asynchronously invokes the victory screen using the Swing event dispatch thread.
+     */
+    private void finishedGame() {
+        gameThread = null;
+        SwingUtilities.invokeLater(() -> frame.showVictory());
     }
 
 }
