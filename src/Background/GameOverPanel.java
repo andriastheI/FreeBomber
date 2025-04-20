@@ -66,7 +66,7 @@ public class GameOverPanel extends JPanel implements ActionListener {
             frame.startGame(); // Start the game from FreeBomber
         });
 
-        // Initialize the "New Game" button
+        // Initialize the "Menu" button
         menuGameButton = new JButton("Menu") {
             @Override
             protected void paintComponent(Graphics g) {

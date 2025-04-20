@@ -24,11 +24,34 @@ public class YouWonPanel extends JPanel implements ActionListener {
         setLayout(null);
 
         // Create background image for game over screen
-        ImageIcon overBg = new ImageIcon("src/storage/logo/victory.png");
-        JLabel bg = new JLabel(overBg);
-        bg.setBounds(0, 0, overBg.getIconWidth() - 180, overBg.getIconHeight() - 80);
+        ImageIcon originalIcon = new ImageIcon("src/storage/logo/victory.png");
+        Image scaledImage = originalIcon.getImage().getScaledInstance(backg.getScreenWidth(), backg.getScreenHeight(), Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
-        // Initialize the "New Game" button
+        JLabel bg = new JLabel(scaledIcon);
+        bg.setBounds(0, 0,backg.getScreenWidth(), backg.getScreenHeight());
+
+        String playerName = frame.getPlayerName();
+        int playerScore = frame.getPlayerScore();
+
+        // Name label
+        JLabel nameLabel = new JLabel("Congratulations, " + playerName + "!");
+        nameLabel.setFont(new Font("Arial", Font.BOLD, 28));
+        nameLabel.setForeground(Color.WHITE);
+        nameLabel.setBounds(170, 10, 500, 40); // Adjust X/Y as needed
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Score label
+        JLabel scoreLabel = new JLabel("Your Score: " + playerScore);
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        scoreLabel.setForeground(Color.YELLOW);
+        scoreLabel.setBounds(160, 590, 400, 35); // Adjust as needed
+        scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Add labels before background
+        add(nameLabel);
+        add(scoreLabel);
+
         menuGameButton = new JButton("Menu") {
             @Override
             protected void paintComponent(Graphics g) {
@@ -36,7 +59,7 @@ public class YouWonPanel extends JPanel implements ActionListener {
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                 // Change background color on press
-                Color base = getModel().isArmed() ? new Color(30, 30, 30) : new Color(50, 50, 200);
+                Color base = getModel().isArmed() ? new Color(30, 30, 30) : new Color(0, 200, 0);
                 g2.setColor(base);
 
                 // Draw rounded background
@@ -46,7 +69,7 @@ public class YouWonPanel extends JPanel implements ActionListener {
                 super.paintComponent(g);
             }
         };
-        menuGameButton.setBounds(340, 440, 150, 50); // Set button size
+        menuGameButton.setBounds(660, 580, 150, 50); // Set button size
         menuGameButton.setForeground(Color.WHITE);
         menuGameButton.setFont(new Font("Arial", Font.BOLD, 18));
         menuGameButton.setContentAreaFilled(false);  // Prevent default painting

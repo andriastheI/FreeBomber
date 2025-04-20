@@ -1,4 +1,5 @@
 andrias,12000
+Smoke,9900
 murat,5250
 Jack,3200
 guz,1600

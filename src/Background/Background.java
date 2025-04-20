@@ -284,14 +284,18 @@ public class Background extends JPanel implements Runnable {
 
         if (player.isLevelUp() && tileManager.getCurrentMap() <= 5) {
             removeCharacters();
-            tileManager.loadMap(tileManager.getCurrentMap() + 1);
-            initializeCharacters();
-            player.setLevelUp(false);
-        } else if (tileManager.getCurrentMap() > 5 && !finished) {
-            finished = true; // Mark game as finished
-            frame.setPlayerScore(JackBomber.getScore());
-            finishedGame();
-            return; // Skip further drawing to avoid issues
+
+            if (tileManager.getCurrentMap() == 5) {
+                // Game is finished after map 5
+                finished = true;
+                frame.setPlayerScore(JackBomber.getScore());
+                finishedGame();
+                return; // Prevent drawing/logic errors from loading a nonexistent map
+            } else {
+                tileManager.loadMap(tileManager.getCurrentMap() + 1);
+                initializeCharacters();
+                player.setLevelUp(false);
+            }
         }
         tileManager.draw(g2);
         keepDrawing(g2);

@@ -172,4 +172,8 @@ public class FreeBomber extends JFrame {
         this.playerScore = playerScore;
     }
 
+    public int getPlayerScore(){
+        return this.playerScore;
+    }
+
 }
