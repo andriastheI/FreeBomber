@@ -10,7 +10,7 @@ import java.io.IOException;
  * The EnemySlug2 class represents a specific enemy type in the game, inheriting behavior from EnemySlug.
  * This class overrides methods to customize the images and movement behavior for the second enemy type.
  */
-public class EnemySlug2 extends EnemySlug {
+public class EnemyDragon extends EnemySlug {
     /** Reference to the Background */
     private final Background background;
 
@@ -20,7 +20,7 @@ public class EnemySlug2 extends EnemySlug {
      * @param bg   The Background object that holds the game map and other environmental data.
      * @param jack The player character, used to determine interactions with the enemy.
      */
-    public EnemySlug2(Background bg, JackBomber jack) {
+    public EnemyDragon(Background bg, JackBomber jack) {
         super(bg, jack);
         this.background = bg;
         // Customize the images for Character.E_Slug2
@@ -35,16 +35,16 @@ public class EnemySlug2 extends EnemySlug {
     public void getPlayerImage() {
         try {
             // Load different images for the second enemy (EnemySlug2)
-            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_up1.png"));
-            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_up2.png"));
-            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_down1.png"));
-            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_down2.png"));
-            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_left1.png"));
-            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_left2.png"));
-            left3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_left3.png"));
-            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_right1.png"));
-            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_right2.png"));
-            right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_right3.png"));
+            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_up1.png"));
+            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_up2.png"));
+            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_down1.png"));
+            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_down2.png"));
+            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_left1.png"));
+            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_left2.png"));
+            left3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_left3.png"));
+            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_right1.png"));
+            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_right2.png"));
+            right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_right3.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

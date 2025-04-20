@@ -7,11 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The Background class represents the game panel where the game logic and rendering occur.
@@ -65,7 +61,7 @@ public class Background extends JPanel implements Runnable {
     private EnemySlug enemy1 = new EnemySlug(this, this.player);
 
     /** An enemy of type EnemySlug2. */
-    private EnemySlug2 enemy4 = new EnemySlug2(this, this.player);
+    private EnemyDragon enemy4 = new EnemyDragon(this, this.player);
 
     /** Thread used to run the main game loop. */
     private Thread gameThread;
@@ -164,7 +160,7 @@ public class Background extends JPanel implements Runnable {
      *
      * @return the enemy4 (EnemySlug2).
      */
-    public EnemySlug2 getEnemy4() {
+    public EnemyDragon getEnemy4() {
         return enemy4;
     }
 
@@ -409,7 +405,7 @@ public class Background extends JPanel implements Runnable {
         enemy1 = new EnemySlug(this, player);
         enemy2 = new EnemyRock(this, player);
         enemy3 = new EnemyMush(this, player);
-        enemy4 = new EnemySlug2(this, player);
+        enemy4 = new EnemyDragon(this, player);
     }
 
     /**
