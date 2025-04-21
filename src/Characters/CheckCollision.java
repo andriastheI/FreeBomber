@@ -2,6 +2,7 @@ package Characters;
 
 import Background.Background;
 import Background.TileManager;
+import Characters.JackBomber;
 
 public class CheckCollision {
     /** background instance */
@@ -10,6 +11,7 @@ public class CheckCollision {
     public CheckCollision(Background background) {
         this.background = background;
     }
+
 
     public void checkCollision(Character character) {
         int characterLeftX = character.x + character.spriteBounds.x;
@@ -40,7 +42,9 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
-                    JackBomber.increaseScore(400);
+                    //TODO:change this after problem is fixed
+//                    JackBomber.increaseScore(400);
+                    background.getPlayer().increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -55,7 +59,9 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
-                    JackBomber.increaseScore(400);
+                    //TODO:change this after problem is fixed
+//                    JackBomber.increaseScore(400);
+                    background.getPlayer().increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -70,7 +76,9 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
-                    JackBomber.increaseScore(400);
+                    //TODO:change this after problem is fixed
+//                    JackBomber.increaseScore(400);
+                    background.getPlayer().increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -85,7 +93,9 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
-                    JackBomber.increaseScore(400);
+                    //TODO:change this after problem is fixed
+//                    JackBomber.increaseScore(400);
+                    background.getPlayer().increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());

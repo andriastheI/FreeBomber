@@ -1,8 +1,10 @@
 andrias,12000
 Smoke,9900
 murat,5250
+jackson,4900
+andrew,3300
 Jack,3200
+test,1750
 guz,1600
 Jin,1100
 sds,900
-test,700

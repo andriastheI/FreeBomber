@@ -62,7 +62,7 @@ public class GameOverPanel extends JPanel implements ActionListener {
         restartGameButton.setFocusPainted(false);       // No outline on focus
         restartGameButton.setOpaque(false);             // Transparency
         restartGameButton.addActionListener((ActionEvent e) -> {
-            frame.setPlayerScore(0);
+//            backg.getPlayer().setScore(0);
             frame.startGame(); // Start the game from FreeBomber
         });
 

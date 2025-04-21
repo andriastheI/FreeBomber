@@ -1,6 +1,7 @@
 package FreeBomber;
 
 import Background.*;
+import Characters.JackBomber;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,11 +60,14 @@ public class FreeBomber extends JFrame {
      * This method changes the content pane of the JFrame to the game panel and initializes the game.
      */
     public void startGame() {
+        setPlayerScore(0);
         highscorePanel = new HighscorePanel(this);
         highscorePanel.setScoreboardData(highscorePanel.readAndStore());
-        highscorePanel.refreshScoreboard(this.playerName, this.playerScore);
+        highscorePanel.refreshScoreboard(this.playerName, getPlayerScore());
+
 
         background = new Background(this);
+        background.getPlayer().setScore(getPlayerScore());
 
         // Create a layered pane to hold both game and button
         JLayeredPane layeredPane = new JLayeredPane();
@@ -103,7 +107,7 @@ public class FreeBomber extends JFrame {
     public void showScoreBoard() {
         highscorePanel = new HighscorePanel(this);
         highscorePanel.setScoreboardData(highscorePanel.readAndStore());
-        highscorePanel.refreshScoreboard(this.playerName, this.playerScore);
+        highscorePanel.refreshScoreboard(this.playerName, background.getPlayer().getScore());
         setContentPane(highscorePanel);
         revalidate();
         repaint();

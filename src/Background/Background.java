@@ -284,7 +284,7 @@ public class Background extends JPanel implements Runnable {
             if (tileManager.getCurrentMap() == 5) {
                 // Game is finished after map 5
                 finished = true;
-                frame.setPlayerScore(JackBomber.getScore());
+                frame.setPlayerScore(getPlayer().getScore());
                 finishedGame();
                 return; // Prevent drawing/logic errors from loading a nonexistent map
             } else {
@@ -314,8 +314,8 @@ public class Background extends JPanel implements Runnable {
 
         g2.setFont(new Font("Courier New", Font.BOLD, 20));
         g.setColor(Color.WHITE);
-        String scoreText = "Score: " + JackBomber.getScore();
-        gameScore = JackBomber.getScore();
+        String scoreText = "Score: " + getPlayer().getScore();
+        gameScore = getPlayer().getScore();
         FontMetrics fm = g.getFontMetrics();
         int textWidth = fm.stringWidth(scoreText);
 
@@ -325,7 +325,7 @@ public class Background extends JPanel implements Runnable {
         g.drawString(scoreText, x, y);
 
         if (gameOver) {
-            frame.setPlayerScore(JackBomber.getScore());
+            frame.setPlayerScore(getPlayer().getScore());
             endGame();
         }
 

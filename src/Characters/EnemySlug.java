@@ -122,7 +122,9 @@ public class EnemySlug extends Character {
             // Enemy is hit by the explosion, remove or mark as defeated
             this.setAlive(false);
             //increase the score when character is dead
-            JackBomber.increaseScore(150);
+            //TODO:update if it is fixed
+//            JackBomber.increaseScore(150);
+            background.getPlayer().increaseScore(150);
         }
     }
 

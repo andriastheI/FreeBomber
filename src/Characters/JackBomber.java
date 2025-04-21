@@ -20,7 +20,7 @@ import java.util.List;
 public class JackBomber extends Character {
 
     /** game score keeper */
-    public static int score = 0;
+    public int score = 0;
     /** List of active bombs placed by the player. */
     private final List<Bomb> bombs = new ArrayList<Bomb>();
     /** Duration (in milliseconds) for which the player remains invincible after taking damage. */
@@ -89,7 +89,7 @@ public class JackBomber extends Character {
      *
      * @param amount the number of points to add to the current score
      */
-    public static void increaseScore(int amount) {
+    public void increaseScore(int amount) {
         score += amount;
     }
 
@@ -98,7 +98,7 @@ public class JackBomber extends Character {
      *
      * @param amount the number of points to subtract from the current score
      */
-    public static void decreaseScore(int amount) {
+    public void decreaseScore(int amount) {
         score -= amount;
     }
 
@@ -107,8 +107,12 @@ public class JackBomber extends Character {
      *
      * @return the current score as an integer
      */
-    public static int getScore() {
+    public int getScore() {
         return score;
+    }
+
+    public void setScore(int amount) {
+        score += amount;
     }
 
     /**
@@ -372,7 +376,7 @@ public class JackBomber extends Character {
         }
 
         playerHealth--;
-        JackBomber.decreaseScore(300);
+        decreaseScore(300);
         if (getPlayerHealth() <= 0) {
             background.gameOver = true;
         }
