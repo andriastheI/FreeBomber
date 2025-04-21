@@ -59,6 +59,10 @@ public class FreeBomber extends JFrame {
      * This method changes the content pane of the JFrame to the game panel and initializes the game.
      */
     public void startGame() {
+        highscorePanel = new HighscorePanel(this);
+        highscorePanel.setScoreboardData(highscorePanel.readAndStore());
+        highscorePanel.refreshScoreboard(this.playerName, this.playerScore);
+
         background = new Background(this);
 
         // Create a layered pane to hold both game and button
