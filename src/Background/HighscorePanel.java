@@ -135,7 +135,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
         Map<String, Integer> tempDictionary = new HashMap<>();
 
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("src/storage/scores/scoreboard.txt")))
+                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("storage/scores/scoreboard.txt")))
         ) {
             String line;
             while ((line = reader.readLine()) != null) {

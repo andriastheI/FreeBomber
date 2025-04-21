@@ -5,3 +5,4 @@ Jack,3200
 guz,1600
 Jin,1100
 sds,900
+test,700
