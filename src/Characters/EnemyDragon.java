@@ -21,7 +21,7 @@ public class EnemyDragon extends EnemySlug {
      * @param jack The player character, used to determine interactions with the enemy.
      */
     public EnemyDragon(Background bg, JackBomber jack) {
-        super(bg, jack);
+        super(bg, jack, 2,2);
         this.background = bg;
         // Customize the images for Character.E_Slug2
         getPlayerImage();  // Load different images specific to this enemy

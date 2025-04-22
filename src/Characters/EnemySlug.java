@@ -16,6 +16,10 @@ public class EnemySlug extends Character {
     Background background;
     /** Reference to the JackBomber character */
     JackBomber jackBomber;
+    /** Enemy's drop location in the x-axis*/
+    private int dropLocationX = 2;
+    /** Enemy's drop location in the y-axis*/
+    private int dropLocationY = 2;
 
     /**
      * Constructor for the EnemySlug class.
@@ -25,10 +29,10 @@ public class EnemySlug extends Character {
      * @param bg   The background object that holds the game environment.
      * @param jack The JackBomber character object used for collision detection.
      */
-    public EnemySlug(Background bg, JackBomber jack) {
+    public EnemySlug(Background bg, JackBomber jack, int dropLocationX, int dropLocationY) {
         this.background = bg;
         this.jackBomber = jack; // Initialize JackBomber reference
-        setDefaultValues();
+        setDefaultValues(dropLocationX, dropLocationY);
         getPlayerImage();
 
         // Set collision detection bounds for the enemy sprite
@@ -39,9 +43,9 @@ public class EnemySlug extends Character {
     /**
      * Sets the default values for the enemy slug's position, speed, and direction.
      */
-    public void setDefaultValues() {
-        x = background.getScreenWidth() - 2 * background.getTileSize();
-        y = background.getScreenHeight() - 2 * background.getTileSize();
+    public void setDefaultValues(int dropLocationX, int dropLocationY) {
+        x = background.getScreenWidth() - dropLocationX * background.getTileSize();
+        y = background.getScreenHeight() - dropLocationY * background.getTileSize();
         speed = 1;
         direction = "left";
     }
@@ -193,5 +197,23 @@ public class EnemySlug extends Character {
         }
         g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
     }
+    /**
+     * Returns the drop location.
+     *
+     * @return the current value of dropLocation
+     */
+    public int getDropLocationX() {
+        return dropLocationX;
+    }
+
+    /**
+     * Sets the drop location.
+     *
+     * @param dropLocation the new value to set for dropLocation
+     */
+    public void setDropLocationX(int dropLocation) {
+        this.dropLocationX = dropLocation;
+    }
+
 
 }

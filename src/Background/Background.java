@@ -58,7 +58,7 @@ public class Background extends JPanel implements Runnable {
     private EnemyMush enemy3 = new EnemyMush(this, this.player);
 
     /** An enemy of type EnemySlug. */
-    private EnemySlug enemy1 = new EnemySlug(this, this.player);
+    private EnemySlug enemy1 = new EnemySlug(this, this.player, 2,2);
 
     /** An enemy of type EnemySlug2. */
     private EnemyDragon enemy4 = new EnemyDragon(this, this.player);
@@ -280,7 +280,6 @@ public class Background extends JPanel implements Runnable {
 
         if (player.isLevelUp() && tileManager.getCurrentMap() <= 5) {
             removeCharacters();
-
             if (tileManager.getCurrentMap() == 5) {
                 // Game is finished after map 5
                 finished = true;
@@ -402,10 +401,16 @@ public class Background extends JPanel implements Runnable {
      */
     private void initializeCharacters() {
         player = new JackBomber(this, keyHandler, new Bomb(this));
-        enemy1 = new EnemySlug(this, player);
+        if (tileManager.getCurrentMap() == 2) {
+            enemy1 = new EnemySlug(this, player, 17,2);
+        }else{
+            enemy1 = new EnemySlug(this, player, 2,2);
+        }
+
         enemy2 = new EnemyRock(this, player);
         enemy3 = new EnemyMush(this, player);
         enemy4 = new EnemyDragon(this, player);
+
     }
 
     /**
