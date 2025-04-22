@@ -111,6 +111,10 @@ public class JackBomber extends Character {
         return score;
     }
 
+    public static void setScore(int score) {
+        JackBomber.score = score;
+    }
+
     /**
      * Sets the initial default values for position, speed and direction.
      */

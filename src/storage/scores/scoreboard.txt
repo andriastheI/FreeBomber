@@ -2,6 +2,7 @@ andrias,12000
 Smoke,9900
 murat,5250
 Jack,3200
+anan,3000
 guz,1600
 Jin,1100
 sds,900

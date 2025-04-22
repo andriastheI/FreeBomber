@@ -33,8 +33,8 @@ public class TileManager {
     private int currentMap = 1;
     /** Coordinates of the actual active door tile */
     private int[] theDoor;
-    /** Jack bomber class for keeping the score */
-    private JackBomber jackBomber;
+//    /** Jack bomber class for keeping the score */
+//    private JackBomber jackBomber;
 
     /**
      * Constructor for the TileManager class.
@@ -142,10 +142,10 @@ public class TileManager {
                     if (explosionArea.intersects(tileRect) && col == theDoor[0] && row == theDoor[1]) {
                         // Replace soft wall with grass after explosion
                         mapTileNum[col][row] = 3; // Change tile to grass (tile[0])
-                        jackBomber.increaseScore(50);
+                        JackBomber.increaseScore(50);
                     } else if (explosionArea.intersects(tileRect)) {
                         mapTileNum[col][row] = 0; // Change tile to grass (tile[0])
-                        jackBomber.increaseScore(50);
+                        JackBomber.increaseScore(50);
                     }
                 }
             }

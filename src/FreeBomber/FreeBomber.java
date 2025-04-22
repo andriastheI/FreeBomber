@@ -1,6 +1,7 @@
 package FreeBomber;
 
 import Background.*;
+import Characters.JackBomber;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +24,7 @@ public class FreeBomber extends JFrame {
     /** victory panel class */
     private YouWonPanel victory;
     /** players score instance */
-    private int playerScore;
+    private int  playerScore;
 
 
     /**
@@ -64,6 +65,7 @@ public class FreeBomber extends JFrame {
         highscorePanel.refreshScoreboard(this.playerName, this.playerScore);
 
         background = new Background(this);
+        JackBomber.setScore(0);
 
         // Create a layered pane to hold both game and button
         JLayeredPane layeredPane = new JLayeredPane();
