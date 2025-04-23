@@ -29,7 +29,7 @@ public class YouWonPanel extends JPanel implements ActionListener {
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
         JLabel bg = new JLabel(scaledIcon);
-        bg.setBounds(0, 0,backg.getScreenWidth(), backg.getScreenHeight());
+        bg.setBounds(0, 0, backg.getScreenWidth(), backg.getScreenHeight());
 
         String playerName = frame.getPlayerName();
         int playerScore = frame.getPlayerScore();

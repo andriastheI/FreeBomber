@@ -24,7 +24,7 @@ public class FreeBomber extends JFrame {
     /** victory panel class */
     private YouWonPanel victory;
     /** players score instance */
-    private int  playerScore;
+    private int playerScore;
 
 
     /**
@@ -72,13 +72,13 @@ public class FreeBomber extends JFrame {
         layeredPane.setPreferredSize(new Dimension(background.getScreenWidth(), background.getScreenHeight())); // match your screen size
 
         // Set bounds for the game panel
-        background.setBounds(0, 0,background.getScreenWidth(), background.getScreenHeight());
+        background.setBounds(0, 0, background.getScreenWidth(), background.getScreenHeight());
         layeredPane.add(background, Integer.valueOf(0)); // Game layer
 
         // Create button overlay panel
         JPanel overlay = new JPanel(null); // null layout for manual positioning
         overlay.setOpaque(false); // transparent
-        overlay.setBounds(0, 0,background.getScreenWidth(), background.getScreenHeight());
+        overlay.setBounds(0, 0, background.getScreenWidth(), background.getScreenHeight());
 
         JButton exitButton = new JButton("Exit");
         exitButton.setForeground(Color.RED);
@@ -143,21 +143,13 @@ public class FreeBomber extends JFrame {
      * Displays the YouWon panel.
      * This method switches the background panel to the YouWon panel to show that the player finished the game.
      */
-    public void showVictory(){
+    public void showVictory() {
         victory = new YouWonPanel(this);
         setContentPane(victory);
         revalidate();
         repaint();
 
         SwingUtilities.invokeLater(victory::requestFocusInWindow);
-    }
-    /**
-     * Sets the player's name.
-     *
-     * @param name The name to assign to the player.
-     */
-    public void setPlayerName(String name) {
-        this.playerName = name;
     }
 
     /**
@@ -170,16 +162,25 @@ public class FreeBomber extends JFrame {
     }
 
     /**
+     * Sets the player's name.
+     *
+     * @param name The name to assign to the player.
+     */
+    public void setPlayerName(String name) {
+        this.playerName = name;
+    }
+
+    public int getPlayerScore() {
+        return this.playerScore;
+    }
+
+    /**
      * Sets the player's score.
      *
      * @param playerScore The score to assign to the player.
      */
     public void setPlayerScore(int playerScore) {
         this.playerScore = playerScore;
-    }
-
-    public int getPlayerScore(){
-        return this.playerScore;
     }
 
 }

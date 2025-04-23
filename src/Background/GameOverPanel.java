@@ -1,13 +1,11 @@
 package Background;
 
-import FreeBomber.*;
+import FreeBomber.FreeBomber;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The GameOverPanel class represents the game-over screen where the player can choose to restart the game,

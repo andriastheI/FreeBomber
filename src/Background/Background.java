@@ -324,6 +324,13 @@ public class Background extends JPanel implements Runnable {
 
         g.drawString(scoreText, x, y);
 
+        // Draw player name in top-left corner
+        g2.setFont(new Font("Arial", Font.BOLD, 18));
+        g2.setColor(Color.BLACK);
+        g2.drawString("Player: " + frame.getPlayerName(), 100, 31); // Black shadow
+        g2.setColor(Color.WHITE);
+        g2.drawString("Player: " + frame.getPlayerName(), 99, 30); // White text
+
         if (gameOver) {
             frame.setPlayerScore(JackBomber.getScore());
             endGame();
@@ -418,6 +425,7 @@ public class Background extends JPanel implements Runnable {
         gameThread = null;
         SwingUtilities.invokeLater(() -> frame.showGameOver());
     }
+
     /**
      * Ends the game and switches to the Victory Screen.
      * <p>

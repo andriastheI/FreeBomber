@@ -6,10 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +25,7 @@ public class MenuPanel extends JPanel implements ActionListener {
     private Background bg = new Background();
     /** Temporary scoreboard map (not used in display in current version) */
     private Map<String, Integer> scoreBoardUpload = new HashMap<>();
-    /** used for exracting the username for the player*/
+    /** used for exracting the username for the player */
     private String currentUsername = "";
 
     /**
@@ -179,6 +175,7 @@ public class MenuPanel extends JPanel implements ActionListener {
             frame.showScoreBoard();
         });
     }
+
     /**
      * Unused ActionListener method.
      * Placeholder for future action support if needed.

@@ -3,15 +3,14 @@ package Background;
 import FreeBomber.FreeBomber;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 /**
  * HighscorePanel is a JPanel that displays a list of high scores from a file
@@ -111,6 +110,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
         add(scrollPane);
 
     }
+
     /**
      * Paints the high score panel, including the title and top 10 scores.
      *
@@ -127,6 +127,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
         g2.setFont(new Font("Georgia", Font.PLAIN, 60));
         g2.drawString("High Scores", 90, 80);
     }
+
     /**
      * Reads scoreboard data from a comma-separated file.
      * Username is everything before the last comma, score is after.
@@ -160,6 +161,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
         }
         return tempDictionary;
     }
+
     /**
      * Refreshes the scoreboard with a new score for the given player.
      * <p>
@@ -167,7 +169,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
      * The scoreboard is then trimmed to the top 10 scores, stored in a file, and displayed in the table model.
      *
      * @param playerName The name of the player whose score is being updated.
-     * @param score The new score to consider for the player.
+     * @param score      The new score to consider for the player.
      */
     public void refreshScoreboard(String playerName, int score) {
         // Only proceed if valid playerName and score > 0
