@@ -20,6 +20,8 @@ public class EnemyDragon extends EnemySlug {
     /** Reference to the Background */
     private final Background background;
 
+    private final JackBomber jackBomber;
+
     /**
      * Constructor for the EnemySlug2 class.
      *
@@ -29,6 +31,7 @@ public class EnemyDragon extends EnemySlug {
     public EnemyDragon(Background bg, JackBomber jack) {
         super(bg, jack);
         this.background = bg;
+        this.jackBomber = jack;
         // Customize the images for Character.E_Slug2
         getPlayerImage();  // Load different images specific to this enemy
     }
@@ -93,7 +96,7 @@ public class EnemyDragon extends EnemySlug {
             // Enemy is hit by the explosion, remove or mark as defeated
             this.setAlive(false);
             //increase the score when character is dead
-            JackBomber.increaseScore(150);
+            jackBomber.increaseScore(150);
         }
     }
 

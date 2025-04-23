@@ -91,7 +91,7 @@ public class FreeBomber extends JFrame {
         highscorePanel.refreshScoreboard(this.playerName, this.playerScore);
 
         background = new Background(this, startingMap);
-        JackBomber.setScore(0);
+        background.getPlayer().setScore(0);
 
         // Create a layered pane to hold both game and button
         JLayeredPane layeredPane = new JLayeredPane();

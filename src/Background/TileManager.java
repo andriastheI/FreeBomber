@@ -33,7 +33,7 @@ public class TileManager {
     /** Stores tile layout of the current map using tile indices */
     public int[][] mapTileNum;
     /** Reference to the game panel (Background class) */
-    Background gp;
+    private final Background gp;
     /** Track which map is currently loaded */
     private int currentMap = 1;
     /** Coordinates of the actual active door tile */
@@ -146,10 +146,11 @@ public class TileManager {
                     if (explosionArea.intersects(tileRect) && col == theDoor[0] && row == theDoor[1]) {
                         // Replace soft wall with grass after explosion
                         mapTileNum[col][row] = 3; // Change tile to grass (tile[0])
-                        JackBomber.increaseScore(50);
+                        getGp().getPlayer().increaseScore(50);
+
                     } else if (explosionArea.intersects(tileRect)) {
                         mapTileNum[col][row] = 0; // Change tile to grass (tile[0])
-                        JackBomber.increaseScore(50);
+                        getGp().getPlayer().increaseScore(50);
                     }
                 }
             }
@@ -224,5 +225,9 @@ public class TileManager {
             mapTileNum[closestX][closestY] = 3; // 3 = door
             System.out.println("Moved door to: (" + closestX + ", " + closestY + ")");
         }
+    }
+
+    public Background getGp() {
+        return gp;
     }
 }

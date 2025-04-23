@@ -85,7 +85,7 @@ public class Background extends JPanel implements Runnable {
     public Background(FreeBomber frame, int startingMap) {
         this.frame = frame;
         this.tileManager = new TileManager(this, startingMap);
-        initializeCharacters();
+        initializeCharacters(0);
         int playerCol = player.x / tileSize;
         int playerRow = player.y / tileSize;
         tileManager.moveDoorToClosestSoftWall(playerCol, playerRow, startingMap == 5);
@@ -121,7 +121,7 @@ public class Background extends JPanel implements Runnable {
      */
     public Background() {
         this.tileManager = new TileManager(this, 1); // Default to map 1
-        initializeCharacters();
+        initializeCharacters(0);
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
@@ -286,17 +286,18 @@ public class Background extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         if (player.isLevelUp() && tileManager.getCurrentMap() <= 5) {
+            int oldScore = player.getScore();
             removeCharacters();
 
             if (tileManager.getCurrentMap() == 5) {
                 // Game is finished after map 5
                 finished = true;
-                frame.setPlayerScore(JackBomber.getScore());
+                frame.setPlayerScore(player.getScore());
                 finishedGame();
                 return; // Prevent drawing/logic errors from loading a nonexistent map
             } else {
                 tileManager.loadMap(tileManager.getCurrentMap() + 1);
-                initializeCharacters();
+                initializeCharacters(oldScore);
                 player.setLevelUp(false);
             }
         }
@@ -321,7 +322,7 @@ public class Background extends JPanel implements Runnable {
 
         g2.setFont(new Font("Courier New", Font.BOLD, 20));
         g.setColor(Color.WHITE);
-        String scoreText = "Score: " + JackBomber.getScore();
+        String scoreText = "Score: " + player.getScore();
         FontMetrics fm = g.getFontMetrics();
         int textWidth = fm.stringWidth(scoreText);
         int x = (getWidth() - textWidth) / 2;
@@ -337,7 +338,7 @@ public class Background extends JPanel implements Runnable {
         g2.drawString("Player: " + frame.getPlayerName(), 99, 30); // White text
 
         if (gameOver) {
-            frame.setPlayerScore(JackBomber.getScore());
+            frame.setPlayerScore(player.getScore());
             endGame();
         }
 
@@ -413,8 +414,9 @@ public class Background extends JPanel implements Runnable {
      * Initializes or reinitializes the player and all enemy characters.
      * This method is used during level loading or game restarts.
      */
-    private void initializeCharacters() {
+    private void initializeCharacters(int gameScore) {
         player = new JackBomber(this, keyHandler, new Bomb(this));
+        player.setScore(gameScore);
         enemy1 = new EnemySlug(this, player);
         enemy2 = new EnemyRock(this, player);
         enemy3 = new EnemyMush(this, player);

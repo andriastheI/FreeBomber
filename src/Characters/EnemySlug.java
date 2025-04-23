@@ -19,9 +19,9 @@ import java.io.IOException;
  */
 public class EnemySlug extends Character {
     /** Reference to the Background */
-    Background background;
+    private final Background background;
     /** Reference to the JackBomber character */
-    JackBomber jackBomber;
+    private final JackBomber jackBomber;
 
     /**
      * Constructor for the EnemySlug class.
@@ -134,7 +134,7 @@ public class EnemySlug extends Character {
             // Enemy is hit by the explosion, remove or mark as defeated
             this.setAlive(false);
             //increase the score when character is dead
-            JackBomber.increaseScore(150);
+            jackBomber.increaseScore(150);
         }
     }
 

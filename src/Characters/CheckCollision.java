@@ -28,7 +28,7 @@ public class CheckCollision {
      *
      * @param character the character to check for collisions
      */
-    public void checkCollision(Character character) {
+    public void checkCollision(JackBomber character) {
         int characterLeftX = character.x + character.spriteBounds.x;
         int characterRightX = character.x + character.spriteBounds.x + character.spriteBounds.width;
         int characterTopY = character.y + character.spriteBounds.y;
@@ -57,7 +57,7 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
-                    JackBomber.increaseScore(400);
+                    character.increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -72,7 +72,7 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
-                    JackBomber.increaseScore(400);
+                    character.increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -87,7 +87,7 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
-                    JackBomber.increaseScore(400);
+                    character.increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());
@@ -102,7 +102,7 @@ public class CheckCollision {
                     character.collisionOn = true;
                 }
                 if (tile1 == 3 || tile2 == 3) {
-                    JackBomber.increaseScore(400);
+                    character.increaseScore(400);
                     character.setLevelUp(true);
                     character.setDoorFound(true);
                     character.setLevelStartTime(System.currentTimeMillis());

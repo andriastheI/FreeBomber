@@ -24,7 +24,7 @@ import java.util.List;
 public class JackBomber extends Character {
 
     /** game score keeper */
-    public static int score = 0;
+    private int score = 0;
 
     /** List of active bombs placed by the player. */
     private final List<Bomb> bombs = new ArrayList<Bomb>();
@@ -42,10 +42,10 @@ public class JackBomber extends Character {
     public Bomb bomb;
 
     /** Reference to the game background. */
-    Background background;
+    private final Background background;
 
     /** Reference to the key handler for capturing input. */
-    KeyHandler keyHandler;
+    private final KeyHandler keyHandler;
 
     /** Flag indicating whether a bomb was just dropped. */
     private boolean bombJustDropped = false;
@@ -87,8 +87,8 @@ public class JackBomber extends Character {
      *
      * @param amount the number of points to add to the current score
      */
-    public static void increaseScore(int amount) {
-        score += amount;
+    public void increaseScore(int amount) {
+        this.score += amount;
     }
 
     /**
@@ -96,8 +96,8 @@ public class JackBomber extends Character {
      *
      * @param amount the number of points to subtract from the current score
      */
-    public static void decreaseScore(int amount) {
-        score -= amount;
+    public void decreaseScore(int amount) {
+        this.score -= amount;
     }
 
     /**
@@ -105,12 +105,17 @@ public class JackBomber extends Character {
      *
      * @return the current score as an integer
      */
-    public static int getScore() {
-        return score;
+    public int getScore() {
+        return this.score;
     }
 
-    public static void setScore(int score) {
-        JackBomber.score = score;
+    /**
+     * Sets the player's current score.
+     *
+     * @param score the score value to assign to the player
+     */
+    public void setScore(int score) {
+        this.score = score;
     }
 
     /**
@@ -335,30 +340,6 @@ public class JackBomber extends Character {
     }
 
     /**
-     * Crops heart images from a sprite sheet and saves them as individual frames.
-     * Useful for heart animation effects.
-     */
-    private void crop() {
-        try {
-            File imageFile = new File("src/storage/player/heart1.png");
-            BufferedImage img = ImageIO.read(imageFile);
-            for (int i = 0; i < 2; i++) {
-                int cropX = i * 32;
-                int cropY = 32;
-                int cropWidth = 32;
-                int cropHeight = 32;
-                BufferedImage croppedImage = img.getSubimage(cropX, cropY, cropWidth, cropHeight);
-                System.out.println("cropX = " + cropX + " cropY = " + cropY + " cropWidth = " + cropWidth + " cropHeight = " + cropHeight + "");
-                File outputfile = new File("src/storage/player/heartc" + (i + 1) + ".png");
-                ImageIO.write(croppedImage, "png", outputfile);
-                System.out.println("Done");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Applies damage to the player, reducing health if not currently invincible.
      * Triggers game over if health reaches zero.
      */
@@ -374,7 +355,7 @@ public class JackBomber extends Character {
         }
 
         playerHealth--;
-        JackBomber.decreaseScore(300);
+        decreaseScore(300);
         if (getPlayerHealth() <= 0) {
             background.gameOver = true;
         }

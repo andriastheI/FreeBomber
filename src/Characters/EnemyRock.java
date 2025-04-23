@@ -25,13 +25,13 @@ import java.util.Random;
 public class EnemyRock extends Character {
 
     /** Reference to the game background for screen and tile information. */
-    Background background;
+    private final Background background;
     /** Timer that triggers movement every 200 milliseconds. */
-    Timer movementTimer;
+    private final Timer movementTimer;
     /** Random object used for direction selection. */
-    Random random;
+    private final Random random;
     /** Reference to the JackBomber player, used for collision checks. */
-    JackBomber jackBomber;
+    private final JackBomber jackBomber;
 
 
     /**
@@ -286,7 +286,7 @@ public class EnemyRock extends Character {
             // Enemy is hit by the explosion, remove or mark as defeated
             this.setAlive(false);
             //increase the score when character is dead
-            JackBomber.increaseScore(150);
+            jackBomber.increaseScore(150);
         }
     }
 

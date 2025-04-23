@@ -27,13 +27,13 @@ import java.util.Random;
 public class EnemyMush extends Character {
 
     /** Reference to the game background for movement boundaries and collision. */
-    Background background;
+    private final Background background;
     /** Timer that triggers movement updates every 200ms. */
-    Timer movementTimer;
+    private Timer movementTimer;
     /** Random object to generate directions. */
-    Random random;
+    private final Random random;
     /** Reference to the JackBomber player, used for collision handling. */
-    JackBomber jackBomber;
+    private final JackBomber jackBomber;
 
     /**
      * Constructs a new EnemyMush instance.
@@ -287,7 +287,7 @@ public class EnemyMush extends Character {
             // Enemy is hit by the explosion, remove or mark as defeated
             this.setAlive(false);
             //increase the score when character is dead
-            JackBomber.increaseScore(150);
+            jackBomber.increaseScore(150);
         }
     }
 

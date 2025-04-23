@@ -5,6 +5,6 @@ murat,5250
 jacl,4500
 Jack,3200
 anan,3000
+dddd,2700
 heyyo,2050
 guz,1600
-Jin,1100
