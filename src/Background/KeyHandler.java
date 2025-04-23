@@ -4,8 +4,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Handles keyboard input for movement using the KeyListener interface.
- * The class tracks the directions of movement (up, down, left, right) and whether the bomb is dropped.
+ * Description:
+ * <p>
+ * Handles keyboard input for movement and bomb control using the KeyListener interface.
+ * Tracks the state of directional keys (W, A, S, D) and space bar (bomb drop).
+ * </p>
+ * @author mguzelocak
+ * @author Zelele
  */
 public class KeyHandler implements KeyListener {
 

@@ -1,35 +1,44 @@
 package Characters;
 
 import Background.Background;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
- * Represents a bomb object that can be placed by the player.
+ * Description:
  * <p>
+ * Represents a bomb object that can be placed by the player.
  * Bombs have a countdown timer and explode after a certain duration,
  * affecting nearby enemies and destructible tiles.
  * </p>
+ * @author mguzelocak
+ * @author Zelele
  */
 public class Bomb extends Character {
 
     /** Countdown value in frames before bomb explodes (~3 seconds at 60 FPS). */
     private static final int COUNTDOWN = 180;
+
     /** Size of the bomb, typically matching the tile size. */
     private final int size = 32;
+
     /** Game background for managing tiles and enemies. */
     Background background;
+
     /** Position of the bomb in pixels. */
     private int x, y;
+
     /** Countdown timer that decreases every frame. */
     private int timer;
+
     /** Whether the bomb has exploded. */
     private boolean exploded;
+
     /** Whether the bomb has collided with something. */
     private boolean collision;
+
     /** Individual frames (not directly used outside init) */
     private BufferedImage bomb1, bomb2, bomb3, bomb4, bomb5, bomb6, bomb7,
             bomb8, bomb9, bomb10, bomb11, bomb12, bomb13, bomb14, bomb15, bomb16,

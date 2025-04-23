@@ -2,51 +2,57 @@ package FreeBomber;
 
 import Background.*;
 import Characters.JackBomber;
-
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * The FreeBomber class represents the main window for the FreeBomber game.
- * It initializes the JFrame, displays the menu panel, and handles switching to the game.
+ * Description:
+ * <p>
+ * The FreeBomber class serves as the main entry point and window frame for the FreeBomber game.
+ * It initializes the game UI, manages transitions between game states (menu, gameplay, scoreboard, victory, and game over),
+ * and facilitates player interactions including score tracking and map loading.
+ * </p>
+ *
+ * Features:
+ * - Launches the game window and menu on startup
+ * - Allows cheat-based map initialization via command-line arguments
+ * - Dynamically switches between different UI panels during gameplay
+ * - Integrates with the game engine through the Background class
+ * - Manages player name and score
+ *
+ * @author @mguzelocak @zelele
  */
 public class FreeBomber extends JFrame {
-    /** players name instance */
+
+    /** The player's name displayed in high scores and menus. */
     private String playerName;
-    /** game over panel class */
+
+    /** Reference to the panel shown when the player loses the game. */
     private GameOverPanel gameOverPanel;
-    /** high score panel class */
+
+    /** Reference to the high score display panel. */
     private HighscorePanel highscorePanel;
-    /** menu panel class */
+
+    /** Reference to the main menu interface. */
     private MenuPanel menuPanel;
-    /** game background class */
+
+    /** Reference to the active game canvas (Background). */
     private Background background;
-    /** victory panel class */
+
+    /** Panel shown upon player victory. */
     private YouWonPanel victory;
-    /** players score instance */
+
+    /** Stores the current game score for the player. */
     private int playerScore;
 
+    /** The map number to start the game from. Used for cheat mode or custom level starts. */
     private int startingMap = 1;
 
-
     /**
-     * Constructor for the FreeBomber class.
-     * Sets up the JFrame and shows the menu panel first.
+     * Constructs the FreeBomber game window and initializes the starting map.
+     *
+     * @param startingMap The map number to start the game from. Used for cheat mode or custom level starts.
      */
-//    public FreeBomber() {
-//        menuPanel = new MenuPanel(this);
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setResizable(false);
-//        setTitle("FreeBomber");
-//        setPlayerName(menuPanel.getName());
-//
-//        // Show menu panel first
-//        setContentPane(menuPanel);
-//        pack();
-//        setLocationRelativeTo(null);
-//        setVisible(true);
-//    }
-
     public FreeBomber(int startingMap) {
         this.startingMap = startingMap;
         menuPanel = new MenuPanel(this);
@@ -64,7 +70,7 @@ public class FreeBomber extends JFrame {
      * Main method to launch the FreeBomber game.
      * This method starts the FreeBomber application by initializing the game window.
      *
-     * @param args Command line arguments (not used).
+     * @param args Command-line arguments. Use "nwilliams" to start from level 5 in cheat mode.
      */
     public static void main(String[] args) {
         int map = 1;
@@ -190,6 +196,11 @@ public class FreeBomber extends JFrame {
         this.playerName = name;
     }
 
+    /**
+     * Returns the current player's score.
+     *
+     * @return The player's score as an integer.
+     */
     public int getPlayerScore() {
         return this.playerScore;
     }

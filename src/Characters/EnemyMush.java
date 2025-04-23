@@ -14,11 +14,15 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Represents a mushroom-type enemy character in the game.
+ * Description:
  * <p>
- * EnemyMush moves randomly, checks for collisions with the environment and player,
- * and reacts to bomb explosions. It uses a timer-based system to update direction periodically.
+ * Represents a mushroom-type enemy character in the game.
+ * It moves randomly and reacts to the proximity of the player,
+ * switching to a smarter movement pattern when close.
+ * It also responds to explosions and is removed when defeated.
  * </p>
+ * @author mguzelocak
+ * @author Zelele
  */
 public class EnemyMush extends Character {
 
@@ -287,13 +291,21 @@ public class EnemyMush extends Character {
         }
     }
 
+    /**
+     * Calculates the horizontal distance between the enemy and the player.
+     *
+     * @return the difference in x-coordinates
+     */
     private int getplayerDistanceX() {
         return jackBomber.x - this.x;
     }
 
+    /**
+     * Calculates the vertical distance between the enemy and the player.
+     *
+     * @return the difference in y-coordinates
+     */
     private int getplayerDistanceY() {
         return jackBomber.y - this.y;
     }
 }
-
-

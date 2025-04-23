@@ -8,8 +8,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
- * The EnemySlug class represents an enemy character in the game.
- * It handles movement, image rendering, and collision detection for the enemy slug.
+ * Description:
+ * <p>
+ * Represents a slug-type enemy in the game that moves in a fixed direction until blocked.
+ * It changes direction upon collision and reacts to explosions by being removed and increasing the player’s score.
+ * The class also handles sprite animation and image rendering during movement.
+ * </p>
+ * @author mguzelocak
+ * @author Zelele
  */
 public class EnemySlug extends Character {
     /** Reference to the Background */
@@ -115,6 +121,12 @@ public class EnemySlug extends Character {
         }
     }
 
+    /**
+     * Handles logic for when the enemy slug is affected by a bomb explosion.
+     * If the enemy intersects the explosion area, it is marked as not alive and points are awarded.
+     *
+     * @param explosionArea the rectangular area of the bomb explosion
+     */
     public void handleExplosion(Rectangle explosionArea) {
         Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
 

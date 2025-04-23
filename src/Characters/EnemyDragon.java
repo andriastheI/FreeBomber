@@ -7,8 +7,14 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
- * The EnemySlug2 class represents a specific enemy type in the game, inheriting behavior from EnemySlug.
- * This class overrides methods to customize the images and movement behavior for the second enemy type.
+ * Description:
+ * <p>
+ * Represents a dragon-type enemy character that inherits behavior from EnemySlug.
+ * It overrides image loading and movement logic to customize its visual appearance and behavior.
+ * It also handles explosions and awards points to the player upon defeat.
+ * </p>
+ * @author mguzelocak
+ * @author Zelele
  */
 public class EnemyDragon extends EnemySlug {
     /** Reference to the Background */

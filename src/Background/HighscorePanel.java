@@ -1,7 +1,6 @@
 package Background;
 
 import FreeBomber.FreeBomber;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -13,33 +12,38 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * HighscorePanel is a JPanel that displays a list of high scores from a file
- * and includes a back button to return to the main menu.
+ * Description:
+ * <p>
+ * A JPanel that displays the top 10 high scores in a scrollable table.
+ * Includes functionality to read, store, and update score data from a file.
+ * It also provides a button to return to the main menu.
+ * </p>
+ * @author mguzelocak
+ * @author  Zelele
  */
 public class HighscorePanel extends JPanel implements ActionListener {
 
-    /** Stores screen background and dimension utilities */
+    /** Reference to a background object for screen dimension access. */
     private Background backg = new Background();
 
-    /** Back button to return to the main menu */
+    /** Button used to return from the high score panel to the main menu. */
     private JButton backButton;
 
-    /** Table to display the score board */
+    /** JTable component used to visually display the scoreboard. */
     private JTable scoreTable;
 
-    /** Table to list the score board */
+    /** Table model backing the scoreTable, used to store and update score rows. */
     private DefaultTableModel tableModel;
 
-    /** A map to store the scoreboard entries with player names and their scores */
+    /** Internal storage of scoreboard entries mapped from player name to score. */
     private Map<String, Integer> scoreboardData = new HashMap<>();
 
     /**
-     * Constructs the High score Panel.
-     * Sets up layout, background, back button, and loads scoreboard data.
+     * Constructs the HighscorePanel and sets up its layout, visuals, score table, and navigation button.
+     * This panel is rendered over the main game frame and includes a button to return to the main menu.
      *
-     * @param frame The main FreeBomber game frame
+     * @param frame the main game frame to allow returning to the menu
      */
-
     public HighscorePanel(FreeBomber frame) {
         // Set panel size to match screen dimensions
         setPreferredSize(new Dimension(backg.getScreenWidth(), backg.getScreenHeight()));
@@ -92,7 +96,14 @@ public class HighscorePanel extends JPanel implements ActionListener {
 
         // Create a table model with non-editable cells
         tableModel = new DefaultTableModel(new Object[]{"Player", "Score"}, 0) {
-            // All cells are non-editable
+            /**
+             * Determines if a cell in the score table is editable.
+             * This implementation always returns false, making all cells read-only.
+             *
+             * @param row the row index of the cell
+             * @param column the column index of the cell
+             * @return false, indicating the cell is not editable
+             */
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -234,10 +245,9 @@ public class HighscorePanel extends JPanel implements ActionListener {
 
 
     /**
-     * Unused ActionListener method.
-     * Placeholder for potential future event handling.
+     * Handles button actions for the panel. Currently unused.
      *
-     * @param e The ActionEvent triggered
+     * @param e the action event triggered by a UI interaction
      */
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -12,40 +12,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the main player character, JackBomber.
+ * Description:
  * <p>
- * JackBomber handles movement, animation, bomb placement, and collision logic.
- * It interacts with the game background and listens for keyboard input.
+ * Represents the main player character, JackBomber.
+ * Handles movement, sprite animation, collision detection, bomb placement,
+ * score management, level time tracking, and interaction with game elements like enemies and tiles.
  * </p>
+ * @author mguzelocak
+ * @author Zelele
  */
 public class JackBomber extends Character {
 
     /** game score keeper */
     public static int score = 0;
+
     /** List of active bombs placed by the player. */
     private final List<Bomb> bombs = new ArrayList<Bomb>();
+
     /** Duration (in milliseconds) for which the player remains invincible after taking damage. */
     private final int INVINCIBILITY_DURATION = 1000;
+
     /** Total time (in milliseconds) allowed to complete a level. */
     private final int TIME_LIMIT = 60000;
-    /** Maximum number of active bombs the player can have on the screen */
+
+    /** Maximum number of bombs the player can place on the screen simultaneously. */
     private final int BOMB_LIMIT = 3;
-    /** Time window (in milliseconds) in which the bomb limit is enforced. */
-    private final long TIME_WINDOW_MS = 5000; // 5 seconds
+
     /** The current bomb object being placed. */
     public Bomb bomb;
+
     /** Reference to the game background. */
     Background background;
+
     /** Reference to the key handler for capturing input. */
     KeyHandler keyHandler;
+
     /** Flag indicating whether a bomb was just dropped. */
     private boolean bombJustDropped = false;
+
     /** Current health of the player, measured in number of hearts */
     private int playerHealth = 3;
+
     /** Indicates whether the player is currently invincible (e.g., after taking damage) */
     private boolean invincible = false;
+
     /** Timestamp of the last time the player took damage, used to manage invincibility frames */
     private long lastDamageTime = 0;
+
     /** Remaining time for the current level, in milliseconds */
     private long remainingTime = 0;
 
@@ -67,22 +80,6 @@ public class JackBomber extends Character {
         //this rectangle is used as a collision detector that is smaller than the champion player
         //so that it is flexible for going through tight spaces.
         spriteBounds = new Rectangle(6, 18, 28, 25);
-    }
-
-    // TODO: constructor for creating images
-    public JackBomber() {
-    }
-
-    // TODO: driver for creating images
-
-    /**
-     * Main method for testing image cropping.
-     *
-     * @param args command line arguments
-     */
-    public static void main(String[] args) {
-        JackBomber test = new JackBomber();
-        test.crop();
     }
 
     /**

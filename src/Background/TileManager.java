@@ -14,8 +14,13 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * The TileManager class is responsible for managing the tiles used in the game.
- * It handles loading tile images, reading map data, and drawing tiles on the screen.
+ * Description:
+ * <p>
+ * Manages tile data for the game including loading tile images and map layouts.
+ * Responsible for rendering tile maps and placing interactive tiles like doors.
+ * </p>
+ * @author mguzelocak
+ * @author Zelele
  */
 public class TileManager {
 
@@ -188,14 +193,13 @@ public class TileManager {
     }
 
     /**
-     * Sets the current map number.
+     * Moves the door tile to the closest soft wall tile relative to the player's location.
+     * This only applies in cheat mode. It ensures the door appears near the player rather than at random.
      *
-     * @param currentMap The map number to set as the current map.
+     * @param playerX the column position of the player
+     * @param playerY the row position of the player
+     * @param isCheat true if cheat mode is enabled; false otherwise
      */
-    public void setCurrentMap(int currentMap) {
-        this.currentMap = currentMap;
-    }
-
     public void moveDoorToClosestSoftWall(int playerX, int playerY, boolean isCheat) {
         if (!isCheat) return;
         int closestX = -1;

@@ -4,14 +4,20 @@ import Background.Background;
 import Background.TileManager;
 
 /**
- * The EnemyCollision class is responsible for detecting collisions between
- * the enemy (Character.E_Slug) and the player character (Character.Character.JackBomber),
- * as well as managing the collision detection with the environment (tiles).
+ * Description:
+ * <p>
+ * Handles collision detection between enemy characters and the player,
+ * as well as with the environment (such as walls and doors).
+ * It determines valid movement directions for enemies and triggers damage on contact with the player.
+ * </p>
+ * @author mguzelocak
+ * @author Zelele
  */
 public class EnemyCollision {
 
     /** An array representing the allowed movement directions for the enemy character. */
     final boolean[] collisionDirection = {false, false, false, false}; // up, down, left, right
+
     /** Background instance */
     private final Background background;
 

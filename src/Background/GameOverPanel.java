@@ -8,22 +8,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * Description:
+ * <p>
  * The GameOverPanel class represents the game-over screen where the player can choose to restart the game,
  * start a new game, or exit the application.
+ * </p>
+ *
+ * @author Zelele
+ * @author mguzelocak
  */
 public class GameOverPanel extends JPanel implements ActionListener {
 
-    /** Restart button that resumes the game from current state */
+    /** Button that allows the player to restart the game from the beginning. */
     private JButton restartGameButton;
-    /** Starts a completely new game session */
+
+    /** Button that returns the player to the main menu screen. */
     private JButton menuGameButton;
-    /** Reference background used to fetch screen dimensions */
+
+    /** Temporary background instance used to fetch screen size for panel layout. */
     private Background backg = new Background();
 
     /**
-     * Constructs the GameOverPanel, initializes buttons, and sets up the game-over screen layout.
+     * Constructs the GameOverPanel, including layout configuration and visual design.
+     * Initializes buttons for restarting the game or returning to the main menu.
      *
-     * @param frame the main game frame where the game logic is managed.
+     * @param frame the main FreeBomber game frame that manages transitions and state.
      */
     public GameOverPanel(FreeBomber frame) {
         setPreferredSize(new Dimension(backg.getScreenWidth(), backg.getScreenHeight()));
@@ -98,10 +107,9 @@ public class GameOverPanel extends JPanel implements ActionListener {
     }
 
     /**
-     * Empty action performed method, implemented from ActionListener interface.
-     * This method is not used in this class as the button actions are handled separately for each button.
+     * Unused method required by ActionListener. All button actions are handled via lambda expressions.
      *
-     * @param e the ActionEvent triggered by a button.
+     * @param e the action event, not used in this context.
      */
     @Override
     public void actionPerformed(ActionEvent e) {

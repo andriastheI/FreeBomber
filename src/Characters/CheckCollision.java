@@ -3,6 +3,16 @@ package Characters;
 import Background.Background;
 import Background.TileManager;
 
+/**
+ * Description:
+ * <p>
+ * Handles collision detection between characters and the environment.
+ * This includes interactions with walls, soft blocks, and the door tile.
+ * It updates the character's collision state and triggers level progression logic when the door is found.
+ * </p>
+ * @author mguzelocak
+ * @author Zelele
+ */
 public class CheckCollision {
     /** background instance */
     private final Background background;
@@ -12,6 +22,12 @@ public class CheckCollision {
         this.background = background;
     }
 
+    /**
+     * Checks for collisions between a character and the game environment,
+     * including walls, objects, and possibly other characters.
+     *
+     * @param character the character to check for collisions
+     */
     public void checkCollision(Character character) {
         int characterLeftX = character.x + character.spriteBounds.x;
         int characterRightX = character.x + character.spriteBounds.x + character.spriteBounds.width;

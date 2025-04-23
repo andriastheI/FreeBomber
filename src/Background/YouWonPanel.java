@@ -7,10 +7,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Description:
+ * <p>
+ * A JPanel displayed when the player successfully completes the final level of the game.
+ * It shows a congratulatory message with the player's name and score, and a button to return to the menu.
+ * </p>
+ * @author mguzelocak
+ * @author Zelele
+ */
 public class YouWonPanel extends JPanel implements ActionListener {
 
     /** Starts a completely new game session */
     private JButton menuGameButton;
+
     /** Reference background used to fetch screen dimensions */
     private Background backg = new Background();
 

@@ -10,22 +10,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Description:
+ * <p>
  * The MenuPanel class represents the main menu screen of the game.
- * It provides options to start a new game or view high scores.
+ * It provides options to start a new game, view high scores, or exit the application.
+ * It also handles user input for entering a username before launching the game.
+ * </p>
+ * @author mguzelocak
+ * @author Zelele
  */
 public class MenuPanel extends JPanel implements ActionListener {
 
-    /** Button to start a new game */
+    /** Button to initiate a new game session after username input. */
     private JButton newGameButton;
-    /** Button to view high scores */
+
+    /** Button that navigates to the high score display panel. */
     private JButton highScoreButton;
-    /** Button to exit the game */
+
+    /** Button to exit the game application. */
     private JButton exitButton;
-    /** Background object for screen dimension info */
+
+    /** Background instance used to get screen dimension settings. */
     private Background bg = new Background();
-    /** Temporary scoreboard map (not used in display in current version) */
-    private Map<String, Integer> scoreBoardUpload = new HashMap<>();
-    /** used for exracting the username for the player */
+
+    /** Stores the username entered by the player. */
     private String currentUsername = "";
 
     /**

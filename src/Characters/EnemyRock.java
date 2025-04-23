@@ -1,7 +1,6 @@
 package Characters;
 
 import Background.Background;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -14,12 +13,14 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Represents a rock-type enemy character in the game.
+ * Description:
  * <p>
- * EnemyRock moves in a random direction every few frames,
- * interacts with the environment and the player,
- * and can be defeated by explosions.
+ * Represents a rock-type enemy character in the game.
+ * This enemy moves randomly or intelligently based on the player's proximity.
+ * It interacts with the environment and player, and can be defeated by bomb explosions.
  * </p>
+ * @author mguzelocak
+ * @author Zelele
  */
 public class EnemyRock extends Character {
 
@@ -289,10 +290,20 @@ public class EnemyRock extends Character {
         }
     }
 
+    /**
+     * Calculates the horizontal distance between the enemy and the player.
+     *
+     * @return the difference in x-coordinates
+     */
     private int getplayerDistanceX() {
         return jackBomber.x - this.x;
     }
 
+    /**
+     * Calculates the vertical distance between the enemy and the player.
+     *
+     * @return the difference in y-coordinates
+     */
     private int getplayerDistanceY() {
         return jackBomber.y - this.y;
     }
