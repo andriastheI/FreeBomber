@@ -5,3 +5,4 @@ src/FinalProject.iml
 .DS_Store
 *.iml
 src/.DS_Store
+src/storage/scores/scoreboard.txt
