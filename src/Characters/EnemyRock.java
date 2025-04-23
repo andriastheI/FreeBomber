@@ -9,7 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.List;
 
 /**
  * Represents a rock-type enemy character in the game.
@@ -29,6 +31,7 @@ public class EnemyRock extends Character {
     Random random;
     /** Reference to the JackBomber player, used for collision checks. */
     JackBomber jackBomber;
+
 
     /**
      * Constructs a new EnemyRock with the specified background and player reference.
@@ -50,7 +53,12 @@ public class EnemyRock extends Character {
         movementTimer = new Timer(200, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                moveRandomly();
+                if (Math.abs(getplayerDistanceX()) < 100 && Math.abs(getplayerDistanceY()) < 100) {
+                    moveSmart();
+                } else {
+                    moveRandomly();
+                }
+
             }
         });
         movementTimer.start();
@@ -90,6 +98,65 @@ public class EnemyRock extends Character {
             e.printStackTrace();
         }
     }
+
+    public void moveSmart() {
+        collisionOn = false;
+
+        // Determine direction toward player
+        int dx = getplayerDistanceX();
+        int dy = getplayerDistanceY();
+
+        String[] directions = {"up", "down", "left", "right"};
+        List<String> preferredDirections = new ArrayList<>();
+
+        // Prioritize vertical/horizontal based on distance
+        if (Math.abs(dx) > Math.abs(dy)) {
+            if (dx > 0) preferredDirections.add("right");
+            else preferredDirections.add("left");
+
+            if (dy > 0) preferredDirections.add("down");
+            else preferredDirections.add("up");
+        } else {
+            if (dy > 0) preferredDirections.add("down");
+            else preferredDirections.add("up");
+
+            if (dx > 0) preferredDirections.add("right");
+            else preferredDirections.add("left");
+        }
+
+        // Add any directions not in preferred to complete list
+        for (String dir : directions) {
+            if (!preferredDirections.contains(dir)) {
+                preferredDirections.add(dir);
+            }
+        }
+
+        // Try preferred directions in order
+        for (String dir : preferredDirections) {
+            direction = dir;
+            collisionOn = false;
+            background.getEslugCollision().checkCollision(this, jackBomber);
+
+            if (!collisionOn) {
+                switch (dir) {
+                    case "up":
+                        if (y - speed >= 0) y -= speed;
+                        break;
+                    case "down":
+                        if (y + speed < background.getScreenHeight() - background.getTileSize()) y += speed;
+                        break;
+                    case "left":
+                        if (x - speed >= 0) x -= speed;
+                        break;
+                    case "right":
+                        if (x + speed < background.getScreenWidth() - background.getTileSize()) x += speed;
+                        break;
+                }
+                return; // Move was successful
+            }
+        }
+    }
+
 
     /**
      * Moves the enemy in the current direction if there is no collision.
@@ -220,6 +287,14 @@ public class EnemyRock extends Character {
             //increase the score when character is dead
             JackBomber.increaseScore(150);
         }
+    }
+
+    private int getplayerDistanceX() {
+        return jackBomber.x - this.x;
+    }
+
+    private int getplayerDistanceY() {
+        return jackBomber.y - this.y;
     }
 }
 
