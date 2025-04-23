@@ -29,8 +29,17 @@
     </jar>
   </target>
 
-  <target name="run" depends="jar">
-    <java jar="${out}/${ant.project.name}.jar" fork="true"/>
+<!--  <target name="run" depends="jar">-->
+<!--    <java jar="${out}/${ant.project.name}.jar" fork="true"/>-->
+<!--  </target>-->
+  <target name="cheatarg" unless="cheat">
+    <property name="cheat" value=""/>
+  </target>
+
+  <target name="run" depends="jar,cheatarg">
+    <java jar="${out}/${ant.project.name}.jar" fork="true">
+      <arg value="${cheat}"/>
+    </java>
   </target>
 
   <target name="clean">
