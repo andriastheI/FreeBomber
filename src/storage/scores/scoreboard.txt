@@ -1,3 +1,4 @@
+test,12850
 andrias,12000
 Smoke,9900
 murat,5250
@@ -7,4 +8,3 @@ anan,3000
 heyyo,2050
 guz,1600
 Jin,1100
-sds,900

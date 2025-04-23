@@ -33,8 +33,6 @@ public class TileManager {
     private int currentMap = 1;
     /** Coordinates of the actual active door tile */
     private int[] theDoor;
-//    /** Jack bomber class for keeping the score */
-//    private JackBomber jackBomber;
 
     /**
      * Constructor for the TileManager class.
