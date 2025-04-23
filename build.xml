@@ -28,10 +28,7 @@
       <fileset dir="." includes="src/storage/**"/>
     </jar>
   </target>
-
-<!--  <target name="run" depends="jar">-->
-<!--    <java jar="${out}/${ant.project.name}.jar" fork="true"/>-->
-<!--  </target>-->
+  
   <target name="cheatarg" unless="cheat">
     <property name="cheat" value=""/>
   </target>
