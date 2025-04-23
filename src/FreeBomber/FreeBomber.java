@@ -26,19 +26,34 @@ public class FreeBomber extends JFrame {
     /** players score instance */
     private int playerScore;
 
+    private int startingMap = 1;
+
 
     /**
      * Constructor for the FreeBomber class.
      * Sets up the JFrame and shows the menu panel first.
      */
-    public FreeBomber() {
+//    public FreeBomber() {
+//        menuPanel = new MenuPanel(this);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setResizable(false);
+//        setTitle("FreeBomber");
+//        setPlayerName(menuPanel.getName());
+//
+//        // Show menu panel first
+//        setContentPane(menuPanel);
+//        pack();
+//        setLocationRelativeTo(null);
+//        setVisible(true);
+//    }
+
+    public FreeBomber(int startingMap) {
+        this.startingMap = startingMap;
         menuPanel = new MenuPanel(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle("FreeBomber");
         setPlayerName(menuPanel.getName());
-
-        // Show menu panel first
         setContentPane(menuPanel);
         pack();
         setLocationRelativeTo(null);
@@ -52,7 +67,12 @@ public class FreeBomber extends JFrame {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(FreeBomber::new);
+        int map = 1;
+        if (args.length > 0 && args[0].equalsIgnoreCase("nwilliams")) {
+            map = 5;
+        }
+        int finalMap = map;
+        SwingUtilities.invokeLater(() -> new FreeBomber(finalMap));
     }
 
     /**
@@ -64,7 +84,7 @@ public class FreeBomber extends JFrame {
         highscorePanel.setScoreboardData(highscorePanel.readAndStore());
         highscorePanel.refreshScoreboard(this.playerName, this.playerScore);
 
-        background = new Background(this);
+        background = new Background(this, startingMap);
         JackBomber.setScore(0);
 
         // Create a layered pane to hold both game and button

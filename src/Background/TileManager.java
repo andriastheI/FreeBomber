@@ -40,12 +40,13 @@ public class TileManager {
      *
      * @param gp The Background object that holds the game's environment and properties.
      */
-    public TileManager(Background gp) {
+    public TileManager(Background gp, int startMap) {
         this.gp = gp;
         tile = new Tile[10];
         mapTileNum = new int[gp.getScreenCols()][gp.getScreenRows()];
+        currentMap = startMap;
         getTileImg();
-        loadMap(currentMap);  // Load map 1 by default
+        loadMap(currentMap);
     }
 
     /**
@@ -193,5 +194,31 @@ public class TileManager {
      */
     public void setCurrentMap(int currentMap) {
         this.currentMap = currentMap;
+    }
+
+    public void moveDoorToClosestSoftWall(int playerX, int playerY, boolean isCheat) {
+        if (!isCheat) return;
+        int closestX = -1;
+        int closestY = -1;
+        int minDist = Integer.MAX_VALUE;
+
+        for (int col = 0; col < mapTileNum.length; col++) {
+            for (int row = 0; row < mapTileNum[0].length; row++) {
+                if (mapTileNum[col][row] == 2) { // soft wall
+                    int dist = Math.abs(playerX - col) + Math.abs(playerY - row);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        closestX = col;
+                        closestY = row;
+                    }
+                }
+            }
+        }
+
+        // If we found a valid tile, set it as the door
+        if (closestX != -1 && closestY != -1) {
+            mapTileNum[closestX][closestY] = 3; // 3 = door
+            System.out.println("Moved door to: (" + closestX + ", " + closestY + ")");
+        }
     }
 }
