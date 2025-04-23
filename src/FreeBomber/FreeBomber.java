@@ -1,7 +1,7 @@
 package FreeBomber;
 
 import Background.*;
-import Characters.JackBomber;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,7 +12,7 @@ import java.awt.*;
  * It initializes the game UI, manages transitions between game states (menu, gameplay, scoreboard, victory, and game over),
  * and facilitates player interactions including score tracking and map loading.
  * </p>
- *
+ * <p>
  * Features:
  * - Launches the game window and menu on startup
  * - Allows cheat-based map initialization via command-line arguments

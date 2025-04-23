@@ -6,7 +6,6 @@ import Background.KeyHandler;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,35 +17,28 @@ import java.util.List;
  * Handles movement, sprite animation, collision detection, bomb placement,
  * score management, level time tracking, and interaction with game elements like enemies and tiles.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */
 public class JackBomber extends Character {
 
-    /** game score keeper */
-    private int score = 0;
-
     /** List of active bombs placed by the player. */
     private final List<Bomb> bombs = new ArrayList<Bomb>();
-
     /** Duration (in milliseconds) for which the player remains invincible after taking damage. */
     private final int INVINCIBILITY_DURATION = 1000;
-
     /** Total time (in milliseconds) allowed to complete a level. */
     private final int TIME_LIMIT = 60000;
-
     /** Maximum number of bombs the player can place on the screen simultaneously. */
     private final int BOMB_LIMIT = 3;
-
-    /** The current bomb object being placed. */
-    public Bomb bomb;
-
     /** Reference to the game background. */
     private final Background background;
-
     /** Reference to the key handler for capturing input. */
     private final KeyHandler keyHandler;
-
+    /** The current bomb object being placed. */
+    public Bomb bomb;
+    /** game score keeper */
+    private int score = 0;
     /** Flag indicating whether a bomb was just dropped. */
     private boolean bombJustDropped = false;
 

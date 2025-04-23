@@ -10,6 +10,7 @@ import Background.TileManager;
  * as well as with the environment (such as walls and doors).
  * It determines valid movement directions for enemies and triggers damage on contact with the player.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */

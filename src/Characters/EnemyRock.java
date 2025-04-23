@@ -1,6 +1,7 @@
 package Characters;
 
 import Background.Background;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,7 @@ import java.util.Random;
  * This enemy moves randomly or intelligently based on the player's proximity.
  * It interacts with the environment and player, and can be defeated by bomb explosions.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */

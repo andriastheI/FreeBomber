@@ -10,6 +10,7 @@ import Background.TileManager;
  * This includes interactions with walls, soft blocks, and the door tile.
  * It updates the character's collision state and triggers level progression logic when the door is found.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */

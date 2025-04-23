@@ -13,6 +13,7 @@ import java.io.IOException;
  * It overrides image loading and movement logic to customize its visual appearance and behavior.
  * It also handles explosions and awards points to the player upon defeat.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */

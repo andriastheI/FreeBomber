@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
  * Handles keyboard input for movement and bomb control using the KeyListener interface.
  * Tracks the state of directional keys (W, A, S, D) and space bar (bomb drop).
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */

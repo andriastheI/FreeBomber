@@ -1,6 +1,7 @@
 package Characters;
 
 import Background.Background;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,6 +14,7 @@ import java.io.IOException;
  * Bombs have a countdown timer and explode after a certain duration,
  * affecting nearby enemies and destructible tiles.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */

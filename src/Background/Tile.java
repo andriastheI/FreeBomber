@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
  * It stores information about the tile's collision behavior and the image associated with the tile.
  * This data is used to determine player movement and render visuals in the map.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */

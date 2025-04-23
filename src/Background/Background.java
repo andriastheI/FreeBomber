@@ -79,7 +79,7 @@ public class Background extends JPanel implements Runnable {
     /**
      * Constructs the Background panel, initializing its size, tile map, key listeners, and optionally a starting map.
      *
-     * @param frame The reference to the main FreeBomber game frame.
+     * @param frame       The reference to the main FreeBomber game frame.
      * @param startingMap The tile map number to load at game start.
      */
     public Background(FreeBomber frame, int startingMap) {

@@ -14,6 +14,7 @@ import java.io.IOException;
  * It changes direction upon collision and reacts to explosions by being removed and increasing the player’s score.
  * The class also handles sprite animation and image rendering during movement.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */

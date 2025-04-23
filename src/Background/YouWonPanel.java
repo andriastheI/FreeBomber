@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
  * A JPanel displayed when the player successfully completes the final level of the game.
  * It shows a congratulatory message with the player's name and score, and a button to return to the menu.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */

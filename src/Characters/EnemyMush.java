@@ -21,6 +21,7 @@ import java.util.Random;
  * switching to a smarter movement pattern when close.
  * It also responds to explosions and is removed when defeated.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */
@@ -28,12 +29,12 @@ public class EnemyMush extends Character {
 
     /** Reference to the game background for movement boundaries and collision. */
     private final Background background;
-    /** Timer that triggers movement updates every 200ms. */
-    private Timer movementTimer;
     /** Random object to generate directions. */
     private final Random random;
     /** Reference to the JackBomber player, used for collision handling. */
     private final JackBomber jackBomber;
+    /** Timer that triggers movement updates every 200ms. */
+    private Timer movementTimer;
 
     /**
      * Constructs a new EnemyMush instance.

@@ -1,7 +1,5 @@
 package Background;
 
-import Characters.JackBomber;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -19,6 +17,7 @@ import java.util.Random;
  * Manages tile data for the game including loading tile images and map layouts.
  * Responsible for rendering tile maps and placing interactive tiles like doors.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */
@@ -28,12 +27,12 @@ public class TileManager {
     private final Random theWizard = new Random();
     /** All possible door tile locations for the current map */
     private final List<int[]> doorLocations = new ArrayList<>();
+    /** Reference to the game panel (Background class) */
+    private final Background gp;
     /** Array to hold different tile types (grass, wall, etc.) */
     public Tile[] tile;
     /** Stores tile layout of the current map using tile indices */
     public int[][] mapTileNum;
-    /** Reference to the game panel (Background class) */
-    private final Background gp;
     /** Track which map is currently loaded */
     private int currentMap = 1;
     /** Coordinates of the actual active door tile */

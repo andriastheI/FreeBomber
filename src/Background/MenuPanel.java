@@ -6,8 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Description:
@@ -16,6 +14,7 @@ import java.util.Map;
  * It provides options to start a new game, view high scores, or exit the application.
  * It also handles user input for entering a username before launching the game.
  * </p>
+ *
  * @author mguzelocak
  * @author Zelele
  */

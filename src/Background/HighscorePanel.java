@@ -1,6 +1,7 @@
 package Background;
 
 import FreeBomber.FreeBomber;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -18,8 +19,9 @@ import java.util.Map;
  * Includes functionality to read, store, and update score data from a file.
  * It also provides a button to return to the main menu.
  * </p>
+ *
  * @author mguzelocak
- * @author  Zelele
+ * @author Zelele
  */
 public class HighscorePanel extends JPanel implements ActionListener {
 
