@@ -35,7 +35,7 @@ public class YouWonPanel extends JPanel implements ActionListener {
         setLayout(null);
 
         // Create background image for game over screen
-        ImageIcon originalIcon = new ImageIcon("src/storage/logo/victory.png");
+        ImageIcon originalIcon = new ImageIcon("src/storage/logo/youWonImage.png");
         Image scaledImage = originalIcon.getImage().getScaledInstance(backg.getScreenWidth(), backg.getScreenHeight(), Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
 

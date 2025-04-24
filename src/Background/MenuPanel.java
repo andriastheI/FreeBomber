@@ -53,10 +53,17 @@ public class MenuPanel extends JPanel implements ActionListener {
         // Set game icon
         frame.setIconImage(new ImageIcon("src/storage/logo/logo.png").getImage());
 
-        // Load and set background image
-        ImageIcon menuBg = new ImageIcon("src/storage/logo/menuBomber.jpg");
-        JLabel bg = new JLabel(menuBg);
-        bg.setBounds(0, 0, menuBg.getIconWidth() - 150, menuBg.getIconHeight() - 50);
+        ImageIcon originalIcon = new ImageIcon("src/storage/logo/menuImage.png");
+        Image scaledImage = originalIcon.getImage().getScaledInstance(bg.getScreenWidth(), bg.getScreenHeight(), Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+
+//        // Load and set background image
+//        ImageIcon menuBg = new ImageIcon("src/storage/logo/menuImage.png");
+        JLabel backg = new JLabel(scaledIcon);
+//        bg.setBounds(0, 0, menuBg.getIconWidth() - 150, menuBg.getIconHeight() - 250);
+        backg.setBounds(0, 0, bg.getScreenWidth(), bg.getScreenHeight());
+
 
         // ============================
         // Setup "New Game" button
@@ -209,7 +216,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         });
         add(exitButton);
         // Add background image at the end to appear behind other components
-        add(bg);
+        add(backg);
 
         // Add event handler to show scoreboard
         highScoreButton.addActionListener((ActionEvent e) -> {
