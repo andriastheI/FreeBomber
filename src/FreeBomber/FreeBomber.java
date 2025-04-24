@@ -33,8 +33,11 @@ public class FreeBomber extends JFrame {
     /** Reference to the high score display panel. */
     private HighscorePanel highscorePanel;
 
-    /** Reference to the main menu interface. */
+    /** Reference to the main menu panel. */
     private MenuPanel menuPanel;
+
+    /** Reference to the Rule Panel */
+    private RulePanel rulePanel;
 
     /** Reference to the active game canvas (Background). */
     private Background background;
@@ -177,6 +180,20 @@ public class FreeBomber extends JFrame {
 
         SwingUtilities.invokeLater(victory::requestFocusInWindow);
     }
+
+    /**
+     * Switches the screen to show the game rules panel.
+     * Replaces the current content with the RulePanel and refreshes the view.
+     */
+    public void showRules() {
+        rulePanel = new RulePanel(this);
+        setContentPane(rulePanel);
+        revalidate();
+        repaint();
+
+        SwingUtilities.invokeLater(rulePanel::requestFocusInWindow);
+    }
+
 
     /**
      * Retrieves the player's name.
