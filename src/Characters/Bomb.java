@@ -30,7 +30,9 @@ public class Bomb extends Character {
     Background background;
 
     /** Position of the bomb in pixels. */
-    private int x, y;
+    private int x;
+
+    private int y;
 
     /** Countdown timer that decreases every frame. */
     private int timer;
@@ -316,9 +318,7 @@ public class Bomb extends Character {
      *
      * @return x in pixels
      */
-    public int getX() {
-        return x;
-    }
+    public int getX() { return x; }
 
     /**
      * Returns the y position of the bomb.
@@ -372,5 +372,19 @@ public class Bomb extends Character {
     public void setCollision(boolean collision) {
         this.collision = collision;
     }
+
+    /**
+     * Sets the x-coordinate position of the bomb.
+     *
+     * @param x the new x position in pixels
+     */
+    public void setX(int x) { this.x = x; }
+
+    /**
+     * Sets the y-coordinate position of the bomb.
+     *
+     * @param y the new y position in pixels
+     */
+    public void setY(int y) { this.y = y; }
 }
 
