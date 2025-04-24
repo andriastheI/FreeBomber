@@ -29,6 +29,9 @@ public class MenuPanel extends JPanel implements ActionListener {
     /** Button to exit the game application. */
     private JButton exitButton;
 
+    /** Button to for displaying the rules*/
+    private JButton ruleButton;
+
     /** Background instance used to get screen dimension settings. */
     private Background bg = new Background();
 
@@ -144,6 +147,37 @@ public class MenuPanel extends JPanel implements ActionListener {
         // Add button to panel
         add(highScoreButton);
 
+        // Initialize the "Rules" button
+        ruleButton = new JButton("Rules") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Change background color on press
+                Color base = getModel().isArmed() ? new Color(150, 150, 150) : new Color(50, 50, 200);
+                g2.setColor(base);
+
+                // Draw rounded background
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
+                g2.dispose();
+
+                super.paintComponent(g);
+            }
+        };
+        ruleButton.setBounds(314, 420, 150, 50); // Set button size
+        ruleButton.setForeground(Color.WHITE);
+        ruleButton.setFont(new Font("Arial", Font.BOLD, 18));
+        ruleButton.setContentAreaFilled(false);  // Prevent default painting
+        ruleButton.setBorderPainted(false);      // Remove border
+        ruleButton.setFocusPainted(false);       // No outline on focus
+        ruleButton.setOpaque(false);
+        ruleButton.addActionListener((ActionEvent e) -> {
+            frame.showRules();
+        });
+        add(ruleButton);
+
+
 
         // Initialize the "Exit" button
         exitButton = new JButton("Exit") {
@@ -163,7 +197,7 @@ public class MenuPanel extends JPanel implements ActionListener {
                 super.paintComponent(g);
             }
         };
-        exitButton.setBounds(314, 420, 150, 50); // Set button size
+        exitButton.setBounds(314, 480, 150, 50); // Set button size
         exitButton.setForeground(Color.WHITE);
         exitButton.setFont(new Font("Arial", Font.BOLD, 18));
         exitButton.setContentAreaFilled(false);  // Prevent default painting
