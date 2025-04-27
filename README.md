@@ -10,7 +10,7 @@
 
 The game includes:
 - Multiple levels with increasing difficulty
-- Dynamic enemies with smart AI (some react to player proximity)
+- Dynamic enemies with smart movement (some react to player proximity)
 - Bomb logic with explosion propagation
 - cheat-code support
 - A high score tracking system and user scoreboard
