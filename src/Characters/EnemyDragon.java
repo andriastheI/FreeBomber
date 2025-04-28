@@ -21,6 +21,7 @@ public class EnemyDragon extends EnemySlug {
     /** Reference to the Background */
     private final Background background;
 
+    /** Reference to the JackBomber */
     private final JackBomber jackBomber;
 
     /**

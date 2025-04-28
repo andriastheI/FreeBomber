@@ -28,10 +28,13 @@ public class EnemyRock extends Character {
 
     /** Reference to the game background for screen and tile information. */
     private final Background background;
+
     /** Timer that triggers movement every 200 milliseconds. */
     private final Timer movementTimer;
+
     /** Random object used for direction selection. */
     private final Random random;
+
     /** Reference to the JackBomber player, used for collision checks. */
     private final JackBomber jackBomber;
 
@@ -146,13 +149,15 @@ public class EnemyRock extends Character {
                         if (getY() - speed >= 0) setY(getY() - speed);
                         break;
                     case "down":
-                        if (getY() + speed < background.getScreenHeight() - background.getTileSize()) setY(getY() + speed);
+                        if (getY() + speed < background.getScreenHeight() - background.getTileSize())
+                            setY(getY() + speed);
                         break;
                     case "left":
                         if (getX() - speed >= 0) setX(getX() - speed);
                         break;
                     case "right":
-                        if (getX() + speed < background.getScreenWidth() - background.getTileSize()) setX(getX() + speed);
+                        if (getX() + speed < background.getScreenWidth() - background.getTileSize())
+                            setX(getX() + speed);
                         break;
                 }
                 return; // Move was successful

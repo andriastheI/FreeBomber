@@ -318,7 +318,18 @@ public class Bomb extends Character {
      *
      * @return x in pixels
      */
-    public int getX() { return x; }
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * Sets the x-coordinate position of the bomb.
+     *
+     * @param x the new x position in pixels
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
 
     /**
      * Returns the y position of the bomb.
@@ -327,6 +338,15 @@ public class Bomb extends Character {
      */
     public int getY() {
         return y;
+    }
+
+    /**
+     * Sets the y-coordinate position of the bomb.
+     *
+     * @param y the new y position in pixels
+     */
+    public void setY(int y) {
+        this.y = y;
     }
 
     /**
@@ -372,19 +392,5 @@ public class Bomb extends Character {
     public void setCollision(boolean collision) {
         this.collision = collision;
     }
-
-    /**
-     * Sets the x-coordinate position of the bomb.
-     *
-     * @param x the new x position in pixels
-     */
-    public void setX(int x) { this.x = x; }
-
-    /**
-     * Sets the y-coordinate position of the bomb.
-     *
-     * @param y the new y position in pixels
-     */
-    public void setY(int y) { this.y = y; }
 }
 

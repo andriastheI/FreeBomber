@@ -14,21 +14,13 @@ import java.awt.image.BufferedImage;
  */
 public class Character {
 
-    /** X-coordinate of the character on the screen. */
-    private int x;
-
-    /** Y-coordinate of the character on the screen. */
-    private int y;
-
     /** Movement speed of the character. */
     public int speed;
-
     /** Sprite frames for animations in all four directions. */
     public BufferedImage up1, up2, up3, up4,
             down1, down2, down3, down4,
             left1, left2, left3, left4,
             right1, right2, right3, right4;
-
     /** The current direction the character is facing ("up", "down", "left", "right"). */
     public String direction;
     /** Controls the frame update rate for sprite animations. */
@@ -39,6 +31,10 @@ public class Character {
     public Rectangle spriteBounds;
     /** Flag indicating whether the character is currently colliding with something. */
     public boolean collisionOn = false;
+    /** X-coordinate of the character on the screen. */
+    private int x;
+    /** Y-coordinate of the character on the screen. */
+    private int y;
     /** Flag indicating whether the character has triggered a level-up. */
     private boolean levelUp = false;
     /** Flag indicating whether the character has found the level's exit door. */

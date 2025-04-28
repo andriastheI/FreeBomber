@@ -29,7 +29,7 @@ public class MenuPanel extends JPanel implements ActionListener {
     /** Button to exit the game application. */
     private JButton exitButton;
 
-    /** Button to for displaying the rules*/
+    /** Button to for displaying the rules */
     private JButton ruleButton;
 
     /** Background instance used to get screen dimension settings. */
@@ -183,7 +183,6 @@ public class MenuPanel extends JPanel implements ActionListener {
             frame.showRules();
         });
         add(ruleButton);
-
 
 
         // Initialize the "Exit" button

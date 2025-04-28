@@ -21,28 +21,37 @@ import java.util.List;
  * Algorithm idea adapted from:
  * https://www.youtube.com/@RyiSnow
  * </p>
- * @see <a href = "https://www.youtube.com/@RyiSnow">RyiSnow Youtube Channel</a>
+ *
  * @author mguzelocak
  * @author Zelele
+ * @see <a href = "https://www.youtube.com/@RyiSnow">RyiSnow Youtube Channel</a>
  */
 public class JackBomber extends Character {
 
     /** List of active bombs placed by the player. */
     private final List<Bomb> bombs = new ArrayList<Bomb>();
+
     /** Duration (in milliseconds) for which the player remains invincible after taking damage. */
     private final int INVINCIBILITY_DURATION = 1000;
+
     /** Total time (in milliseconds) allowed to complete a level. */
     private final int TIME_LIMIT = 60000;
+
     /** Maximum number of bombs the player can place on the screen simultaneously. */
     private final int BOMB_LIMIT = 3;
+
     /** Reference to the game background. */
     private final Background background;
+
     /** Reference to the key handler for capturing input. */
     private final KeyHandler keyHandler;
+
     /** The current bomb object being placed. */
     public Bomb bomb;
+
     /** game score keeper */
     private int score = 0;
+
     /** Flag indicating whether a bomb was just dropped. */
     private boolean bombJustDropped = false;
 

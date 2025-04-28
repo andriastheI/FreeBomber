@@ -29,10 +29,13 @@ public class EnemyMush extends Character {
 
     /** Reference to the game background for movement boundaries and collision. */
     private final Background background;
+
     /** Random object to generate directions. */
     private final Random random;
+
     /** Reference to the JackBomber player, used for collision handling. */
     private final JackBomber jackBomber;
+
     /** Timer that triggers movement updates every 200ms. */
     private Timer movementTimer;
 
@@ -145,13 +148,15 @@ public class EnemyMush extends Character {
                         if (getY() - speed >= 0) setY(getY() - speed);
                         break;
                     case "down":
-                        if (getY() + speed < background.getScreenHeight() - background.getTileSize()) setY(getY() + speed);
+                        if (getY() + speed < background.getScreenHeight() - background.getTileSize())
+                            setY(getY() + speed);
                         break;
                     case "left":
                         if (getX() - speed >= 0) setX(getX() - speed);
                         break;
                     case "right":
-                        if (getX() + speed < background.getScreenWidth() - background.getTileSize()) setX(getX() + speed);
+                        if (getX() + speed < background.getScreenWidth() - background.getTileSize())
+                            setX(getX() + speed);
                         break;
                 }
                 return; // Move was successful

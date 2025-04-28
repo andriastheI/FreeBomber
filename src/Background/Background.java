@@ -16,6 +16,7 @@ import java.io.IOException;
  * Algorithm idea adapted from:
  * https://www.youtube.com/@RyiSnow
  * </p>
+ *
  * @see <a href = "https://www.youtube.com/@RyiSnow">RyiSnow Youtube Channel</a>
  */
 public class Background extends JPanel implements Runnable {

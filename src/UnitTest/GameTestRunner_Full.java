@@ -1,14 +1,9 @@
 package UnitTest;
 
-import Characters.JackBomber;
-import Characters.Character;
-import Characters.Bomb;
-import Characters.EnemySlug;
-import Characters.EnemyRock;
-import Characters.EnemyMush;
-import Characters.EnemyDragon;
 import Background.Background;
 import Background.TileManager;
+import Characters.*;
+import Characters.Character;
 
 public class GameTestRunner_Full {
 

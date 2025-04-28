@@ -21,6 +21,7 @@ import java.io.IOException;
 public class EnemySlug extends Character {
     /** Reference to the Background */
     private final Background background;
+
     /** Reference to the JackBomber character */
     private final JackBomber jackBomber;
 

@@ -230,8 +230,10 @@ public class TileManager {
             System.out.println("Moved door to: (" + closestX + ", " + closestY + ")");
         }
     }
+
     /**
-     * */
+     *
+     */
     public int[][] getMapTileNum() {
         return mapTileNum;
     }
