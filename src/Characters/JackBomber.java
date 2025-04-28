@@ -17,7 +17,11 @@ import java.util.List;
  * Handles movement, sprite animation, collision detection, bomb placement,
  * score management, level time tracking, and interaction with game elements like enemies and tiles.
  * </p>
- *
+ * <p>
+ * Algorithm idea adapted from:
+ * https://www.youtube.com/@RyiSnow
+ * </p>
+ * @see <a href = "https://www.youtube.com/@RyiSnow">RyiSnow Youtube Channel</a>
  * @author mguzelocak
  * @author Zelele
  */

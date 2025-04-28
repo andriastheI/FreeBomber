@@ -12,6 +12,11 @@ import java.io.IOException;
 /**
  * The Background class represents the game panel where the game logic and rendering occur.
  * It handles game updates, and switching between maps.
+ * <p>
+ * Algorithm idea adapted from:
+ * https://www.youtube.com/@RyiSnow
+ * </p>
+ * @see <a href = "https://www.youtube.com/@RyiSnow">RyiSnow Youtube Channel</a>
  */
 public class Background extends JPanel implements Runnable {
 

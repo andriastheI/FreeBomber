@@ -7,6 +7,10 @@ import java.awt.image.BufferedImage;
  * The base class for all characters in the game, including players and enemies.
  * It holds common attributes such as position, direction, sprite animations,
  * and state flags like collision and level progression.
+ * <p>
+ * Algorithm idea adapted from:
+ * <a href="https://www.youtube.com/@RyiSnow">...</a>
+ * </p>
  */
 public class Character {
 

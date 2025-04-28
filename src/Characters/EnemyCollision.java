@@ -84,8 +84,8 @@ public class EnemyCollision {
         switch (character.direction) {
             case "up":
                 topTileIndex = Math.max(0, (characterTopY - character.speed) / tileSize);
-                tile1 = tileManager.mapTileNum[leftTileIndex][topTileIndex];
-                tile2 = tileManager.mapTileNum[rightTileIndex][topTileIndex];
+                tile1 = tileManager.getMapTileNum()[leftTileIndex][topTileIndex];
+                tile2 = tileManager.getMapTileNum()[rightTileIndex][topTileIndex];
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
                     collisionDirection[0] = false;
@@ -96,8 +96,8 @@ public class EnemyCollision {
 
             case "down":
                 bottomTileIndex = Math.min(screenRows - 1, (characterBottomY + character.speed) / tileSize);
-                tile1 = tileManager.mapTileNum[leftTileIndex][bottomTileIndex];
-                tile2 = tileManager.mapTileNum[rightTileIndex][bottomTileIndex];
+                tile1 = tileManager.getMapTileNum()[leftTileIndex][bottomTileIndex];
+                tile2 = tileManager.getMapTileNum()[rightTileIndex][bottomTileIndex];
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
                     collisionDirection[1] = false;
@@ -108,8 +108,8 @@ public class EnemyCollision {
 
             case "left":
                 leftTileIndex = Math.max(0, (characterLeftX - character.speed) / tileSize);
-                tile1 = tileManager.mapTileNum[leftTileIndex][topTileIndex];
-                tile2 = tileManager.mapTileNum[leftTileIndex][bottomTileIndex];
+                tile1 = tileManager.getMapTileNum()[leftTileIndex][topTileIndex];
+                tile2 = tileManager.getMapTileNum()[leftTileIndex][bottomTileIndex];
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
                     collisionDirection[2] = false;
@@ -120,8 +120,8 @@ public class EnemyCollision {
 
             case "right":
                 rightTileIndex = Math.min(screenCols - 1, (characterRightX + character.speed) / tileSize);
-                tile1 = tileManager.mapTileNum[rightTileIndex][topTileIndex];
-                tile2 = tileManager.mapTileNum[rightTileIndex][bottomTileIndex];
+                tile1 = tileManager.getMapTileNum()[rightTileIndex][topTileIndex];
+                tile2 = tileManager.getMapTileNum()[rightTileIndex][bottomTileIndex];
                 if (tileManager.tile[tile1].collision || tileManager.tile[tile2].collision) {
                     character.collisionOn = true;
                     collisionDirection[3] = false;

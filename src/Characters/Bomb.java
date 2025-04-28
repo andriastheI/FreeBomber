@@ -337,21 +337,21 @@ public class Bomb extends Character {
      */
     private void destroyNearbyBoxes(int tileX, int tileY) {
         // Check nearby tiles (left, right, up, down) for boxes (assuming box is represented by a specific tile index)
-        if (this.background.getTileManager().mapTileNum[tileX][tileY] == 2) { // Assume '1' is the tile representing a box
-            this.background.getTileManager().mapTileNum[tileX][tileY] = 0; // Destroy box by setting it to empty space
+        if (this.background.getTileManager().getMapTileNum()[tileX][tileY] == 2) { // Assume '1' is the tile representing a box
+            this.background.getTileManager().getMapTileNum()[tileX][tileY] = 0; // Destroy box by setting it to empty space
         }
         // Check in adjacent directions
-        if (tileX > 0 && this.background.getTileManager().mapTileNum[tileX - 1][tileY] == 2) {
-            this.background.getTileManager().mapTileNum[tileX - 1][tileY] = 0; // Destroy box to the left
+        if (tileX > 0 && this.background.getTileManager().getMapTileNum()[tileX - 1][tileY] == 2) {
+            this.background.getTileManager().getMapTileNum()[tileX - 1][tileY] = 0; // Destroy box to the left
         }
-        if (tileX < this.background.getTileManager().mapTileNum.length - 1 && this.background.getTileManager().mapTileNum[tileX + 1][tileY] == 1) {
-            this.background.getTileManager().mapTileNum[tileX + 1][tileY] = 0; // Destroy box to the right
+        if (tileX < this.background.getTileManager().getMapTileNum().length - 1 && this.background.getTileManager().getMapTileNum()[tileX + 1][tileY] == 1) {
+            this.background.getTileManager().getMapTileNum()[tileX + 1][tileY] = 0; // Destroy box to the right
         }
-        if (tileY > 0 && this.background.getTileManager().mapTileNum[tileX][tileY - 1] == 2) {
-            this.background.getTileManager().mapTileNum[tileX][tileY - 1] = 0; // Destroy box above
+        if (tileY > 0 && this.background.getTileManager().getMapTileNum()[tileX][tileY - 1] == 2) {
+            this.background.getTileManager().getMapTileNum()[tileX][tileY - 1] = 0; // Destroy box above
         }
-        if (tileY < this.background.getTileManager().mapTileNum[0].length - 1 && this.background.getTileManager().mapTileNum[tileX][tileY + 1] == 2) {
-            this.background.getTileManager().mapTileNum[tileX][tileY + 1] = 0; // Destroy box below
+        if (tileY < this.background.getTileManager().getMapTileNum()[0].length - 1 && this.background.getTileManager().getMapTileNum()[tileX][tileY + 1] == 2) {
+            this.background.getTileManager().getMapTileNum()[tileX][tileY + 1] = 0; // Destroy box below
         }
     }
 

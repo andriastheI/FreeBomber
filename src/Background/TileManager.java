@@ -20,6 +20,10 @@ import java.util.Random;
  *
  * @author mguzelocak
  * @author Zelele
+ * <p>
+ * Algorithm idea adapted from:
+ * <a href="https://www.youtube.com/@RyiSnow">...</a>
+ * </p>
  */
 public class TileManager {
 
@@ -31,8 +35,9 @@ public class TileManager {
     private final Background gp;
     /** Array to hold different tile types (grass, wall, etc.) */
     public Tile[] tile;
+
     /** Stores tile layout of the current map using tile indices */
-    public int[][] mapTileNum;
+    private int[][] mapTileNum;
     /** Track which map is currently loaded */
     private int currentMap = 1;
     /** Coordinates of the actual active door tile */
@@ -224,6 +229,15 @@ public class TileManager {
             mapTileNum[closestX][closestY] = 3; // 3 = door
             System.out.println("Moved door to: (" + closestX + ", " + closestY + ")");
         }
+    }
+    /**
+     * */
+    public int[][] getMapTileNum() {
+        return mapTileNum;
+    }
+
+    public void setMapTileNum(int[][] mapTileNum) {
+        this.mapTileNum = mapTileNum;
     }
 
     public Background getGp() {

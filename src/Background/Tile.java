@@ -12,6 +12,10 @@ import java.awt.image.BufferedImage;
  *
  * @author mguzelocak
  * @author Zelele
+ * <p>
+ * Algorithm idea adapted from:
+ * <a href="https://www.youtube.com/@RyiSnow">...</a>
+ * </p>
  */
 public class Tile {
 
