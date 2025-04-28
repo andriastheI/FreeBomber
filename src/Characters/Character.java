@@ -11,10 +11,10 @@ import java.awt.image.BufferedImage;
 public class Character {
 
     /** X-coordinate of the character on the screen. */
-    public int x;
+    private int x;
 
     /** Y-coordinate of the character on the screen. */
-    public int y;
+    private int y;
 
     /** Movement speed of the character. */
     public int speed;
@@ -114,5 +114,21 @@ public class Character {
      */
     public void setLevelUp(boolean levelUp) {
         this.levelUp = levelUp;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }

@@ -114,8 +114,8 @@ public class JackBomber extends Character {
      * Sets the initial default values for position, speed and direction.
      */
     public void setDefaultValues() {
-        x = 1;
-        y = 1;
+        setX(1);
+        setY(1);
         speed = 2;
         direction = "down";
         setLevelStartTime(System.currentTimeMillis());
@@ -171,23 +171,23 @@ public class JackBomber extends Character {
             if (!collisionOn) {
                 // Prevent player from going out of bounds
                 if (direction.equals("up")) {
-                    if (y - speed >= 0) { // Prevent moving above the top of the screen
-                        y -= speed;
+                    if (getY() - speed >= 0) { // Prevent moving above the top of the screen
+                        setY(getY() - speed);
                     }
                 }
                 if (direction.equals("down")) {
-                    if (y + speed < background.getScreenHeight() - background.getTileSize()) { // Prevent moving below the bottom of the screen
-                        y += speed;
+                    if (getY() + speed < background.getScreenHeight() - background.getTileSize()) { // Prevent moving below the bottom of the screen
+                        setY(getY() + speed);
                     }
                 }
                 if (direction.equals("left")) {
-                    if (x - speed >= 0) { // Prevent moving left off the screen
-                        x -= speed;
+                    if (getX() - speed >= 0) { // Prevent moving left off the screen
+                        setX(getX() - speed);
                     }
                 }
                 if (direction.equals("right")) {
-                    if (x + speed < background.getScreenWidth() - background.getTileSize()) { // Prevent moving right off the screen
-                        x += speed;
+                    if (getX() + speed < background.getScreenWidth() - background.getTileSize()) { // Prevent moving right off the screen
+                        setX(getX() + speed);
                     }
                 }
             }
@@ -213,8 +213,8 @@ public class JackBomber extends Character {
             if (!bombJustDropped && bombs.size() < BOMB_LIMIT) {
 
                 // bomb position relative to player
-                int bombX = x + background.getTileSize() / 4;
-                int bombY = y + background.getTileSize() / 4;
+                int bombX = getX() + background.getTileSize() / 4;
+                int bombY = getY() + background.getTileSize() / 4;
 
                 boolean alreadyPlaced = false;
                 // loops trough all the active bombs
@@ -325,7 +325,7 @@ public class JackBomber extends Character {
                 }
                 break;
         }
-        g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
+        g.drawImage(img, getX(), getY(), background.getTileSize(), background.getTileSize(), null);
         for (Bomb b : bombs) {
             b.draw((Graphics2D) g);
         }
@@ -362,7 +362,7 @@ public class JackBomber extends Character {
      * @return the sprite bounds rectangle adjusted to the current position
      */
     public Rectangle getSpriteBounds() {
-        return new Rectangle(x + spriteBounds.x, y + spriteBounds.y, spriteBounds.width, spriteBounds.height);
+        return new Rectangle(getX() + spriteBounds.x, getY() + spriteBounds.y, spriteBounds.width, spriteBounds.height);
     }
 
     /**

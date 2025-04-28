@@ -71,8 +71,8 @@ public class EnemyRock extends Character {
      * Initializes default position, speed, and direction values for the enemy.
      */
     public void setDefaultValues() {
-        x = background.getScreenWidth() - 2 * background.getTileSize();
-        y = background.getScreenHeight() - 2 * background.getTileSize();
+        setX(background.getScreenWidth() - 2 * background.getTileSize());
+        setY(background.getScreenHeight() - 2 * background.getTileSize());
         speed = 10;
         direction = "left";
     }
@@ -143,16 +143,16 @@ public class EnemyRock extends Character {
             if (!collisionOn) {
                 switch (dir) {
                     case "up":
-                        if (y - speed >= 0) y -= speed;
+                        if (getY() - speed >= 0) setY(getY() - speed);
                         break;
                     case "down":
-                        if (y + speed < background.getScreenHeight() - background.getTileSize()) y += speed;
+                        if (getY() + speed < background.getScreenHeight() - background.getTileSize()) setY(getY() + speed);
                         break;
                     case "left":
-                        if (x - speed >= 0) x -= speed;
+                        if (getX() - speed >= 0) setX(getX() - speed);
                         break;
                     case "right":
-                        if (x + speed < background.getScreenWidth() - background.getTileSize()) x += speed;
+                        if (getX() + speed < background.getScreenWidth() - background.getTileSize()) setX(getX() + speed);
                         break;
                 }
                 return; // Move was successful
@@ -172,23 +172,23 @@ public class EnemyRock extends Character {
         if (!collisionOn) {
             switch (direction) {
                 case "up":
-                    if (y - speed >= 0) {
-                        y -= speed;
+                    if (getY() - speed >= 0) {
+                        setY(getY() - speed);
                     }
                     break;
                 case "down":
-                    if (y + speed < background.getScreenHeight() - background.getTileSize()) {
-                        y += speed;
+                    if (getY() + speed < background.getScreenHeight() - background.getTileSize()) {
+                        setY(getY() + speed);
                     }
                     break;
                 case "left":
-                    if (x - speed >= 0) {
-                        x -= speed;
+                    if (getX() - speed >= 0) {
+                        setX(getX() - speed);
                     }
                     break;
                 case "right":
-                    if (x + speed < background.getScreenWidth() - background.getTileSize()) {
-                        x += speed;
+                    if (getX() + speed < background.getScreenWidth() - background.getTileSize()) {
+                        setX(getX() + speed);
                     }
                     break;
             }
@@ -273,7 +273,7 @@ public class EnemyRock extends Character {
                 }
                 break;
         }
-        g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
+        g.drawImage(img, getX(), getY(), background.getTileSize(), background.getTileSize(), null);
     }
 
     /**
@@ -282,7 +282,7 @@ public class EnemyRock extends Character {
      * @param explosionArea the rectangular area affected by the bomb explosion
      */
     public void handleExplosion(Rectangle explosionArea) {
-        Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
+        Rectangle enemyRect = new Rectangle(getX(), getY(), background.getTileSize(), background.getTileSize());
 
         if (explosionArea.intersects(enemyRect)) {
             // Enemy is hit by the explosion, remove or mark as defeated
@@ -298,7 +298,7 @@ public class EnemyRock extends Character {
      * @return the difference in x-coordinates
      */
     private int getplayerDistanceX() {
-        return jackBomber.x - this.x;
+        return jackBomber.getX() - this.getX();
     }
 
     /**
@@ -307,7 +307,7 @@ public class EnemyRock extends Character {
      * @return the difference in y-coordinates
      */
     private int getplayerDistanceY() {
-        return jackBomber.y - this.y;
+        return jackBomber.getY() - this.getY();
     }
 }
 

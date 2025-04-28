@@ -30,10 +30,10 @@ public class CheckCollision {
      * @param character the character to check for collisions
      */
     public void checkCollision(JackBomber character) {
-        int characterLeftX = character.x + character.spriteBounds.x;
-        int characterRightX = character.x + character.spriteBounds.x + character.spriteBounds.width;
-        int characterTopY = character.y + character.spriteBounds.y;
-        int characterBottomY = character.y + character.spriteBounds.y + character.spriteBounds.height;
+        int characterLeftX = character.getX() + character.spriteBounds.x;
+        int characterRightX = character.getX() + character.spriteBounds.x + character.spriteBounds.width;
+        int characterTopY = character.getY() + character.spriteBounds.y;
+        int characterBottomY = character.getY() + character.spriteBounds.y + character.spriteBounds.height;
 
         // Get tile properties
         int tileSize = background.getTileSize();

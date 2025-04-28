@@ -86,8 +86,8 @@ public class Background extends JPanel implements Runnable {
         this.frame = frame;
         this.tileManager = new TileManager(this, startingMap);
         initializeCharacters(0);
-        int playerCol = player.x / tileSize;
-        int playerRow = player.y / tileSize;
+        int playerCol = player.getX() / tileSize;
+        int playerRow = player.getY() / tileSize;
         tileManager.moveDoorToClosestSoftWall(playerCol, playerRow, startingMap == 5);
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.BLACK);

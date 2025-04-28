@@ -47,8 +47,8 @@ public class EnemySlug extends Character {
      * Sets the default values for the enemy slug's position, speed, and direction.
      */
     public void setDefaultValues() {
-        x = background.getScreenWidth() - 2 * background.getTileSize();
-        y = background.getScreenHeight() - 2 * background.getTileSize();
+        setX(background.getScreenWidth() - 2 * background.getTileSize());
+        setY(background.getScreenHeight() - 2 * background.getTileSize());
         speed = 1;
         direction = "left";
     }
@@ -90,14 +90,14 @@ public class EnemySlug extends Character {
             changeDirection();
         } else {
             // Move normally if no collision
-            if (direction.equals("up") && y - speed >= 0) {
-                y -= speed;
-            } else if (direction.equals("down") && y + speed < background.getScreenHeight() - background.getTileSize()) {
-                y += speed;
-            } else if (direction.equals("left") && x - speed >= 0) {
-                x -= speed;
-            } else if (direction.equals("right") && x + speed < background.getScreenWidth() - background.getTileSize()) {
-                x += speed;
+            if (direction.equals("up") && getY() - speed >= 0) {
+                setY(getY() - speed);
+            } else if (direction.equals("down") && getY() + speed < background.getScreenHeight() - background.getTileSize()) {
+                setY(getY() + speed);
+            } else if (direction.equals("left") && getX() - speed >= 0) {
+                setX(getX() - speed);
+            } else if (direction.equals("right") && getX() + speed < background.getScreenWidth() - background.getTileSize()) {
+                setX(getX() + speed);
             }
         }
     }
@@ -129,7 +129,7 @@ public class EnemySlug extends Character {
      * @param explosionArea the rectangular area of the bomb explosion
      */
     public void handleExplosion(Rectangle explosionArea) {
-        Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
+        Rectangle enemyRect = new Rectangle(getX(), getY(), background.getTileSize(), background.getTileSize());
 
         if (explosionArea.intersects(enemyRect)) {
             // Enemy is hit by the explosion, remove or mark as defeated
@@ -204,7 +204,7 @@ public class EnemySlug extends Character {
                 img = (spriteNum == 1) ? right1 : (spriteNum == 2) ? right2 : right3;
                 break;
         }
-        g.drawImage(img, x, y, background.getTileSize(), background.getTileSize(), null);
+        g.drawImage(img, getX(), getY(), background.getTileSize(), background.getTileSize(), null);
     }
 
 }

@@ -91,7 +91,7 @@ public class EnemyDragon extends EnemySlug {
     }
 
     public void handleExplosion(Rectangle explosionArea) {
-        Rectangle enemyRect = new Rectangle(x, y, background.getTileSize(), background.getTileSize());
+        Rectangle enemyRect = new Rectangle(getX(), getY(), background.getTileSize(), background.getTileSize());
 
         if (explosionArea.intersects(enemyRect)) {
             // Enemy is hit by the explosion, remove or mark as defeated

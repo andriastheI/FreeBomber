@@ -41,15 +41,15 @@ public class EnemyCollision {
      */
     public void checkCollision(Character character, JackBomber jack) {
         // Get coordinates of character (enemy) and JackBomber (player)
-        int characterLeftX = character.x + character.spriteBounds.x;
-        int characterRightX = character.x + character.spriteBounds.x + character.spriteBounds.width;
-        int characterTopY = character.y + character.spriteBounds.y;
-        int characterBottomY = character.y + character.spriteBounds.y + character.spriteBounds.height;
+        int characterLeftX = character.getX() + character.spriteBounds.x;
+        int characterRightX = character.getX() + character.spriteBounds.x + character.spriteBounds.width;
+        int characterTopY = character.getY() + character.spriteBounds.y;
+        int characterBottomY = character.getY() + character.spriteBounds.y + character.spriteBounds.height;
 
-        int jackLeftX = jack.x + jack.spriteBounds.x;
-        int jackRightX = jack.x + jack.spriteBounds.x + jack.spriteBounds.width;
-        int jackTopY = jack.y + jack.spriteBounds.y;
-        int jackBottomY = jack.y + jack.spriteBounds.y + jack.spriteBounds.height;
+        int jackLeftX = jack.getX() + jack.spriteBounds.x;
+        int jackRightX = jack.getX() + jack.spriteBounds.x + jack.spriteBounds.width;
+        int jackTopY = jack.getY() + jack.spriteBounds.y;
+        int jackBottomY = jack.getY() + jack.spriteBounds.y + jack.spriteBounds.height;
 
 
 //        int playerHealth = jack.getPlayerHealth();
