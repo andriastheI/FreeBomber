@@ -120,18 +120,38 @@ public class Character {
         this.levelUp = levelUp;
     }
 
+    /**
+     * Returns the X-coordinate of the character on the screen.
+     *
+     * @return the x-position in pixels.
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Sets the X-coordinate of the character on the screen.
+     *
+     * @param x the new x-position in pixels.
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * Returns the Y-coordinate of the character on the screen.
+     *
+     * @return the y-position in pixels.
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Sets the Y-coordinate of the character on the screen.
+     *
+     * @param y the new y-position in pixels.
+     */
     public void setY(int y) {
         this.y = y;
     }

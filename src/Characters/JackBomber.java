@@ -342,6 +342,7 @@ public class JackBomber extends Character {
     public void takeDamage() {
         long currentTime = System.currentTimeMillis();
 
+        // dont get hit when invincible
         if (invincible) {
             if (currentTime - lastDamageTime < INVINCIBILITY_DURATION) {
                 return;

@@ -144,7 +144,7 @@ public class Bomb extends Character {
         Rectangle down = new Rectangle(x, y + tileSize, tileSize, tileSize);
 
         Rectangle[] explosionAreas = new Rectangle[]{center, left, right, up, down};
-
+        // explosion area hendling for the enemies and boxes
         for (Rectangle explosionArea : explosionAreas) {
             background.getTileManager().handleExplosion(explosionArea);
             background.getEnemy1().handleExplosion(explosionArea);
