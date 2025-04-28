@@ -9,8 +9,6 @@ import Characters.EnemyMush;
 import Characters.EnemyDragon;
 import Background.Background;
 import Background.TileManager;
-import Background.User;
-import Background.KeyHandler;
 
 public class GameTestRunner_Full {
 
