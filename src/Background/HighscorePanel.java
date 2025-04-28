@@ -169,8 +169,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
             }
 
         } catch (Exception e) {
-            System.out.println("Failed to load scoreboard: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("Failed to load scoreboard");
         }
         return tempDictionary;
     }
@@ -230,8 +229,7 @@ public class HighscorePanel extends JPanel implements ActionListener {
 
             writer.close();
         } catch (Exception e) {
-            System.out.println("Failed to write top 10 scores: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("Failed to write top 10 scores");
         }
     }
 

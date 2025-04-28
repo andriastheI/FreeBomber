@@ -98,7 +98,7 @@ public class EnemyRock extends Character {
             right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_cropped_right_2.png"));
             right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy2_cropped_right_3.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load Enemy Rock Images");
         }
     }
 

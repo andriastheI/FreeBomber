@@ -112,7 +112,7 @@ public class Background extends JPanel implements Runnable {
         try {
             heartImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/heart.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("There is a problem when loading the heart image");
         }
     }
 
@@ -131,7 +131,7 @@ public class Background extends JPanel implements Runnable {
         try {
             heartImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/heart.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("There is a problem when loading the heart image");
         }
     }
 
@@ -195,7 +195,7 @@ public class Background extends JPanel implements Runnable {
                 Thread.sleep(Math.max(0, (long) remainingTime));
                 nextDrawTime += drawInterval;
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("There is a problem when running game, using threads");
             }
         }
     }

@@ -144,7 +144,7 @@ public class JackBomber extends Character {
             right4 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/player/champ1_cropped_right_4.png"));
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load JackBomber Images");
         }
     }
 

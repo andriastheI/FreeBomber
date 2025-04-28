@@ -260,7 +260,7 @@ public class Bomb extends Character {
             };
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load Bomb images");
         }
     }
 

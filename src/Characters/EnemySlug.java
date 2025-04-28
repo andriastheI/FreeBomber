@@ -73,7 +73,7 @@ public class EnemySlug extends Character {
             right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_right2.png"));
             right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy1_right3.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load Enemy Slug Images");
         }
     }
 

@@ -97,7 +97,7 @@ public class EnemyMush extends Character {
             right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_right_2.png"));
             right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/Enemy3_cropped_right_3.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load Enemy Mush Images");
         }
     }
 

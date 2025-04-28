@@ -56,7 +56,7 @@ public class EnemyDragon extends EnemySlug {
             right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_right2.png"));
             right3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("storage/Enemies/dragon_right3.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load Enemy Dragon Images");
         }
     }
 

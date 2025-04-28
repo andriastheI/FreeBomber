@@ -76,7 +76,7 @@ public class TileManager {
             tile[3].collision = true;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load tiles");
         }
     }
 
@@ -119,7 +119,7 @@ public class TileManager {
             br.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Failed to load map");
         }
 
         if (!doorLocations.isEmpty()) {
